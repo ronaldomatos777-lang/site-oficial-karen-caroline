@@ -324,7 +324,9 @@ def logout():
 
 
 @app.get('/')
-def home(): return send_from_directory(BASE,'index.html')
+def home():
+    index_file = BASE / 'index.html'
+    return Response(index_file.read_text(encoding='utf-8'), mimetype='text/html')
 
 @app.get('/<path:path>')
 def public_files(path):
