@@ -1331,920 +1331,545 @@ body.universo-page .universo-invest-v537 .universo-invest-text {
     max-height: 380px !important;
   }
 }
-Preciso ajustar o enquadramento e exibição de duas imagens que estão sendo cortadas no layout mobile:
 
-1. Imagem do Modal ("Agendar Visita" - Foto da Corretora):
-   - A foto no topo do modal está cortando o rosto/cabeça da pessoa na versão mobile.
-   - Ajuste o CSS da imagem do modal aplicando `object-fit: cover;` e altere a posição focal para `object-position: top center;` (ou `object-position: 50% 15%;`) para centralizar e priorizar a parte superior do rosto.
-   - Defina uma altura proporcional adequada para o container no mobile (ex: `height: 220px; width: 100%;`) para garantir que a pessoa apareça corretamente da cabeça ao tronco.
 
-2. Banner do Topo (Foto Aérea da Região):
-   - A imagem aérea no topo da página está cortada nas bordas e sobreposta de forma inadequada pelo header.
-   - Ajuste o container e a imagem do banner com `width: 100%; height: auto; min-height: 180px; object-fit: cover; object-position: center;` para que as informações visuais da foto fiquem totalmente visíveis.
-   - Aproveite para corrigir a quebra incorreta da palavra "localização" no título abaixo do banner, aplicando `word-break: keep-all;` ou envolva a palavra para evitar que ela se divida como "localizaç ão".
-
-Por favor, forneça o CSS e HTML atualizados com as correções para o breakpoint mobile (abaixo de 768px).
 /* =========================================================
-   V5.59 — HOME MOBILE
-   EMPREENDIMENTOS / TÍTULO / DESCRIÇÃO
+   V5.65 — CONSOLIDAÇÃO RESPONSIVA FINAL
+   Mantém o desktop estável e corrige Home, Universo e modal.
    ========================================================= */
 
+*, *::before, *::after { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: hidden; }
+img, picture, video, canvas, svg { max-width: 100%; }
+
+/* ---------- HOME: seção Empreendimentos ---------- */
 @media (max-width: 768px) {
-
-  /* Seção Empreendimentos */
-  #empreendimentos {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-
-    overflow-x: hidden !important;
-  }
-
-  /* Cabeçalho da seção vira UMA coluna */
-  #empreendimentos .section-head {
-    display: flex !important;
-    flex-direction: column !important;
-
-    grid-template-columns: none !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    gap: 18px !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-bottom: 34px !important;
-
-    text-align: center !important;
-  }
-
-  #empreendimentos .section-head > div {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
-
-  /* "EMPREENDIMENTOS" */
-  #empreendimentos .section-head .eyebrow {
-    display: block !important;
-
-    width: 100% !important;
-
-    margin: 0 0 12px !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-  /* Título principal */
-  #empreendimentos .section-head h2 {
-    width: 100% !important;
-    max-width: 480px !important;
-
-    margin: 0 auto !important;
-
-    font-size: clamp(38px, 10vw, 50px) !important;
-    line-height: 1.03 !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-  /* Texto explicativo */
-  #empreendimentos .section-head > p {
-    width: 100% !important;
-    max-width: 450px !important;
-
-    margin: 0 auto !important;
-
-    font-size: 15px !important;
-    line-height: 1.65 !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-  }
-
-  /* Cards em uma coluna */
-  #empreendimentos .project-grid-five {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    grid-template-columns: 1fr !important;
-
-    gap: 16px !important;
-  }
-
-  #empreendimentos .project-grid-five .project-card,
-  #empreendimentos .project-grid-five .project-card:nth-child(4),
-  #empreendimentos .project-grid-five .project-card:nth-child(5) {
-    grid-column: auto !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    justify-self: stretch !important;
-  }
-
-}
-
-
-/* Celulares menores */
-@media (max-width: 430px) {
-
-  #empreendimentos {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  #empreendimentos .section-head h2 {
-    font-size: 40px !important;
-    line-height: 1.04 !important;
-  }
-
-  #empreendimentos .section-head > p {
-    font-size: 14px !important;
-  }
-
-}
-/* =========================================================
-   V5.59 — HOME MOBILE
-   EMPREENDIMENTOS / TÍTULO / DESCRIÇÃO
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  /* Seção Empreendimentos */
-  #empreendimentos {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-
-    overflow-x: hidden !important;
-  }
-
-  /* Cabeçalho da seção vira UMA coluna */
-  #empreendimentos .section-head {
-    display: flex !important;
-    flex-direction: column !important;
-
-    grid-template-columns: none !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    gap: 18px !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-bottom: 34px !important;
-
-    text-align: center !important;
-  }
-
-  #empreendimentos .section-head > div {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
-
-  /* "EMPREENDIMENTOS" */
-  #empreendimentos .section-head .eyebrow {
-    display: block !important;
-
-    width: 100% !important;
-
-    margin: 0 0 12px !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-  /* Título principal */
-  #empreendimentos .section-head h2 {
-    width: 100% !important;
-    max-width: 480px !important;
-
-    margin: 0 auto !important;
-
-    font-size: clamp(38px, 10vw, 50px) !important;
-    line-height: 1.03 !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-  /* Texto explicativo */
-  #empreendimentos .section-head > p {
-    width: 100% !important;
-    max-width: 450px !important;
-
-    margin: 0 auto !important;
-
-    font-size: 15px !important;
-    line-height: 1.65 !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-  }
-
-  /* Cards em uma coluna */
-  #empreendimentos .project-grid-five {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    grid-template-columns: 1fr !important;
-
-    gap: 16px !important;
-  }
-
-  #empreendimentos .project-grid-five .project-card,
-  #empreendimentos .project-grid-five .project-card:nth-child(4),
-  #empreendimentos .project-grid-five .project-card:nth-child(5) {
-    grid-column: auto !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    justify-self: stretch !important;
-  }
-
-}
-
-
-/* Celulares menores */
-@media (max-width: 430px) {
-
-  #empreendimentos {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  #empreendimentos .section-head h2 {
-    font-size: 40px !important;
-    line-height: 1.04 !important;
-  }
-
-  #empreendimentos .section-head > p {
-    font-size: 14px !important;
-  }
-
-}
-/* =========================================================
-   V5.60 — CORREÇÃO DEFINITIVA HOME MOBILE
-   SEÇÃO EMPREENDIMENTOS
-   ========================================================= */
-
-@media screen and (max-width: 768px) {
-
-  /* seção inteira */
-  body #empreendimentos {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    box-sizing: border-box !important;
-
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-
-    overflow: hidden !important;
-  }
-
-
-  /* FORÇA o cabeçalho para uma única coluna */
-  body #empreendimentos .section-head {
-    display: block !important;
-
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto 34px !important;
-    padding: 0 !important;
-
-    box-sizing: border-box !important;
-
-    text-align: center !important;
-  }
-
-
-  /* coluna do título */
-  body #empreendimentos .section-head > div {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    box-sizing: border-box !important;
-
-    text-align: center !important;
-  }
-
-
-  /* EMPREENDIMENTOS */
-  body #empreendimentos .section-head .eyebrow {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: none !important;
-
-    margin: 0 auto 14px !important;
-    padding: 0 !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-
-  /* Conheça as opções em destaque */
-  body #empreendimentos .section-head h2 {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 520px !important;
-    min-width: 0 !important;
-
-    margin: 0 auto 20px !important;
-    padding: 0 !important;
-
-    font-size: clamp(38px, 10vw, 50px) !important;
-    line-height: 1.05 !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-    hyphens: none !important;
-  }
-
-
-  /* texto da direita */
-  body #empreendimentos .section-head > p {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 460px !important;
-    min-width: 0 !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    font-size: 15px !important;
-    line-height: 1.65 !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-  }
-
-
-  /* cards */
-  body #empreendimentos .project-grid-five {
-    display: grid !important;
-
-    grid-template-columns: 1fr !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-
-    gap: 18px !important;
-  }
-
-
-  body #empreendimentos .project-grid-five .project-card,
-  body #empreendimentos .project-grid-five .project-card:nth-child(4),
-  body #empreendimentos .project-grid-five .project-card:nth-child(5) {
-    grid-column: 1 !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 !important;
-
-    justify-self: stretch !important;
-  }
-
-}
-
-
-/* celulares menores */
-@media screen and (max-width: 430px) {
-
-  body #empreendimentos {
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-  }
-
-  body #empreendimentos .section-head h2 {
-    font-size: 40px !important;
-    line-height: 1.04 !important;
-  }
-
-}
-/* =========================================================
-   V5.61 — HOME MOBILE FINAL
-   EMPREENDIMENTOS
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  #empreendimentos {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-
-    box-sizing: border-box !important;
-  }
-
-
   #empreendimentos .home-projects-head {
     display: flex !important;
     flex-direction: column !important;
-
+    grid-template-columns: none !important;
     width: 100% !important;
     max-width: 100% !important;
-
-    margin: 0 auto 36px !important;
-
     gap: 18px !important;
-
+    margin: 0 auto 34px !important;
     text-align: center !important;
   }
-
-
-  #empreendimentos .home-projects-title {
+  #empreendimentos .home-projects-title,
+  #empreendimentos .home-projects-description {
     width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     text-align: center !important;
+    min-width: 0 !important;
   }
-
-
   #empreendimentos .home-projects-title .eyebrow {
+    display: block !important;
     width: 100% !important;
-
     margin: 0 0 12px !important;
-
     text-align: center !important;
-
-    white-space: normal !important;
   }
-
-
   #empreendimentos .home-projects-title h2 {
     width: 100% !important;
-    max-width: 470px !important;
-
+    max-width: 480px !important;
     margin: 0 auto !important;
-
     font-size: clamp(38px, 10vw, 48px) !important;
     line-height: 1.05 !important;
-
     text-align: center !important;
-
     word-break: normal !important;
     overflow-wrap: normal !important;
     hyphens: none !important;
   }
-
-
   #empreendimentos .home-projects-description {
-    display: block !important;
-
-    width: 100% !important;
-    max-width: 450px !important;
-
-    margin: 0 auto !important;
-
+    max-width: 440px !important;
     font-size: 15px !important;
     line-height: 1.65 !important;
-
-    text-align: center !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
   }
-
-
   #empreendimentos .project-grid-five {
-    display: grid !important;
-
     grid-template-columns: 1fr !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
-    gap: 18px !important;
+    gap: 16px !important;
   }
-
-
   #empreendimentos .project-grid-five .project-card,
   #empreendimentos .project-grid-five .project-card:nth-child(4),
   #empreendimentos .project-grid-five .project-card:nth-child(5) {
-
-    grid-column: 1 !important;
-
-    width: 100% !important;
-
-    justify-self: stretch !important;
-  }
-
-}
-
-
-@media (max-width: 430px) {
-
-  #empreendimentos {
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-  }
-
-  #empreendimentos .home-projects-title h2 {
-    font-size: 39px !important;
-  }
-
-}
-/* =========================================================
-   V5.62 — HOME EMPREENDIMENTOS MOBILE FINAL
-   ========================================================= */
-
-.home-projects-section {
-  box-sizing: border-box;
-}
-
-.home-projects-head {
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media screen and (max-width: 768px) {
-
-  body #empreendimentos.home-projects-section {
-    display: block !important;
-
+    grid-column: auto !important;
     width: 100% !important;
     max-width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
 
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+/* ---------- MODAL Agendar Visita ---------- */
+.visit-date-field,
+.visit-period-field { display: block; min-width: 0; }
+.visit-date-field > span,
+.visit-period-field > span {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #75695f;
+  text-align: left;
+}
+.visit-schedule-row { align-items: end; }
 
-    padding:
-      58px
-      20px
-      62px !important;
-
-    box-sizing: border-box !important;
-
+@media (max-width: 768px) {
+  .visit-backdrop {
+    padding: 10px !important;
+    align-items: flex-start !important;
+    overflow-y: auto !important;
+  }
+  .visit-modal-pro {
+    width: calc(100vw - 20px) !important;
+    max-width: 540px !important;
+    max-height: none !important;
+    margin: 8px auto 24px !important;
     overflow: hidden !important;
   }
-
-
-  /* CABEÇALHO DA SEÇÃO */
-  body #empreendimentos .home-projects-head {
+  .visit-modal-pro .visit-grid {
     display: flex !important;
     flex-direction: column !important;
-
-    grid-template-columns: none !important;
-    grid-template-rows: none !important;
-
+    min-height: 0 !important;
     width: 100% !important;
-    max-width: 100% !important;
-
-    margin:
-      0
-      auto
-      36px !important;
-
-    padding: 0 !important;
-
-    gap: 18px !important;
-
-    box-sizing: border-box !important;
-
-    text-align: center !important;
   }
-
-
-  /* CONTAINER DO TÍTULO */
-  body #empreendimentos .home-projects-title {
+  .visit-modal-pro .visit-visual {
     display: block !important;
-
+    order: 1 !important;
+    position: relative !important;
     width: 100% !important;
-    max-width: 100% !important;
-
+    height: 190px !important;
+    min-height: 190px !important;
+    max-height: 190px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .visit-modal-pro .visit-visual img {
+    position: absolute !important;
+    inset: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    transform: none !important;
+  }
+  .visit-modal-pro .visit-copy {
+    order: 2 !important;
+    width: 100% !important;
     min-width: 0 !important;
-
-    margin: 0 auto !important;
-    padding: 0 !important;
-
-    text-align: center !important;
+    padding: 28px 22px 24px !important;
   }
-
-
-  /* EMPREENDIMENTOS */
-  body #empreendimentos
-  .home-projects-title
-  .eyebrow {
-
+  .visit-modal-pro .visit-form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 11px !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+  }
+  .visit-modal-pro .two-cols,
+  .visit-modal-pro .visit-schedule-row {
+    grid-template-columns: 1fr !important;
+    gap: 11px !important;
+  }
+  .visit-modal-pro .visit-form input:not([type="hidden"]):not([type="checkbox"]),
+  .visit-modal-pro .visit-form select {
     display: block !important;
-
     width: 100% !important;
     max-width: 100% !important;
-
-    margin:
-      0
-      auto
-      12px !important;
-
-    padding: 0 !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-
-    hyphens: none !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
+    border: 1px solid #d5c5b5 !important;
+    border-radius: 8px !important;
+    background: #fffaf4 !important;
+    color: #3b342e !important;
+    font-size: 16px !important;
+    box-shadow: none !important;
   }
+  .visit-modal-pro .visit-form input[type="date"] { line-height: normal !important; }
+  .visit-modal-pro .visit-form select { line-height: normal !important; }
+  .visit-modal-pro .modal-consent {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 3px 0 5px !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+  .visit-modal-pro .modal-consent input[type="checkbox"] {
+    appearance: checkbox !important;
+    -webkit-appearance: checkbox !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    flex: 0 0 18px !important;
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .visit-modal-pro .modal-consent span {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+    text-align: left !important;
+  }
+  .visit-modal-pro .visit-submit {
+    width: 100% !important;
+    min-height: 52px !important;
+    margin-top: 2px !important;
+    border-radius: 8px !important;
+  }
+}
 
+@media (max-width: 430px) {
+  .visit-modal-pro .visit-visual {
+    height: 175px !important;
+    min-height: 175px !important;
+    max-height: 175px !important;
+  }
+  .visit-modal-pro .visit-copy { padding: 26px 18px 22px !important; }
+}
 
-  /* CONHEÇA AS OPÇÕES EM DESTAQUE */
-  body #empreendimentos
-  .home-projects-title
-  h2 {
-
+/* ---------- UNIVERSO PARQUE ALPHAVILLE ---------- */
+@media (max-width: 768px) {
+  body.universo-page .site-header {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: calc(100% - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin: 12px auto 16px !important;
+  }
+  body.universo-page .universo-location {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+  body.universo-page .universo-location figure {
+    order: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  body.universo-page .universo-location figure img {
     display: block !important;
-
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto !important;
+  }
+  body.universo-page .universo-location-copy {
+    order: 2 !important;
+    width: 100% !important;
+    padding: 46px 20px !important;
+  }
+  body.universo-page .universo-benefits .section-head {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 18px !important;
+    text-align: center !important;
+  }
+  body.universo-page .universo-benefits .section-head > div,
+  body.universo-page .universo-benefits .section-head > p {
+    width: 100% !important;
+    max-width: 460px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+  body.universo-page .universo-benefits .section-head h2 {
     width: 100% !important;
     max-width: 480px !important;
-    min-width: 0 !important;
-
-    margin:
-      0
-      auto
-      4px !important;
-
-    padding: 0 !important;
-
-    font-size:
-      clamp(
-        38px,
-        10vw,
-        50px
-      ) !important;
-
+    margin: 10px auto 0 !important;
+    font-size: clamp(36px, 10vw, 48px) !important;
     line-height: 1.05 !important;
-
-    letter-spacing: -0.02em !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-
     word-break: normal !important;
     overflow-wrap: normal !important;
-
     hyphens: none !important;
   }
-
-
-  /* TEXTO EXPLICATIVO */
-  body #empreendimentos
-  .home-projects-description {
-
-    display: block !important;
-
+  body.universo-page .no-break { white-space: nowrap !important; }
+  body.universo-page .universo-benefit-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  body.universo-page .universo-benefit-grid article {
     width: 100% !important;
-    max-width: 450px !important;
-    min-width: 0 !important;
+    padding: 28px 74px 30px 26px !important;
+  }
+  body.universo-page .universo-invest-v537 .universo-invest-media {
+    width: min(86%, 440px) !important;
+    max-width: 440px !important;
+    margin: 18px auto 0 !important;
+  }
+  body.universo-page .universo-invest-v537 .universo-invest-media img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 430px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: 0 auto !important;
+  }
+}
+/* =========================================================
+   V5.66 — AJUSTE ISOLADO MODAL AGENDAR VISITA
+   FOTO + CAMPOS + CHECKBOX
+   ========================================================= */
 
-    margin:
-      0
-      auto !important;
+@media (max-width: 768px) {
 
-    padding: 0 !important;
-
-    font-size: 15px !important;
-    line-height: 1.65 !important;
-
-    text-align: center !important;
-
-    white-space: normal !important;
-
-    word-break: normal !important;
-    overflow-wrap: normal !important;
-
-    hyphens: none !important;
+  /* MODAL */
+  .visit-modal-pro {
+    width: calc(100vw - 20px) !important;
+    max-width: 540px !important;
+    margin: 10px auto 24px !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
   }
 
+  .visit-modal-pro .visit-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-height: 0 !important;
+  }
 
   /* =====================================================
-     CARDS
+     FOTO DA CORRETORA
      ===================================================== */
 
-  body #empreendimentos
-  .project-grid-five {
-
-    display: grid !important;
-
-    grid-template-columns:
-      minmax(0, 1fr) !important;
+  .visit-modal-pro .visit-visual {
+    position: relative !important;
+    order: 1 !important;
 
     width: 100% !important;
-    max-width: 100% !important;
-
-    margin:
-      0
-      auto !important;
-
-    gap: 18px !important;
-
-    box-sizing: border-box !important;
-  }
-
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card,
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card:nth-child(4),
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card:nth-child(5) {
-
-    display: block !important;
-
-    grid-column: 1 !important;
-
-    width: 100% !important;
-    max-width: 100% !important;
-
-    min-width: 0 !important;
-
-    height: 455px !important;
-    min-height: 455px !important;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
 
     margin: 0 !important;
-
-    justify-self: stretch !important;
+    padding: 0 !important;
 
     overflow: hidden !important;
-
-    box-sizing: border-box !important;
+    background: #e9d8c6 !important;
   }
 
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card
-  img {
+  .visit-modal-pro .visit-visual img {
+    position: absolute !important;
+    inset: 0 !important;
 
     display: block !important;
 
     width: 100% !important;
     height: 100% !important;
 
-    max-width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
 
     object-fit: cover !important;
 
-    object-position:
-      center center !important;
+    /* prioriza rosto e cabeça */
+    object-position: 50% 4% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    transform: none !important;
   }
 
+  /* =====================================================
+     CONTEÚDO
+     ===================================================== */
 
-  body #empreendimentos
-  .project-grid-five
-  .project-copy {
+  .visit-modal-pro .visit-copy {
+    order: 2 !important;
 
-    left: 24px !important;
-    right: 24px !important;
-    bottom: 24px !important;
+    width: 100% !important;
+    min-width: 0 !important;
 
-    width: auto !important;
-    max-width: none !important;
+    padding: 28px 24px 26px !important;
+
+    box-sizing: border-box !important;
   }
 
+  /* =====================================================
+     CAMPOS
+     ===================================================== */
 
-  body #empreendimentos
-  .project-grid-five
-  .project-copy
-  h3 {
+  .visit-modal-pro .visit-form {
+    width: 100% !important;
+  }
 
-    min-height: 0 !important;
+  .visit-modal-pro .visit-form
+  input:not([type="hidden"]):not([type="checkbox"]),
 
-    font-size: 32px !important;
-    line-height: 1.04 !important;
+  .visit-modal-pro .visit-form select {
 
-    overflow-wrap: normal !important;
-    word-break: normal !important;
+    display: block !important;
 
-    hyphens: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 48px !important;
+    min-height: 48px !important;
+
+    margin: 0 0 12px !important;
+
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #d5c5b5 !important;
+    border-radius: 8px !important;
+
+    background: #fffaf4 !important;
+
+    font-size: 16px !important;
+    line-height: normal !important;
+
+    box-shadow: none !important;
+  }
+
+  /* evita que linhas internas de duas colunas fiquem espremidas */
+  .visit-modal-pro .visit-form .two-cols,
+  .visit-modal-pro .visit-form .visit-schedule-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+
+    width: 100% !important;
+
+    gap: 0 !important;
+  }
+
+  /* =====================================================
+     CAMPO DE DATA
+     ===================================================== */
+
+  .visit-modal-pro .visit-form input[type="date"] {
+    appearance: auto !important;
+    -webkit-appearance: auto !important;
+
+    color: #6d6258 !important;
+  }
+
+  /* =====================================================
+     CHECKBOX — NÃO HERDA TAMANHO DOS INPUTS
+     ===================================================== */
+
+  .visit-modal-pro .modal-consent {
+    display: flex !important;
+
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+
+    gap: 10px !important;
+
+    width: 100% !important;
+
+    margin: 3px 0 14px !important;
+    padding: 0 !important;
+
+    text-align: left !important;
+  }
+
+  .visit-modal-pro
+  .modal-consent
+  input[type="checkbox"] {
+
+    appearance: checkbox !important;
+    -webkit-appearance: checkbox !important;
+
+    display: block !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    min-width: 18px !important;
+    min-height: 18px !important;
+
+    max-width: 18px !important;
+    max-height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+
+    border-radius: 3px !important;
+
+    box-shadow: none !important;
+  }
+
+  .visit-modal-pro .modal-consent span {
+    display: block !important;
+
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+
+    text-align: left !important;
+  }
+
+  /* =====================================================
+     BOTÃO REGISTRAR
+     ===================================================== */
+
+  .visit-modal-pro .visit-submit {
+    width: 100% !important;
+    min-height: 52px !important;
+
+    margin: 0 !important;
+
+    border-radius: 8px !important;
   }
 
 }
 
 
-/* =========================================================
-   CELULARES MENORES
-   ========================================================= */
+/* celulares menores */
+@media (max-width: 430px) {
 
-@media screen and (max-width: 430px) {
-
-  body #empreendimentos.home-projects-section {
-
-    padding:
-      50px
-      18px
-      56px !important;
+  .visit-modal-pro .visit-visual {
+    height: 165px !important;
+    min-height: 165px !important;
+    max-height: 165px !important;
   }
 
-
-  body #empreendimentos
-  .home-projects-title
-  h2 {
-
-    font-size: 39px !important;
-    line-height: 1.04 !important;
+  .visit-modal-pro .visit-visual img {
+    object-position: 50% 0% !important;
   }
 
-
-  body #empreendimentos
-  .home-projects-description {
-
-    max-width: 380px !important;
-
-    font-size: 14px !important;
-    line-height: 1.65 !important;
-  }
-
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card,
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card:nth-child(4),
-
-  body #empreendimentos
-  .project-grid-five
-  .project-card:nth-child(5) {
-
-    height: 430px !important;
-    min-height: 430px !important;
+  .visit-modal-pro .visit-copy {
+    padding: 26px 20px 24px !important;
   }
 
 }
