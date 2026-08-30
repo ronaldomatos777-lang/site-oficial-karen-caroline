@@ -1781,3 +1781,470 @@ Por favor, forneça o CSS e HTML atualizados com as correções para o breakpoin
   }
 
 }
+/* =========================================================
+   V5.61 — HOME MOBILE FINAL
+   EMPREENDIMENTOS
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  #empreendimentos {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  #empreendimentos .home-projects-head {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 auto 36px !important;
+
+    gap: 18px !important;
+
+    text-align: center !important;
+  }
+
+
+  #empreendimentos .home-projects-title {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 auto !important;
+
+    text-align: center !important;
+  }
+
+
+  #empreendimentos .home-projects-title .eyebrow {
+    width: 100% !important;
+
+    margin: 0 0 12px !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+  }
+
+
+  #empreendimentos .home-projects-title h2 {
+    width: 100% !important;
+    max-width: 470px !important;
+
+    margin: 0 auto !important;
+
+    font-size: clamp(38px, 10vw, 48px) !important;
+    line-height: 1.05 !important;
+
+    text-align: center !important;
+
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+
+
+  #empreendimentos .home-projects-description {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 450px !important;
+
+    margin: 0 auto !important;
+
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+
+    text-align: center !important;
+
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+
+  #empreendimentos .project-grid-five {
+    display: grid !important;
+
+    grid-template-columns: 1fr !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    gap: 18px !important;
+  }
+
+
+  #empreendimentos .project-grid-five .project-card,
+  #empreendimentos .project-grid-five .project-card:nth-child(4),
+  #empreendimentos .project-grid-five .project-card:nth-child(5) {
+
+    grid-column: 1 !important;
+
+    width: 100% !important;
+
+    justify-self: stretch !important;
+  }
+
+}
+
+
+@media (max-width: 430px) {
+
+  #empreendimentos {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  #empreendimentos .home-projects-title h2 {
+    font-size: 39px !important;
+  }
+
+}
+/* =========================================================
+   V5.62 — HOME EMPREENDIMENTOS MOBILE FINAL
+   ========================================================= */
+
+.home-projects-section {
+  box-sizing: border-box;
+}
+
+.home-projects-head {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  body #empreendimentos.home-projects-section {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    padding:
+      58px
+      20px
+      62px !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* CABEÇALHO DA SEÇÃO */
+  body #empreendimentos .home-projects-head {
+    display: flex !important;
+    flex-direction: column !important;
+
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin:
+      0
+      auto
+      36px !important;
+
+    padding: 0 !important;
+
+    gap: 18px !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+  }
+
+
+  /* CONTAINER DO TÍTULO */
+  body #empreendimentos .home-projects-title {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+  }
+
+
+  /* EMPREENDIMENTOS */
+  body #empreendimentos
+  .home-projects-title
+  .eyebrow {
+
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin:
+      0
+      auto
+      12px !important;
+
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+
+    hyphens: none !important;
+  }
+
+
+  /* CONHEÇA AS OPÇÕES EM DESTAQUE */
+  body #empreendimentos
+  .home-projects-title
+  h2 {
+
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 480px !important;
+    min-width: 0 !important;
+
+    margin:
+      0
+      auto
+      4px !important;
+
+    padding: 0 !important;
+
+    font-size:
+      clamp(
+        38px,
+        10vw,
+        50px
+      ) !important;
+
+    line-height: 1.05 !important;
+
+    letter-spacing: -0.02em !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+
+    hyphens: none !important;
+  }
+
+
+  /* TEXTO EXPLICATIVO */
+  body #empreendimentos
+  .home-projects-description {
+
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 450px !important;
+    min-width: 0 !important;
+
+    margin:
+      0
+      auto !important;
+
+    padding: 0 !important;
+
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+
+    hyphens: none !important;
+  }
+
+
+  /* =====================================================
+     CARDS
+     ===================================================== */
+
+  body #empreendimentos
+  .project-grid-five {
+
+    display: grid !important;
+
+    grid-template-columns:
+      minmax(0, 1fr) !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin:
+      0
+      auto !important;
+
+    gap: 18px !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card,
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card:nth-child(4),
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card:nth-child(5) {
+
+    display: block !important;
+
+    grid-column: 1 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-width: 0 !important;
+
+    height: 455px !important;
+    min-height: 455px !important;
+
+    margin: 0 !important;
+
+    justify-self: stretch !important;
+
+    overflow: hidden !important;
+
+    box-sizing: border-box !important;
+  }
+
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card
+  img {
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+
+    object-fit: cover !important;
+
+    object-position:
+      center center !important;
+  }
+
+
+  body #empreendimentos
+  .project-grid-five
+  .project-copy {
+
+    left: 24px !important;
+    right: 24px !important;
+    bottom: 24px !important;
+
+    width: auto !important;
+    max-width: none !important;
+  }
+
+
+  body #empreendimentos
+  .project-grid-five
+  .project-copy
+  h3 {
+
+    min-height: 0 !important;
+
+    font-size: 32px !important;
+    line-height: 1.04 !important;
+
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+
+    hyphens: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES MENORES
+   ========================================================= */
+
+@media screen and (max-width: 430px) {
+
+  body #empreendimentos.home-projects-section {
+
+    padding:
+      50px
+      18px
+      56px !important;
+  }
+
+
+  body #empreendimentos
+  .home-projects-title
+  h2 {
+
+    font-size: 39px !important;
+    line-height: 1.04 !important;
+  }
+
+
+  body #empreendimentos
+  .home-projects-description {
+
+    max-width: 380px !important;
+
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+  }
+
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card,
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card:nth-child(4),
+
+  body #empreendimentos
+  .project-grid-five
+  .project-card:nth-child(5) {
+
+    height: 430px !important;
+    min-height: 430px !important;
+  }
+
+}
