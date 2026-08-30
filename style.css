@@ -2173,3 +2173,296 @@ img, picture, video, canvas, svg { max-width: 100%; }
     }
 
 }
+/* =========================================================
+   V5.69 — CASA PRADO MODAL MOBILE
+   FOTO + ALTURA + ROLAGEM INTERNA
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  /* FUNDO */
+  body.casa-prado-page .visit-backdrop {
+    padding: 10px !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* MODAL */
+  body.casa-prado-page .visit-modal-pro {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: calc(100vw - 20px) !important;
+    max-width: 540px !important;
+
+    height: auto !important;
+    max-height: 85vh !important;
+
+    margin: auto !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    border-radius: 16px !important;
+
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+  }
+
+
+  /* GRID VIRA COLUNA */
+  body.casa-prado-page .visit-grid {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+
+    min-height: 0 !important;
+    height: auto !important;
+
+    flex: 0 0 auto !important;
+  }
+
+
+  /* FOTO */
+  body.casa-prado-page .visit-visual {
+    position: relative !important;
+
+    flex: 0 0 140px !important;
+
+    width: 100% !important;
+
+    height: 140px !important;
+    min-height: 140px !important;
+    max-height: 140px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background: #e9d8c6 !important;
+  }
+
+
+  body.casa-prado-page .visit-visual img {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+
+    /* FOCO NO TOPO / ROSTO */
+    object-position: 50% 0% !important;
+
+    transform: none !important;
+  }
+
+
+  /* CONTEÚDO */
+  body.casa-prado-page .visit-copy {
+    width: 100% !important;
+
+    padding: 16px !important;
+
+    box-sizing: border-box !important;
+
+    flex: 0 0 auto !important;
+  }
+
+
+  body.casa-prado-page .visit-eyebrow {
+    margin-bottom: 10px !important;
+  }
+
+
+  body.casa-prado-page .visit-modal-pro h2 {
+    margin-bottom: 12px !important;
+
+    font-size: clamp(32px, 8vw, 42px) !important;
+    line-height: 1.02 !important;
+  }
+
+
+  body.casa-prado-page .visit-intro {
+    margin-bottom: 16px !important;
+
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+
+  /* FORMULÁRIO COMPACTO */
+  body.casa-prado-page .visit-form {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+
+    gap: 12px !important;
+
+    margin: 0 !important;
+  }
+
+
+  /* INPUTS E SELECT */
+  body.casa-prado-page
+  .visit-form
+  input:not([type="hidden"]):not([type="checkbox"]),
+
+  body.casa-prado-page
+  .visit-form
+  select {
+
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 48px !important;
+    min-height: 48px !important;
+
+    margin: 0 !important;
+
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+
+    background: #fffaf4 !important;
+
+    font-size: 16px !important;
+
+    box-shadow: none !important;
+  }
+
+
+  /* CHECKBOX */
+  body.casa-prado-page .modal-consent {
+    display: flex !important;
+
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+
+    gap: 10px !important;
+
+    width: 100% !important;
+
+    margin: 2px 0 0 !important;
+
+    padding: 0 !important;
+  }
+
+
+  body.casa-prado-page
+  .modal-consent
+  input[type="checkbox"] {
+
+    appearance: checkbox !important;
+    -webkit-appearance: checkbox !important;
+
+    width: 18px !important;
+    height: 18px !important;
+
+    min-width: 18px !important;
+    min-height: 18px !important;
+
+    max-width: 18px !important;
+    max-height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    margin: 2px 0 0 !important;
+
+    padding: 0 !important;
+  }
+
+
+  body.casa-prado-page .modal-consent span {
+    flex: 1 1 auto !important;
+
+    min-width: 0 !important;
+
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+
+    text-align: left !important;
+  }
+
+
+  /* REGISTRAR */
+  body.casa-prado-page .visit-submit {
+    width: 100% !important;
+
+    min-height: 50px !important;
+
+    margin: 0 !important;
+
+    border-radius: 8px !important;
+  }
+
+
+  /* X SEM ROLAR JUNTO */
+  body.casa-prado-page .visit-close {
+    position: sticky !important;
+
+    top: 8px !important;
+
+    margin-left: auto !important;
+    margin-right: 10px !important;
+    margin-bottom: -36px !important;
+
+    z-index: 50 !important;
+
+    flex: 0 0 auto !important;
+  }
+
+}
+
+
+/* =========================================================
+   IPHONE / TELAS BAIXAS
+   ========================================================= */
+
+@media screen and (max-width: 430px) {
+
+  body.casa-prado-page .visit-modal-pro {
+    max-height: 84vh !important;
+  }
+
+
+  body.casa-prado-page .visit-visual {
+    flex-basis: 130px !important;
+
+    height: 130px !important;
+    min-height: 130px !important;
+    max-height: 130px !important;
+  }
+
+
+  body.casa-prado-page .visit-copy {
+    padding: 14px !important;
+  }
+
+
+  body.casa-prado-page .visit-form {
+    gap: 10px !important;
+  }
+
+}
