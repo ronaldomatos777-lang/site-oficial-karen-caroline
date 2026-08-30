@@ -946,3 +946,290 @@ body[data-empreendimento="Seleto Amoreiras"] .cta{background:#4d1428}body[data-e
     text-shadow:0 2px 8px rgba(0,0,0,.8) !important;
   }
 }
+/* =========================================================
+   V5.55 — CORREÇÃO GLOBAL MOBILE / OVERFLOW / SAFE ZONE
+   ========================================================= */
+
+/* 1. Proteção global contra estouro horizontal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Impede filhos de grid/flex de forçarem largura extra */
+main,
+section,
+article,
+header,
+footer,
+nav,
+div,
+figure,
+form {
+  min-width: 0;
+}
+
+/* 2. Cabeçalho global */
+.site-header {
+  width: 100% !important;
+  max-width: 100vw !important;
+  left: 0;
+  right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Corrige regra especial antiga da página Universo */
+body.universo-page .site-header {
+  left: 50% !important;
+  right: auto !important;
+  width: min(calc(100% - 32px), 1360px) !important;
+  max-width: calc(100vw - 32px) !important;
+  transform: translateX(-50%) !important;
+}
+
+/* 3. Containers principais nunca ultrapassam viewport */
+.section,
+.home-hero,
+.future-universo,
+.future-universo-grid,
+.universo-hero,
+.universo-intro,
+.universo-specs,
+.universo-benefits,
+.universo-invest,
+.universo-concept,
+.universo-cta,
+.hero,
+.intro,
+.feature,
+.split,
+.gallery,
+.location,
+.cta,
+.project-grid,
+.project-grid-five {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 768px) {
+
+  /* Safe zone lateral global */
+  .home-hero,
+  .section,
+  .hero,
+  .intro,
+  .gallery,
+  .cta,
+  .future-universo-copy,
+  .universo-intro,
+  .universo-specs,
+  .universo-benefits,
+  .universo-cta {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Remove qualquer largura antiga maior que viewport */
+  body.universo-page main > section,
+  body.universo-page main > .source-note,
+  body.universo-page .site-footer {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.universo-page .site-header {
+    width: calc(100% - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+
+  /* 4. Botões sempre dentro da tela */
+  .btn,
+  .hero-actions .btn,
+  .home-actions .btn,
+  .future-universo .btn,
+  .universo-invest .btn,
+  .universo-concept .btn {
+    max-width: calc(100vw - 32px) !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .future-universo .btn {
+    display: block !important;
+    width: fit-content !important;
+    max-width: calc(100% - 32px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero-actions,
+  .home-actions {
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  /* 5. Títulos e textos protegidos */
+  .future-universo-copy,
+  .universo-hero-copy,
+  .hero-copy,
+  .section-head,
+  .future-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .future-universo-copy,
+  .future-universo-copy h2,
+  .future-universo-copy p,
+  .future-universo-copy .eyebrow {
+    text-align: center !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  /* ======================================================
+     UNIVERSO / PRÉ-LANÇAMENTO
+     A imagem contém textos dentro do próprio arquivo.
+     No mobile, cover corta esses textos.
+     ====================================================== */
+
+  .future-universo-grid {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow: hidden !important;
+  }
+
+  .future-universo-copy {
+    padding: 54px 16px !important;
+  }
+
+  .future-universo-visual {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    background: #071729;
+  }
+
+  .future-universo-visual img {
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 auto !important;
+  }
+
+  /* Hero Universo */
+  body.universo-page .universo-hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 620px;
+    padding: 58px 18px 40px !important;
+    overflow: hidden !important;
+  }
+
+  body.universo-page .universo-hero-copy {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.universo-page .universo-hero-copy h1 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 11vw, 48px) !important;
+  }
+
+  /* Cards e grids */
+  .project-grid,
+  .project-grid-five {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .project-grid-five .project-card {
+    grid-column: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Forms */
+  input,
+  select,
+  textarea,
+  button {
+    max-width: 100%;
+  }
+}
+
+/* Celulares muito estreitos */
+@media (max-width: 420px) {
+
+  .site-header {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .site-header .brand-logo {
+    max-width: 180px !important;
+  }
+
+  .future-universo-copy {
+    padding: 46px 16px !important;
+  }
+
+  .future-universo .btn {
+    width: calc(100% - 16px) !important;
+    max-width: 320px !important;
+  }
+
+  body.universo-page main > section,
+  body.universo-page main > .source-note,
+  body.universo-page .site-header,
+  body.universo-page .site-footer {
+    width: calc(100% - 12px) !important;
+    max-width: calc(100vw - 12px) !important;
+  }
+}
