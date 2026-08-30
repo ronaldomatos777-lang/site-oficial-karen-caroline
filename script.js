@@ -147,16 +147,15 @@ function whatsappMessage(prefix){
   const ctx=pageContext();
   return `${prefix}\n\nEmpreendimento: ${ctx.empreendimento}\nPágina: ${location.href}\nOrigem: ${campaignLabel()}`;
 }
-const waButton=document.querySelector('[data-whatsapp-float]');
-if(waButton){
-  waButton.addEventListener('click',e=>{
-    e.preventDefault();
-    const base=document.body.dataset.whatsappMessage||'Olá! Vim pelo site e gostaria de mais informações.';
-    const message=whatsappMessage(base);
-    trackEvent('whatsapp_click',{origem:'botao_flutuante'});
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,'_blank','noopener,noreferrer');
-  })
-}
+const openWhatsApp=(origem='botao_whatsapp')=>{
+  const base=document.body.dataset.whatsappMessage||'Olá! Vim pelo site e gostaria de mais informações.';
+  const message=whatsappMessage(base);
+  trackEvent('whatsapp_click',{origem});
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,'_blank','noopener,noreferrer');
+};
+document.querySelectorAll('[data-whatsapp-float],.js-whatsapp,[data-whatsapp-link]').forEach(el=>{
+  el.addEventListener('click',e=>{e.preventDefault();openWhatsApp(el.hasAttribute('data-whatsapp-float')?'botao_flutuante':'botao_contextual')});
+});
 
 // Botão Agendar visita + cadastro no CRM
 function createVisitUI(){
@@ -165,8 +164,8 @@ function createVisitUI(){
   btn.type='button';btn.className='schedule-float';btn.innerHTML='<span class="schedule-dot">⌂</span><span><strong>Agendar visita</strong><small>Escolha o melhor horário</small></span>';
   btn.setAttribute('aria-label','Agendar visita');document.body.appendChild(btn);
 
-  const wrap=document.createElement('div');wrap.className='visit-backdrop';wrap.setAttribute('aria-hidden','true');
-  wrap.innerHTML=`<div class="visit-modal visit-modal-pro" role="dialog" aria-modal="true" aria-labelledby="visit-title"><button class="visit-close" type="button" aria-label="Fechar">×</button><div class="visit-grid"><div class="visit-copy"><div class="visit-form-view"><p class="eyebrow dark visit-eyebrow">AGENDAR VISITA</p><h2 id="visit-title">Conheça o ${ctx.empreendimento}.</h2><p class="visit-intro">Deixe seus dados e sua preferência de dia e período. O pedido ficará registrado no CRM e a corretora entrará em contato para confirmar os detalhes da visita.</p><div class="visit-interest-note" hidden></div><form class="visit-form"><input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="two-cols"><input required name="nome" placeholder="Nome"><input name="sobrenome" placeholder="Sobrenome"></div><input required name="whatsapp" type="tel" placeholder="WhatsApp"><input name="email" type="email" placeholder="E-mail"><div class="two-cols"><input required name="data_visita" type="date"><select required name="periodo"><option value="">Melhor período</option><option>Manhã</option><option>Tarde</option><option>Fim de tarde</option><option>Quero combinar pelo WhatsApp</option></select></div><label class="consent modal-consent"><input required name="consentimento" type="checkbox" value="1"><span>Autorizo o contato da corretora para tratar deste agendamento. Li a <a href="privacidade.html" target="_blank">Política de Privacidade</a>.</span></label><button class="btn visit-submit" type="submit">Registrar</button><div class="visit-status" aria-live="polite"></div></form></div><div class="visit-success" hidden><span class="success-check">✓</span><p class="eyebrow dark">SOLICITAÇÃO REGISTRADA</p><h2>Visita solicitada!</h2><p>Recebemos sua solicitação para conhecer o <strong>${ctx.empreendimento}</strong>. Karen Caroline entrará em contato para confirmar o melhor horário.</p><div class="success-actions"><button type="button" class="btn success-back">Voltar ao imóvel</button><button type="button" class="btn success-wa">Falar com Karen no WhatsApp</button></div></div></div><div class="visit-visual" aria-hidden="true"><img src="assets/visit-consultora-v543.png" alt=""></div></div></div>`;
+  const wrap=document.createElement('div');wrap.className='visit-backdrop';wrap.dataset.globalVisitUi='1';wrap.setAttribute('aria-hidden','true');
+  wrap.innerHTML=`<div class="visit-modal visit-modal-pro" role="dialog" aria-modal="true" aria-labelledby="visit-title"><button class="visit-close" type="button" aria-label="Fechar">×</button><div class="visit-grid"><div class="visit-copy"><div class="visit-form-view"><p class="eyebrow dark visit-eyebrow">AGENDAR VISITA</p><h2 id="visit-title">Conheça o ${ctx.empreendimento}.</h2><p class="visit-intro">Deixe seus dados e sua preferência de dia e período. O pedido ficará registrado no CRM e a corretora entrará em contato para confirmar os detalhes da visita.</p><div class="visit-interest-note" hidden></div><form class="visit-form"><input class="hp-field" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="two-cols"><input required name="nome" placeholder="Nome"><input name="sobrenome" placeholder="Sobrenome"></div><input required name="whatsapp" type="tel" placeholder="WhatsApp"><input name="email" type="email" placeholder="E-mail"><div class="two-cols visit-schedule-row"><label class="visit-date-field"><span>Data preferida</span><input required name="data_visita" type="date" aria-label="Data preferida"></label><label class="visit-period-field"><span>Período</span><select required name="periodo" aria-label="Melhor período"><option value="">Melhor período</option><option>Manhã</option><option>Tarde</option><option>Fim de tarde</option><option>Quero combinar pelo WhatsApp</option></select></label></div><label class="consent modal-consent"><input required name="consentimento" type="checkbox" value="1"><span>Autorizo o contato da corretora para tratar deste agendamento. Li a <a href="privacidade.html" target="_blank">Política de Privacidade</a>.</span></label><button class="btn visit-submit" type="submit">Registrar</button><div class="visit-status" aria-live="polite"></div></form></div><div class="visit-success" hidden><span class="success-check">✓</span><p class="eyebrow dark">SOLICITAÇÃO REGISTRADA</p><h2>Visita solicitada!</h2><p>Recebemos sua solicitação para conhecer o <strong>${ctx.empreendimento}</strong>. Karen Caroline entrará em contato para confirmar o melhor horário.</p><div class="success-actions"><button type="button" class="btn success-back">Voltar ao imóvel</button><button type="button" class="btn success-wa">Falar com Karen no WhatsApp</button></div></div></div><div class="visit-visual" aria-hidden="true"><img src="assets/visit-consultora-v543.png" alt=""></div></div></div>`;
   document.body.appendChild(wrap);
   let selectedInterest='';
   const formView=wrap.querySelector('.visit-form-view'),successView=wrap.querySelector('.visit-success'),interestNote=wrap.querySelector('.visit-interest-note');
@@ -175,6 +174,10 @@ function createVisitUI(){
   const close=()=>{wrap.classList.remove('open');wrap.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
   window.openVisitModal=open;
   btn.addEventListener('click',()=>open());
+  document.querySelectorAll('.js-open-visit,[data-open-visit]').forEach(el=>{
+    if(el===btn) return;
+    el.addEventListener('click',e=>{e.preventDefault();open(el.dataset.visitInterest||'')});
+  });
   wrap.querySelector('.visit-close').addEventListener('click',close);wrap.addEventListener('click',e=>{if(e.target===wrap)close()});
   wrap.querySelector('.success-back').addEventListener('click',close);
   wrap.querySelector('.success-wa').addEventListener('click',()=>{const message=whatsappMessage(`Olá! Acabei de registrar uma solicitação de visita para ${ctx.empreendimento}${selectedInterest?` (${selectedInterest})`:''}.`);trackEvent('whatsapp_click',{origem:'confirmacao_agendamento'});window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,'_blank','noopener,noreferrer')});
