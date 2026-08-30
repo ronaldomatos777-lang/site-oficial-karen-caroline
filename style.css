@@ -1331,3 +1331,16 @@ body.universo-page .universo-invest-v537 .universo-invest-text {
     max-height: 380px !important;
   }
 }
+Preciso ajustar o enquadramento e exibição de duas imagens que estão sendo cortadas no layout mobile:
+
+1. Imagem do Modal ("Agendar Visita" - Foto da Corretora):
+   - A foto no topo do modal está cortando o rosto/cabeça da pessoa na versão mobile.
+   - Ajuste o CSS da imagem do modal aplicando `object-fit: cover;` e altere a posição focal para `object-position: top center;` (ou `object-position: 50% 15%;`) para centralizar e priorizar a parte superior do rosto.
+   - Defina uma altura proporcional adequada para o container no mobile (ex: `height: 220px; width: 100%;`) para garantir que a pessoa apareça corretamente da cabeça ao tronco.
+
+2. Banner do Topo (Foto Aérea da Região):
+   - A imagem aérea no topo da página está cortada nas bordas e sobreposta de forma inadequada pelo header.
+   - Ajuste o container e a imagem do banner com `width: 100%; height: auto; min-height: 180px; object-fit: cover; object-position: center;` para que as informações visuais da foto fiquem totalmente visíveis.
+   - Aproveite para corrigir a quebra incorreta da palavra "localização" no título abaixo do banner, aplicando `word-break: keep-all;` ou envolva a palavra para evitar que ela se divida como "localizaç ão".
+
+Por favor, forneça o CSS e HTML atualizados com as correções para o breakpoint mobile (abaixo de 768px).
