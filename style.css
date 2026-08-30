@@ -896,3 +896,53 @@ body[data-empreendimento="Seleto Amoreiras"] .cta{background:#4d1428}body[data-e
     z-index: 10 !important;
   }
 }
+/* MOBILE V5.54 — Avatar visível no Agendar Visita */
+@media (max-width: 600px) {
+
+  .visit-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+  }
+
+  .visit-visual{
+    display:block !important;
+    order:-1 !important;
+    position:relative !important;
+    width:100% !important;
+    height:280px !important;
+    min-height:280px !important;
+    overflow:hidden !important;
+    background:#e9d8c6 !important;
+  }
+
+  .visit-visual img{
+    display:block !important;
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:50% 18% !important;
+  }
+
+  .visit-copy{
+    width:100% !important;
+    padding:28px 20px 26px !important;
+  }
+
+  .visit-modal-pro{
+    width:calc(100vw - 20px) !important;
+    max-height:calc(100vh - 20px) !important;
+    overflow-y:auto !important;
+  }
+
+  .visit-modal-pro .visit-close{
+    position:absolute !important;
+    right:14px !important;
+    top:10px !important;
+    z-index:30 !important;
+    color:#fff !important;
+    text-shadow:0 2px 8px rgba(0,0,0,.8) !important;
+  }
+}
