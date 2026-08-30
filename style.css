@@ -1996,3 +1996,180 @@ img, picture, video, canvas, svg { max-width: 100%; }
   }
 
 }
+/* =========================================================
+   CASA PRADO - CORREÇÃO FINAL DO MODAL MOBILE
+   ========================================================= */
+
+.visit-modal-pro .visit-form input:not([type="hidden"]):not([type="checkbox"]),
+.visit-modal-pro .visit-form select {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    box-sizing: border-box !important;
+
+    margin: 0 !important;
+    padding: 0 14px !important;
+
+    border: 1px solid #ddd !important;
+    border-radius: 8px !important;
+
+    font: inherit !important;
+}
+
+
+/* CAMPOS DO FORMULÁRIO */
+
+.visit-modal-pro .visit-field {
+    width: 100% !important;
+    margin: 0 0 12px !important;
+}
+
+
+/* CHECKBOX */
+
+.visit-modal-pro .visit-consent {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+
+    gap: 10px !important;
+
+    margin: 14px 0 18px !important;
+    padding: 0 !important;
+
+    text-align: left !important;
+}
+
+
+/* TAMANHO REAL DO CHECKBOX */
+
+.visit-modal-pro .visit-consent input[type="checkbox"] {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
+
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    margin: 2px 0 0 !important;
+    padding: 0 !important;
+}
+
+
+/* TEXTO AO LADO DO CHECKBOX */
+
+.visit-modal-pro .visit-consent span {
+    display: block !important;
+    flex: 1 1 auto !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    line-height: 1.45 !important;
+}
+
+
+/* BOTÃO REGISTRAR */
+
+.visit-modal-pro .visit-submit {
+    width: 100% !important;
+    min-height: 48px !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+
+    cursor: pointer !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    /* FOTO DA CORRETORA */
+
+    .visit-modal-pro .visit-photo,
+    .visit-modal-pro .visit-media {
+        width: 100% !important;
+        height: 180px !important;
+        max-height: 180px !important;
+
+        overflow: hidden !important;
+    }
+
+    .visit-modal-pro .visit-photo img,
+    .visit-modal-pro .visit-media img {
+        display: block !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        object-fit: cover !important;
+        object-position: 50% 10% !important;
+    }
+
+
+    /* FORMULÁRIO */
+
+    .visit-modal-pro .visit-form {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        display: block !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* EVITA QUALQUER GRID ANTIGO NO FORMULÁRIO */
+
+    .visit-modal-pro .visit-form .two-cols,
+    .visit-modal-pro .visit-schedule-row {
+        display: block !important;
+        width: 100% !important;
+    }
+
+
+    /* CAMPOS */
+
+    .visit-modal-pro .visit-form input:not([type="hidden"]):not([type="checkbox"]),
+    .visit-modal-pro .visit-form select {
+        width: 100% !important;
+        height: 48px !important;
+        min-height: 48px !important;
+
+        border-radius: 8px !important;
+    }
+
+
+    /* CHECKBOX */
+
+    .visit-modal-pro .visit-consent {
+        display: flex !important;
+        align-items: flex-start !important;
+
+        gap: 10px !important;
+    }
+
+    .visit-modal-pro .visit-consent input[type="checkbox"] {
+        width: 18px !important;
+        height: 18px !important;
+
+        min-width: 18px !important;
+        min-height: 18px !important;
+
+        flex-shrink: 0 !important;
+    }
+
+}
