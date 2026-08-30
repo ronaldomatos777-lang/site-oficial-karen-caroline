@@ -1614,3 +1614,170 @@ Por favor, forneça o CSS e HTML atualizados com as correções para o breakpoin
   }
 
 }
+/* =========================================================
+   V5.60 — CORREÇÃO DEFINITIVA HOME MOBILE
+   SEÇÃO EMPREENDIMENTOS
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  /* seção inteira */
+  body #empreendimentos {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /* FORÇA o cabeçalho para uma única coluna */
+  body #empreendimentos .section-head {
+    display: block !important;
+
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 auto 34px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+  }
+
+
+  /* coluna do título */
+  body #empreendimentos .section-head > div {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    text-align: center !important;
+  }
+
+
+  /* EMPREENDIMENTOS */
+  body #empreendimentos .section-head .eyebrow {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 auto 14px !important;
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+
+
+  /* Conheça as opções em destaque */
+  body #empreendimentos .section-head h2 {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 520px !important;
+    min-width: 0 !important;
+
+    margin: 0 auto 20px !important;
+    padding: 0 !important;
+
+    font-size: clamp(38px, 10vw, 50px) !important;
+    line-height: 1.05 !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+
+
+  /* texto da direita */
+  body #empreendimentos .section-head > p {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 460px !important;
+    min-width: 0 !important;
+
+    margin: 0 auto !important;
+    padding: 0 !important;
+
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+
+    text-align: center !important;
+
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+  }
+
+
+  /* cards */
+  body #empreendimentos .project-grid-five {
+    display: grid !important;
+
+    grid-template-columns: 1fr !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 auto !important;
+
+    gap: 18px !important;
+  }
+
+
+  body #empreendimentos .project-grid-five .project-card,
+  body #empreendimentos .project-grid-five .project-card:nth-child(4),
+  body #empreendimentos .project-grid-five .project-card:nth-child(5) {
+    grid-column: 1 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    justify-self: stretch !important;
+  }
+
+}
+
+
+/* celulares menores */
+@media screen and (max-width: 430px) {
+
+  body #empreendimentos {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  body #empreendimentos .section-head h2 {
+    font-size: 40px !important;
+    line-height: 1.04 !important;
+  }
+
+}
