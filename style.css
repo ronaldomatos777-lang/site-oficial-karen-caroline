@@ -1873,3 +1873,126 @@ img, picture, video, canvas, svg { max-width: 100%; }
   }
 
 }
+/* =========================================================
+   V5.66 FINAL — MODAL MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  .visit-modal-pro .visit-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+  }
+
+  .visit-modal-pro .visit-visual {
+    display: block !important;
+    position: relative !important;
+    order: 1 !important;
+
+    width: 100% !important;
+
+    height: 190px !important;
+    min-height: 190px !important;
+    max-height: 190px !important;
+
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .visit-modal-pro .visit-visual img {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    object-fit: cover !important;
+
+    /* mostra cabeça e rosto */
+    object-position: center top !important;
+
+    transform: none !important;
+  }
+
+  .visit-modal-pro .visit-copy {
+    order: 2 !important;
+
+    width: 100% !important;
+
+    padding: 28px 22px 24px !important;
+
+    box-sizing: border-box !important;
+  }
+
+  .visit-modal-pro .visit-form
+  input:not([type="hidden"]):not([type="checkbox"]),
+  .visit-modal-pro .visit-form select {
+
+    width: 100% !important;
+
+    height: 48px !important;
+    min-height: 48px !important;
+
+    margin: 0 !important;
+
+    padding: 0 14px !important;
+
+    box-sizing: border-box !important;
+
+    border-radius: 8px !important;
+  }
+
+  .visit-modal-pro .modal-consent {
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    gap: 10px !important;
+
+    width: 100% !important;
+  }
+
+  .visit-modal-pro
+  .modal-consent
+  input[type="checkbox"] {
+
+    width: 18px !important;
+    height: 18px !important;
+
+    min-width: 18px !important;
+    min-height: 18px !important;
+
+    max-width: 18px !important;
+    max-height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    margin: 2px 0 0 !important;
+
+    appearance: checkbox !important;
+    -webkit-appearance: checkbox !important;
+  }
+
+  .visit-modal-pro .modal-consent span {
+    flex: 1 !important;
+
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+  }
+
+}
+
+@media screen and (max-width: 430px) {
+
+  .visit-modal-pro .visit-visual {
+    height: 175px !important;
+    min-height: 175px !important;
+    max-height: 175px !important;
+  }
+
+}
