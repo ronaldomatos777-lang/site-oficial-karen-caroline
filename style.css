@@ -2782,3 +2782,188 @@ body.universo-page .universo-cta .form-ok {
   }
 
 }
+/* =========================================================
+   UNIVERSO PARQUE ALPHAVILLE
+   LAYOUT FINAL IGUAL AO PRINT DE REFERÊNCIA
+========================================================= */
+
+/* Mantém escondidos os dois botões amarelos extras */
+body.universo-page .universo-cta-actions {
+  display: none !important;
+}
+
+
+/* Espaçamento geral da seção */
+body.universo-page .universo-cta {
+  padding-top: 70px !important;
+  padding-bottom: 90px !important;
+}
+
+
+/* FORMULÁRIO - 3 CAMPOS LADO A LADO */
+body.universo-page .universo-cta .universo-lead-form {
+  width: min(1260px, calc(100% - 70px)) !important;
+  max-width: 1260px !important;
+
+  margin: 55px auto 0 !important;
+
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+  gap: 12px !important;
+
+  align-items: center !important;
+}
+
+
+/* Campos */
+body.universo-page .universo-cta .universo-lead-form > input:not(.hp-field) {
+  width: 100% !important;
+  height: 76px !important;
+
+  box-sizing: border-box !important;
+
+  padding: 0 22px !important;
+
+  margin: 0 !important;
+}
+
+
+/* Honeypot continua invisível */
+body.universo-page .universo-cta .universo-lead-form .hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+}
+
+
+/* Consentimento abaixo dos 3 campos */
+body.universo-page .universo-cta .universo-lead-form .consent {
+  grid-column: 1 / -1 !important;
+
+  width: 100% !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  gap: 12px !important;
+
+  margin: 22px 0 0 !important;
+
+  text-align: left !important;
+}
+
+
+/* Checkbox */
+body.universo-page .universo-cta .universo-lead-form .consent input {
+  flex: 0 0 auto !important;
+
+  width: 18px !important;
+  height: 18px !important;
+
+  margin: 0 !important;
+}
+
+
+/* BOTÃO PRINCIPAL CENTRALIZADO */
+body.universo-page
+.universo-cta
+.universo-lead-form
+> button[type="submit"] {
+
+  grid-column: 1 / -1 !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 760px !important;
+  max-width: 75% !important;
+
+  min-height: 64px !important;
+
+  margin: 28px auto 0 !important;
+
+  justify-self: center !important;
+
+  text-align: center !important;
+}
+
+
+/* Mensagem do CRM */
+body.universo-page .universo-cta .form-ok {
+  width: 100% !important;
+  max-width: 760px !important;
+
+  margin: 14px auto 0 !important;
+
+  text-align: center !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  body.universo-page .universo-cta .universo-lead-form {
+    width: calc(100% - 40px) !important;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 768px) {
+
+  body.universo-page .universo-cta {
+    padding-top: 50px !important;
+    padding-bottom: 70px !important;
+  }
+
+
+  body.universo-page .universo-cta .universo-lead-form {
+    width: calc(100% - 32px) !important;
+
+    margin-top: 32px !important;
+
+    grid-template-columns: 1fr !important;
+
+    gap: 12px !important;
+  }
+
+
+  body.universo-page .universo-cta .universo-lead-form > input:not(.hp-field) {
+    height: 58px !important;
+  }
+
+
+  body.universo-page .universo-cta .universo-lead-form .consent {
+    grid-column: 1 !important;
+
+    margin-top: 10px !important;
+  }
+
+
+  body.universo-page
+  .universo-cta
+  .universo-lead-form
+  > button[type="submit"] {
+
+    grid-column: 1 !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    min-height: 58px !important;
+
+    margin-top: 18px !important;
+  }
+
+}
