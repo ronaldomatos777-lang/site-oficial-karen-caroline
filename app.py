@@ -5,6 +5,13 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
 import sqlite3, json, os, csv, io, html, re, secrets, time
 
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
+USE_POSTGRES = bool(DATABASE_URL)
+
+if USE_POSTGRES:
+    import psycopg
+    from psycopg.rows import dict_row
+
 BASE = Path(__file__).resolve().parent
 DATA_DIR = Path(os.environ.get('DATA_DIR', BASE / 'data'))
 DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -28,18 +35,53 @@ STATUS_OPTIONS = ['Novo', 'Em contato', 'Visita agendada', 'Proposta', 'Venda', 
 RATE = {}
 
 
+class DBConnection:
+    def __init__(self):
+        if USE_POSTGRES:
+            self.con = psycopg.connect(DATABASE_URL, row_factory=dict_row)
+        else:
+            self.con = sqlite3.connect(DB_PATH, timeout=15)
+            self.con.row_factory = sqlite3.Row
+            self.con.execute('PRAGMA journal_mode=WAL')
+            self.con.execute('PRAGMA busy_timeout=15000')
+
+    def execute(self, sql, params=()):
+        if USE_POSTGRES:
+            sql = sql.replace('?', '%s')
+        return self.con.execute(sql, params)
+
+    def commit(self):
+        self.con.commit()
+
+    def rollback(self):
+        self.con.rollback()
+
+    def close(self):
+        self.con.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        try:
+            if exc_type:
+                self.rollback()
+            else:
+                self.commit()
+        finally:
+            self.close()
+        return False
+
+
 def db():
-    con = sqlite3.connect(DB_PATH, timeout=15)
-    con.row_factory = sqlite3.Row
-    con.execute('PRAGMA journal_mode=WAL')
-    con.execute('PRAGMA busy_timeout=15000')
-    return con
+    return DBConnection()
 
 
 def init_db():
+    id_column = 'BIGSERIAL PRIMARY KEY' if USE_POSTGRES else 'INTEGER PRIMARY KEY AUTOINCREMENT'
     with db() as con:
-        con.execute('''CREATE TABLE IF NOT EXISTS leads (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+        con.execute(f'''CREATE TABLE IF NOT EXISTS leads (
+            id {id_column},
             nome TEXT NOT NULL,
             sobrenome TEXT,
             whatsapp TEXT NOT NULL,
@@ -61,8 +103,8 @@ def init_db():
             utm_content TEXT DEFAULT '',
             utm_term TEXT DEFAULT ''
         )''')
-        con.execute('''CREATE TABLE IF NOT EXISTS interactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+        con.execute(f'''CREATE TABLE IF NOT EXISTS interactions (
+            id {id_column},
             tipo TEXT NOT NULL,
             empreendimento TEXT,
             origem TEXT,
@@ -74,7 +116,6 @@ def init_db():
             utm_campaign TEXT,
             criado_em TEXT NOT NULL
         )''')
-        con.commit()
 
 
 def esc(v):
@@ -214,10 +255,12 @@ def leads_api():
     interesse = str(data.get('interesse','')).strip()[:300]
     now = now_iso()
     with db() as con:
-        cur = con.execute('''INSERT INTO leads (nome,sobrenome,whatsapp,email,empreendimento,origem,interesse,consentimento,utm_source,utm_medium,utm_campaign,criado_em,status,atualizado_em,pagina_url,pagina_titulo,referrer,utm_content,utm_term) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''', (
+        insert_sql = '''INSERT INTO leads (nome,sobrenome,whatsapp,email,empreendimento,origem,interesse,consentimento,utm_source,utm_medium,utm_campaign,criado_em,status,atualizado_em,pagina_url,pagina_titulo,referrer,utm_content,utm_term) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        if USE_POSTGRES:
+            insert_sql += ' RETURNING id'
+        cur = con.execute(insert_sql, (
             nome,sobrenome,whatsapp,email_,empreendimento,origem,interesse,1,str(data.get('utm_source','')).strip()[:160],str(data.get('utm_medium','')).strip()[:160],str(data.get('utm_campaign','')).strip()[:300],now,'Novo',now,str(data.get('pagina_url','')).strip()[:1000],str(data.get('pagina_titulo','')).strip()[:300],str(data.get('referrer','')).strip()[:1000],str(data.get('utm_content','')).strip()[:300],str(data.get('utm_term','')).strip()[:300]))
-        lead_id = cur.lastrowid
-        con.commit()
+        lead_id = cur.fetchone()['id'] if USE_POSTGRES else cur.lastrowid
     resp = {'ok': True, 'lead_id': lead_id, 'message': 'Cadastro realizado com sucesso.'}
     return jsonify(resp)
 
