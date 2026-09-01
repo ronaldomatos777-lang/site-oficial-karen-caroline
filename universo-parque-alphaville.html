@@ -870,10 +870,403 @@
      SCRIPTS NORMAIS DO SITE
 ===================================================== -->
 
-<script src="script.js?v=567-universo-crm"></script>
-
+<script src="script.js?v=568-universo-crm-fix"></script>
 <script src="social-links.js?v=560-universo-final"></script>
 
+<script>
+/* ==========================================================
+   UNIVERSO PARQUE ALPHAVILLE
+   ENVIO DIRETO E SEGURO PARA O CRM
+========================================================== */
+
+(function () {
+
+  const EMPREENDIMENTO = 'Universo Riva Parque Alphaville';
+
+  function getUtmUniverso() {
+    const params = new URLSearchParams(window.location.search);
+
+    return {
+      utm_source: params.get('utm_source') || '',
+      utm_medium: params.get('utm_medium') || '',
+      utm_campaign: params.get('utm_campaign') || '',
+      utm_content: params.get('utm_content') || '',
+      utm_term: params.get('utm_term') || ''
+    };
+  }
+
+
+  async function enviarLeadUniverso(dados) {
+
+    const payload = {
+      ...dados,
+
+      /* Honeypot obrigatoriamente vazio */
+      website: '',
+
+      empreendimento: EMPREENDIMENTO,
+
+      pagina_url: window.location.href,
+      pagina_titulo: document.title,
+      referrer: document.referrer || '',
+
+      ...getUtmUniverso()
+    };
+
+
+    const resposta = await fetch('/api/leads', {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify(payload)
+
+    });
+
+
+    let retorno = {};
+
+    try {
+      retorno = await resposta.json();
+    } catch (e) {}
+
+
+    if (!resposta.ok || retorno.ok === false) {
+
+      throw new Error(
+        retorno.error ||
+        'Não foi possível registrar o cadastro.'
+      );
+
+    }
+
+
+    return retorno;
+  }
+
+
+
+  /* ==========================================================
+     FORMULÁRIO DA PARTE INFERIOR DA PÁGINA
+  ========================================================== */
+
+  const formContato =
+    document.querySelector(
+      '.universo-lead-form'
+    );
+
+
+  if (formContato) {
+
+    formContato.addEventListener(
+      'submit',
+      async function (event) {
+
+        /*
+          Captura o evento antes do código geral do site,
+          evitando envio duplicado.
+        */
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+
+        const box =
+          document.querySelector(
+            '#contato .form-ok'
+          );
+
+
+        const formData =
+          new FormData(formContato);
+
+
+        const dados = {
+
+          nome:
+            String(
+              formData.get('nome') || ''
+            ).trim(),
+
+          sobrenome: '',
+
+          whatsapp:
+            String(
+              formData.get('whatsapp') || ''
+            ).trim(),
+
+          email:
+            String(
+              formData.get('email') || ''
+            ).trim(),
+
+          consentimento:
+            formData.get('consentimento')
+              ? '1'
+              : '',
+
+          origem:
+            'formulario_universo',
+
+          interesse:
+            'Informações sobre o Universo Parque Alphaville'
+        };
+
+
+        if (
+          !dados.nome ||
+          !dados.whatsapp ||
+          !dados.consentimento
+        ) {
+
+          if (box) {
+            box.textContent =
+              '⚠ Preencha nome, WhatsApp e aceite a autorização de contato.';
+          }
+
+          return;
+        }
+
+
+        try {
+
+          if (box) {
+            box.textContent =
+              'Enviando...';
+          }
+
+
+          await enviarLeadUniverso(
+            dados
+          );
+
+
+          if (box) {
+
+            box.textContent =
+              '✓ Cadastro realizado com sucesso. Em breve entraremos em contato.';
+
+          }
+
+
+          formContato.reset();
+
+
+        } catch (erro) {
+
+          if (box) {
+
+            box.textContent =
+              '⚠ ' +
+              (
+                erro.message ||
+                'Não foi possível enviar os dados.'
+              );
+
+          }
+
+        }
+
+      },
+
+      /*
+        CAPTURE = TRUE
+
+        Isso faz este envio acontecer antes
+        do listener geral do script.js.
+      */
+      true
+
+    );
+
+  }
+
+
+
+  /* ==========================================================
+     MODAL "AGENDAR VISITA"
+  ========================================================== */
+
+  const formVisita =
+    document.querySelector(
+      '.visit-form'
+    );
+
+
+  if (formVisita) {
+
+    formVisita.addEventListener(
+      'submit',
+      async function (event) {
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+
+        const modal =
+          formVisita.closest(
+            '.visit-backdrop'
+          );
+
+
+        const status =
+          modal
+            ? modal.querySelector(
+                '.visit-status'
+              )
+            : null;
+
+
+        const formData =
+          new FormData(formVisita);
+
+
+        const dataVisita =
+          String(
+            formData.get('data_visita') || ''
+          );
+
+
+        const periodo =
+          String(
+            formData.get('periodo') || ''
+          );
+
+
+        const dados = {
+
+          nome:
+            String(
+              formData.get('nome') || ''
+            ).trim(),
+
+          sobrenome:
+            String(
+              formData.get('sobrenome') || ''
+            ).trim(),
+
+          whatsapp:
+            String(
+              formData.get('whatsapp') || ''
+            ).trim(),
+
+          email:
+            String(
+              formData.get('email') || ''
+            ).trim(),
+
+          consentimento:
+            formData.get('consentimento')
+              ? '1'
+              : '',
+
+          origem:
+            'agendar_visita_universo',
+
+          interesse:
+            'Visita Universo Parque Alphaville' +
+            (
+              dataVisita
+                ? ' • Data: ' + dataVisita
+                : ''
+            ) +
+            (
+              periodo
+                ? ' • Período: ' + periodo
+                : ''
+            )
+        };
+
+
+        if (
+          !dados.nome ||
+          !dados.whatsapp ||
+          !dados.consentimento
+        ) {
+
+          if (status) {
+
+            status.textContent =
+              '⚠ Preencha os campos obrigatórios.';
+
+          }
+
+          return;
+        }
+
+
+        try {
+
+          if (status) {
+
+            status.textContent =
+              'Registrando seu pedido...';
+
+          }
+
+
+          await enviarLeadUniverso(
+            dados
+          );
+
+
+          formVisita.reset();
+
+
+          if (modal) {
+
+            const formView =
+              modal.querySelector(
+                '.visit-form-view'
+              );
+
+            const successView =
+              modal.querySelector(
+                '.visit-success'
+              );
+
+
+            if (formView) {
+              formView.hidden = true;
+            }
+
+
+            if (successView) {
+              successView.hidden = false;
+            }
+
+          }
+
+
+        } catch (erro) {
+
+          if (status) {
+
+            status.textContent =
+              '⚠ ' +
+              (
+                erro.message ||
+                'Não foi possível registrar a solicitação.'
+              );
+
+          }
+
+        }
+
+      },
+
+      true
+
+    );
+
+  }
+
+
+})();
+</script>
 
 </body>
 </html>
