@@ -364,7 +364,24 @@ def export_csv():
 @app.get('/admin/sair')
 def logout():
     session.clear(); return redirect('/admin')
+# ==========================================================
+# SEO - ROBOTS.TXT
+# Libera o site para Google e outros mecanismos de busca
+# ==========================================================
 
+@app.get('/robots.txt')
+def robots_txt():
+    content = """User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://www.karencarolineimoveis.com.br/sitemap.xml
+"""
+    return Response(
+        content,
+        mimetype='text/plain'
+    )
 
 @app.get('/')
 def home():
