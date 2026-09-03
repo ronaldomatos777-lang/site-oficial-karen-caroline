@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import date, datetime, timezone, timedelta
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
-import sqlite3, json, os, csv, io, html, re, secrets, time
+import sqlite3, json, os, csv, io, html, re, secrets, threading, time
 
 DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 USE_POSTGRES = bool(DATABASE_URL)
@@ -34,6 +34,11 @@ WHATSAPP_NUMBER = os.environ.get('WHATSAPP_NUMBER', '5519974078273')
 ALLOWED_ORIGINS = {o.strip() for o in os.environ.get('ALLOWED_ORIGINS', 'https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br,http://127.0.0.1:5000,http://localhost:5000,null').split(',') if o.strip()}
 STATUS_OPTIONS = ['Novo', 'Em contato', 'Visita agendada', 'Proposta', 'Venda', 'Sem interesse']
 RATE = {}
+RATE_LOCK = threading.Lock()
+RATE_LAST_CLEANUP = 0.0
+RATE_CLEANUP_INTERVAL = 60
+RATE_MAX_WINDOW = 300
+RATE_MAX_KEYS = 10000
 PUBLIC_PAGES = {
     'index.html',
     'alta-vista.html',
@@ -53,6 +58,7 @@ PUBLIC_ROOT_ASSETS = {
 }
 PUBLIC_ASSET_EXTENSIONS = {'.ico', '.png', '.webp'}
 EMAIL_RE = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')
+IDEMPOTENCY_RE = re.compile(r'^[A-Za-z0-9._:-]{16,100}$')
 
 
 class DBConnection:
@@ -97,6 +103,25 @@ def db():
     return DBConnection()
 
 
+def table_columns(con, table):
+    if USE_POSTGRES:
+        rows = con.execute(
+            '''SELECT column_name FROM information_schema.columns
+               WHERE table_schema = current_schema() AND table_name = ?''',
+            (table,),
+        ).fetchall()
+        return {row['column_name'] for row in rows}
+    return {row['name'] for row in con.execute(f'PRAGMA table_info({table})').fetchall()}
+
+
+def ensure_column(con, table, column, definition):
+    if USE_POSTGRES:
+        con.execute(f'ALTER TABLE {table} ADD COLUMN IF NOT EXISTS {column} {definition}')
+        return
+    if column not in table_columns(con, table):
+        con.execute(f'ALTER TABLE {table} ADD COLUMN {column} {definition}')
+
+
 def init_db():
     id_column = 'BIGSERIAL PRIMARY KEY' if USE_POSTGRES else 'INTEGER PRIMARY KEY AUTOINCREMENT'
     with db() as con:
@@ -121,7 +146,8 @@ def init_db():
             pagina_titulo TEXT DEFAULT '',
             referrer TEXT DEFAULT '',
             utm_content TEXT DEFAULT '',
-            utm_term TEXT DEFAULT ''
+            utm_term TEXT DEFAULT '',
+            idempotency_key TEXT
         )''')
         con.execute(f'''CREATE TABLE IF NOT EXISTS interactions (
             id {id_column},
@@ -134,8 +160,14 @@ def init_db():
             utm_source TEXT,
             utm_medium TEXT,
             utm_campaign TEXT,
+            lead_id {'BIGINT' if USE_POSTGRES else 'INTEGER'},
+            interesse TEXT,
             criado_em TEXT NOT NULL
         )''')
+        ensure_column(con, 'leads', 'idempotency_key', 'TEXT')
+        ensure_column(con, 'interactions', 'lead_id', 'BIGINT' if USE_POSTGRES else 'INTEGER')
+        ensure_column(con, 'interactions', 'interesse', 'TEXT')
+        con.execute('CREATE UNIQUE INDEX IF NOT EXISTS ux_leads_idempotency_key ON leads (idempotency_key)')
 
 
 def esc(v):
@@ -179,13 +211,25 @@ def client_ip():
 
 
 def limited(key, limit, window=60):
+    global RATE_LAST_CLEANUP
     now = time.time()
-    bucket = RATE.setdefault(key, [])
-    bucket[:] = [t for t in bucket if now - t < window]
-    if len(bucket) >= limit:
-        return True
-    bucket.append(now)
-    return False
+    with RATE_LOCK:
+        if now - RATE_LAST_CLEANUP >= RATE_CLEANUP_INTERVAL:
+            stale_before = now - RATE_MAX_WINDOW
+            for stored_key, stored_bucket in list(RATE.items()):
+                stored_bucket[:] = [stamp for stamp in stored_bucket if stamp >= stale_before]
+                if not stored_bucket:
+                    RATE.pop(stored_key, None)
+            RATE_LAST_CLEANUP = now
+        if key not in RATE and len(RATE) >= RATE_MAX_KEYS:
+            oldest_key = min(RATE, key=lambda item: RATE[item][-1] if RATE[item] else 0)
+            RATE.pop(oldest_key, None)
+        bucket = RATE.setdefault(key, [])
+        bucket[:] = [stamp for stamp in bucket if now - stamp < window]
+        if len(bucket) >= limit:
+            return True
+        bucket.append(now)
+        return False
 
 
 def admin_required():
@@ -260,13 +304,28 @@ def security_headers(resp):
             resp.headers['Access-Control-Allow-Origin'] = origin
             resp.headers['Vary'] = 'Origin'
         resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        resp.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     return resp
 
 
 @app.get('/health')
 def health():
     return {'ok': True, 'service': 'Karen Caroline Imóveis'}
+
+
+@app.get('/api/config')
+def public_config():
+    return jsonify(whatsapp_number=re.sub(r'\D', '', WHATSAPP_NUMBER))
+
+
+@app.get('/whatsapp')
+def public_whatsapp():
+    digits = re.sub(r'\D', '', WHATSAPP_NUMBER)
+    if not digits:
+        abort(503)
+    message = request.args.get('text', '').strip()[:2000]
+    suffix = f'?text={quote(message)}' if message else ''
+    return redirect(f'https://wa.me/{digits}{suffix}')
 
 
 @app.post('/api/events')
@@ -277,9 +336,13 @@ def events():
     tipo = str(data.get('tipo','')).strip()[:80]
     if not tipo:
         return jsonify(ok=False), 400
+    try:
+        lead_id = int(data['lead_id']) if data.get('lead_id') not in (None, '') else None
+    except (TypeError, ValueError):
+        lead_id = None
     with db() as con:
-        con.execute('''INSERT INTO interactions (tipo,empreendimento,origem,pagina_url,pagina_titulo,referrer,utm_source,utm_medium,utm_campaign,criado_em) VALUES (?,?,?,?,?,?,?,?,?,?)''', (
-            tipo, str(data.get('empreendimento','')).strip()[:160], str(data.get('origem','')).strip()[:160], str(data.get('pagina_url','')).strip()[:1000], str(data.get('pagina_titulo','')).strip()[:300], str(data.get('referrer','')).strip()[:1000], str(data.get('utm_source','')).strip()[:160], str(data.get('utm_medium','')).strip()[:160], str(data.get('utm_campaign','')).strip()[:300], now_iso()))
+        con.execute('''INSERT INTO interactions (tipo,empreendimento,origem,pagina_url,pagina_titulo,referrer,utm_source,utm_medium,utm_campaign,lead_id,interesse,criado_em) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''', (
+            tipo, str(data.get('empreendimento','')).strip()[:160], str(data.get('origem','')).strip()[:160], str(data.get('pagina_url','')).strip()[:1000], str(data.get('pagina_titulo','')).strip()[:300], str(data.get('referrer','')).strip()[:1000], str(data.get('utm_source','')).strip()[:160], str(data.get('utm_medium','')).strip()[:160], str(data.get('utm_campaign','')).strip()[:300], lead_id, str(data.get('interesse','')).strip()[:300], now_iso()))
         con.commit()
     return jsonify(ok=True)
 
@@ -306,17 +369,22 @@ def leads_api():
     visit_date = str(data.get('data_visita','')).strip()
     if not valid_visit_date(visit_date):
         return jsonify(ok=False, error='Escolha uma data de visita válida, a partir de hoje.'), 400
+    idempotency_key = str(data.get('idempotency_key','')).strip()
+    if not idempotency_key:
+        idempotency_key = secrets.token_urlsafe(24)
+    elif not IDEMPOTENCY_RE.fullmatch(idempotency_key):
+        return jsonify(ok=False, error='Identificador da solicitação inválido.'), 400
     origem = str(data.get('origem','site')).strip()[:160]
     interesse = str(data.get('interesse','')).strip()[:300]
     now = now_iso()
     with db() as con:
-        insert_sql = '''INSERT INTO leads (nome,sobrenome,whatsapp,email,empreendimento,origem,interesse,consentimento,utm_source,utm_medium,utm_campaign,criado_em,status,atualizado_em,pagina_url,pagina_titulo,referrer,utm_content,utm_term) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
-        if USE_POSTGRES:
-            insert_sql += ' RETURNING id'
+        insert_sql = '''INSERT INTO leads (nome,sobrenome,whatsapp,email,empreendimento,origem,interesse,consentimento,utm_source,utm_medium,utm_campaign,criado_em,status,atualizado_em,pagina_url,pagina_titulo,referrer,utm_content,utm_term,idempotency_key) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT (idempotency_key) DO NOTHING'''
         cur = con.execute(insert_sql, (
-            nome,sobrenome,whatsapp,email_,empreendimento,origem,interesse,1,str(data.get('utm_source','')).strip()[:160],str(data.get('utm_medium','')).strip()[:160],str(data.get('utm_campaign','')).strip()[:300],now,'Novo',now,str(data.get('pagina_url','')).strip()[:1000],str(data.get('pagina_titulo','')).strip()[:300],str(data.get('referrer','')).strip()[:1000],str(data.get('utm_content','')).strip()[:300],str(data.get('utm_term','')).strip()[:300]))
-        lead_id = cur.fetchone()['id'] if USE_POSTGRES else cur.lastrowid
-    resp = {'ok': True, 'lead_id': lead_id, 'message': 'Cadastro realizado com sucesso.'}
+            nome,sobrenome,whatsapp,email_,empreendimento,origem,interesse,1,str(data.get('utm_source','')).strip()[:160],str(data.get('utm_medium','')).strip()[:160],str(data.get('utm_campaign','')).strip()[:300],now,'Novo',now,str(data.get('pagina_url','')).strip()[:1000],str(data.get('pagina_titulo','')).strip()[:300],str(data.get('referrer','')).strip()[:1000],str(data.get('utm_content','')).strip()[:300],str(data.get('utm_term','')).strip()[:300],idempotency_key))
+        duplicate = cur.rowcount == 0
+        lead_row = con.execute('SELECT id FROM leads WHERE idempotency_key=?', (idempotency_key,)).fetchone()
+        lead_id = lead_row['id']
+    resp = {'ok': True, 'lead_id': lead_id, 'duplicate': duplicate, 'message': 'Cadastro realizado com sucesso.'}
     return jsonify(resp)
 
 

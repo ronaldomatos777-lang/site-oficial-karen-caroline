@@ -55,20 +55,73 @@ function apiEndpoint(path){
     : path;
 }
 
+const PENDING_LEADS_KEY='karen_pending_leads_v1';
+const PENDING_LEADS_TTL_MS=24*60*60*1000;
+const PENDING_LEADS_LIMIT=20;
+
+function requestId(){
+  if(globalThis.crypto?.randomUUID)
+    return globalThis.crypto.randomUUID();
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}-${Math.random().toString(36).slice(2)}`;
+}
+
+function ensureFormRequestId(form){
+  let field=form.querySelector('input[name="idempotency_key"]');
+  if(!field){
+    field=document.createElement('input');
+    field.type='hidden';
+    field.name='idempotency_key';
+    form.appendChild(field);
+  }
+  if(!field.value) field.value=requestId();
+  return field.value;
+}
+
+document.addEventListener('submit',event=>{
+  const form=event.target;
+  if(form.matches?.('.lead-form,.material-form,.visit-form'))
+    ensureFormRequestId(form);
+},true);
+
+document.addEventListener('reset',event=>{
+  event.target.querySelector?.('input[name="idempotency_key"]')?.remove();
+},true);
+
+function activePendingLeads(list){
+  if(!Array.isArray(list)) return [];
+  const cutoff=Date.now()-PENDING_LEADS_TTL_MS;
+  return list.filter(item=>{
+    const queuedAt=Date.parse(item?.queued_at||'');
+    return Number.isFinite(queuedAt)&&queuedAt>=cutoff;
+  }).slice(-PENDING_LEADS_LIMIT);
+}
+
+function readPendingLeads(){
+  try{
+    const list=activePendingLeads(
+      JSON.parse(localStorage.getItem(PENDING_LEADS_KEY)||'[]')
+    );
+    localStorage.setItem(PENDING_LEADS_KEY,JSON.stringify(list));
+    return list;
+  }catch(_e){
+    try{ localStorage.removeItem(PENDING_LEADS_KEY) }catch(_ignored){}
+    return [];
+  }
+}
+
 function queuePendingLead(payload){
   try{
-    const key='karen_pending_leads_v1';
-    const list=JSON.parse(localStorage.getItem(key)||'[]');
+    const list=readPendingLeads();
 
     list.push({
       ...payload,
-      ...pageContext(),
+      idempotency_key:payload.idempotency_key||requestId(),
       queued_at:new Date().toISOString()
     });
 
     localStorage.setItem(
-      key,
-      JSON.stringify(list.slice(-50))
+      PENDING_LEADS_KEY,
+      JSON.stringify(activePendingLeads(list))
     );
 
     return true;
@@ -78,40 +131,36 @@ function queuePendingLead(payload){
 }
 
 async function syncPendingLeads(){
-  if(location.protocol==='file:') return;
-
-  const key='karen_pending_leads_v1';
-  let list=[];
-
-  try{
-    list=JSON.parse(localStorage.getItem(key)||'[]')
-  }catch(_e){}
-
-  if(!Array.isArray(list)||!list.length) return;
+  const list=readPendingLeads();
+  if(location.protocol==='file:'||!list.length) return;
 
   const remaining=[];
 
   for(const item of list){
+    const pending={
+      ...item,
+      idempotency_key:item.idempotency_key||requestId()
+    };
     try{
       const r=await fetch('/api/leads',{
         method:'POST',
         headers:{
           'Content-Type':'application/json'
         },
-        body:JSON.stringify(item)
+        body:JSON.stringify(pending)
       });
 
-      if(!r.ok) remaining.push(item);
+      if(!r.ok) remaining.push(pending);
 
     }catch(_e){
-      remaining.push(item)
+      remaining.push(pending)
     }
   }
 
   try{
     localStorage.setItem(
-      key,
-      JSON.stringify(remaining)
+      PENDING_LEADS_KEY,
+      JSON.stringify(activePendingLeads(remaining))
     )
   }catch(_e){}
 }
@@ -120,6 +169,11 @@ window.addEventListener('load',syncPendingLeads);
 
 async function saveLead(payload){
   let r;
+  const requestPayload={
+    ...payload,
+    ...pageContext(),
+    idempotency_key:payload.idempotency_key||requestId()
+  };
 
   try{
     r=await fetch(
@@ -129,16 +183,13 @@ async function saveLead(payload){
         headers:{
           'Content-Type':'application/json'
         },
-        body:JSON.stringify({
-          ...payload,
-          ...pageContext()
-        })
+        body:JSON.stringify(requestPayload)
       }
     );
 
   }catch(_err){
 
-    const queued=queuePendingLead(payload);
+    const queued=queuePendingLead(requestPayload);
 
     const err=new Error(
       queued
@@ -439,8 +490,6 @@ if(modal){
 
 
 // WhatsApp oficial + contexto automático
-const WHATSAPP_NUMBER='5519974078273';
-
 const WHATSAPP_SVG=`
 <svg
   viewBox="0 0 32 32"
@@ -493,7 +542,7 @@ const openWhatsApp=(origem='botao_whatsapp')=>{
   );
 
   window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+    `${apiEndpoint('/whatsapp')}?text=${encodeURIComponent(message)}`,
     '_blank',
     'noopener,noreferrer'
   );
@@ -971,7 +1020,7 @@ function createVisitUI(){
         );
 
         window.open(
-          `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+          `${apiEndpoint('/whatsapp')}?text=${encodeURIComponent(message)}`,
           '_blank',
           'noopener,noreferrer'
         );
