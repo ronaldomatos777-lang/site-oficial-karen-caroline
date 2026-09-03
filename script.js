@@ -79,7 +79,7 @@ function ensureFormRequestId(form){
 
 document.addEventListener('submit',event=>{
   const form=event.target;
-  if(form.matches?.('.lead-form,.material-form,.visit-form'))
+  if(form.matches?.('.lead-form,.visit-form'))
     ensureFormRequestId(form);
 },true);
 
@@ -403,108 +403,6 @@ for(const form of document.querySelectorAll('.lead-form')){
 
       if(box)
         box.textContent='⚠ '+err.message;
-
-    }
-  });
-}
-
-
-// Material Casa Prado
-const modal=document.getElementById('material-modal');
-
-if(modal){
-
-  const open=()=>{
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    document.body.classList.add('modal-open');
-  };
-
-  const close=()=>{
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
-    document.body.classList.remove('modal-open');
-  };
-
-  document
-    .querySelectorAll('[data-open-material]')
-    .forEach(b=>
-      b.addEventListener('click',open)
-    );
-
-  document
-    .querySelectorAll('[data-close-material]')
-    .forEach(b=>
-      b.addEventListener('click',close)
-    );
-
-  modal.addEventListener('click',e=>{
-    if(e.target===modal) close();
-  });
-
-  document.addEventListener('keydown',e=>{
-    if(e.key==='Escape') close();
-  });
-
-  const form=
-    modal.querySelector('.material-form');
-
-  const status=
-    modal.querySelector('.material-status');
-
-  form.addEventListener('submit',async e=>{
-
-    e.preventDefault();
-
-    const fd=new FormData(form);
-
-    const payload=
-      Object.fromEntries(fd.entries());
-
-    payload.empreendimento=
-      'Casa Prado Residence';
-
-    payload.origem=
-      'download_material';
-
-    try{
-
-      status.textContent=
-        'Cadastrando e preparando o material...';
-
-      const data=
-        await saveLead(payload);
-
-      status.textContent=
-        '✓ Cadastro realizado. O download será iniciado.';
-
-      form.reset();
-
-      if(data.download_url){
-
-        setTimeout(()=>{
-
-          const a=
-            document.createElement('a');
-
-          a.href=data.download_url;
-
-          a.download=
-            'Casa-Prado-Material-Completo.pdf';
-
-          document.body.appendChild(a);
-
-          a.click();
-
-          a.remove();
-
-        },500);
-      }
-
-    }catch(err){
-
-      status.textContent=
-        '⚠ '+err.message;
 
     }
   });
