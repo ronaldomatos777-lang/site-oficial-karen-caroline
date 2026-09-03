@@ -1,0 +1,37 @@
+# Segredos e configuracoes locais
+.env
+.env.*
+!.env.example
+
+# Bancos e dados persistentes
+data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Backups e exportacoes com dados pessoais
+backups/
+*.bak
+leads-crm.csv
+
+# Cache e ambientes Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Temporarios, logs e arquivos do sistema/editor
+*.log
+*.tmp
+*.temp
+*.swp
+*~
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

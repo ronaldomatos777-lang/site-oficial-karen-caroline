@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for, session, Response, abort
 from werkzeug.middleware.proxy_fix import ProxyFix
 from pathlib import Path
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 from urllib.parse import quote
+from zoneinfo import ZoneInfo
 import sqlite3, json, os, csv, io, html, re, secrets, time
 
 DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
@@ -33,6 +34,25 @@ WHATSAPP_NUMBER = os.environ.get('WHATSAPP_NUMBER', '5519974078273')
 ALLOWED_ORIGINS = {o.strip() for o in os.environ.get('ALLOWED_ORIGINS', 'https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br,http://127.0.0.1:5000,http://localhost:5000,null').split(',') if o.strip()}
 STATUS_OPTIONS = ['Novo', 'Em contato', 'Visita agendada', 'Proposta', 'Venda', 'Sem interesse']
 RATE = {}
+PUBLIC_PAGES = {
+    'index.html',
+    'alta-vista.html',
+    'casa-prado.html',
+    'cores-da-mata.html',
+    'parque-alto.html',
+    'privacidade.html',
+    'seleto-amoreiras.html',
+    'universo-parque-alphaville.html',
+}
+PUBLIC_ROOT_ASSETS = {
+    'style.css',
+    'script.js',
+    'social-links.js',
+    'sitemap.xml',
+    'karen-caroline-logo-oficial.png',
+}
+PUBLIC_ASSET_EXTENSIONS = {'.ico', '.png', '.webp'}
+EMAIL_RE = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')
 
 
 class DBConnection:
@@ -124,6 +144,34 @@ def esc(v):
 
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
+
+
+def valid_whatsapp(value):
+    digits = re.sub(r'\D', '', value or '')
+    if len(digits) in (10, 11):
+        return True
+    return len(digits) in (12, 13) and digits.startswith('55')
+
+
+def valid_email(value):
+    return not value or bool(EMAIL_RE.fullmatch(value))
+
+
+def valid_visit_date(value):
+    if not value:
+        return True
+    try:
+        selected = date.fromisoformat(value)
+    except ValueError:
+        return False
+    return selected >= datetime.now(ZoneInfo('America/Sao_Paulo')).date()
+
+
+def csv_safe(value):
+    text = str(value or '')
+    if text.lstrip().startswith(('=', '+', '-', '@')):
+        return "'" + text
+    return text
 
 
 def client_ip():
@@ -251,6 +299,13 @@ def leads_api():
     consent = str(data.get('consentimento','')).lower() in {'1','true','on','sim','yes'}
     if not nome or not whatsapp or not consent:
         return jsonify(ok=False, error='Preencha nome, WhatsApp e aceite o consentimento para contato.'), 400
+    if not valid_whatsapp(whatsapp):
+        return jsonify(ok=False, error='Informe um WhatsApp válido com DDD.'), 400
+    if not valid_email(email_):
+        return jsonify(ok=False, error='Informe um e-mail válido.'), 400
+    visit_date = str(data.get('data_visita','')).strip()
+    if not valid_visit_date(visit_date):
+        return jsonify(ok=False, error='Escolha uma data de visita válida, a partir de hoje.'), 400
     origem = str(data.get('origem','site')).strip()[:160]
     interesse = str(data.get('interesse','')).strip()[:300]
     now = now_iso()
@@ -356,7 +411,7 @@ def export_csv():
     with db() as con: rows=con.execute('SELECT * FROM leads ORDER BY id DESC').fetchall()
     fields=['id','nome','sobrenome','whatsapp','email','empreendimento','origem','interesse','criado_em','status','observacoes','atualizado_em','utm_source','utm_medium','utm_campaign','utm_content','utm_term','pagina_url','pagina_titulo','referrer']
     out=io.StringIO(); w=csv.DictWriter(out,fieldnames=fields); w.writeheader()
-    for r in rows: w.writerow({f:r[f] for f in fields})
+    for r in rows: w.writerow({f:csv_safe(r[f]) for f in fields})
     raw=out.getvalue().encode('utf-8-sig')
     return Response(raw,mimetype='text/csv',headers={'Content-Disposition':'attachment; filename=leads-crm.csv'})
 
@@ -390,9 +445,12 @@ def home():
 
 @app.get('/<path:path>')
 def public_files(path):
-    if path.startswith(('data/','__pycache__/')) or path in {'app.py','.env','.env.example'}:
-        abort(404)
-    return send_from_directory(BASE,path)
+    normalized = path.replace('\\', '/')
+    if normalized in PUBLIC_PAGES or normalized in PUBLIC_ROOT_ASSETS:
+        return send_from_directory(BASE, normalized)
+    if normalized.startswith('assets/') and Path(normalized).suffix.lower() in PUBLIC_ASSET_EXTENSIONS:
+        return send_from_directory(BASE, normalized)
+    abort(404)
 
 
 init_db()
