@@ -343,6 +343,21 @@ function campaignLabel(){
 
 
 // Formulários normais
+function leadFormProfile(form){
+  if(form.classList.contains('universo-lead-form')){
+    return {
+      origem:'formulario_universo',
+      interesse:'Informações sobre o Universo Parque Alphaville',
+      sobrenome:'',
+      successMessage:'✓ Cadastro realizado com sucesso. Em breve entraremos em contato.'
+    };
+  }
+  return {
+    origem:'formulario_contato',
+    successMessage:'✓ Cadastro realizado. Em breve entraremos em contato.'
+  };
+}
+
 for(const form of document.querySelectorAll('.lead-form')){
 
   form.addEventListener('submit',async e=>{
@@ -356,13 +371,20 @@ for(const form of document.querySelectorAll('.lead-form')){
 
     const payload=
       Object.fromEntries(fd.entries());
+    const profile=leadFormProfile(form);
 
     payload.empreendimento=
       form.dataset.empreendimento||
       'Site geral';
 
     payload.origem=
-      'formulario_contato';
+      profile.origem;
+
+    if(profile.interesse)
+      payload.interesse=profile.interesse;
+
+    if('sobrenome' in profile)
+      payload.sobrenome=profile.sobrenome;
 
     try{
 
@@ -373,7 +395,7 @@ for(const form of document.querySelectorAll('.lead-form')){
 
       if(box)
         box.textContent=
-          '✓ Cadastro realizado. Em breve entraremos em contato.';
+          profile.successMessage;
 
       form.reset();
 
@@ -1056,17 +1078,19 @@ function createVisitUI(){
 
 
         payload.origem=
-          selectedInterest
-            ?'interesse_planta'
-            :'agendar_visita';
+          ctx.empreendimento==='Universo Riva Parque Alphaville'
+            ?'agendar_visita_universo'
+            :(selectedInterest
+              ?'interesse_planta'
+              :'agendar_visita');
 
 
         payload.interesse=
-          selectedInterest
-
-          ?`${selectedInterest} • Visita: ${payload.data_visita} • ${payload.periodo}`
-
-          :`Visita: ${payload.data_visita} • ${payload.periodo}`;
+          ctx.empreendimento==='Universo Riva Parque Alphaville'
+            ?`Visita Universo Parque Alphaville • Data: ${payload.data_visita} • Período: ${payload.periodo}`
+            :(selectedInterest
+              ?`${selectedInterest} • Visita: ${payload.data_visita} • ${payload.periodo}`
+              :`Visita: ${payload.data_visita} • ${payload.periodo}`);
 
 
         try{
