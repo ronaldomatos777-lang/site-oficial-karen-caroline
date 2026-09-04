@@ -757,8 +757,12 @@ function createVisitUI(){
       >
 
         <img
-          src="assets/visit-consultora-v543.png"
+          src="assets/visit-consultora-v543.webp"
           alt=""
+          width="839"
+          height="1875"
+          loading="lazy"
+          decoding="async"
         >
 
       </div>
