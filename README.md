@@ -23,7 +23,9 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 $env:ADMIN_PASSWORD = "defina-uma-senha-forte"
+$env:ADMIN_USER = "admin-local"
 $env:SECRET_KEY = "defina-uma-chave-aleatoria-longa"
+$env:APP_ENV = "development"
 $env:COOKIE_SECURE = "0"
 python app.py
 ```
@@ -49,8 +51,10 @@ Se optar por SQLite no Railway, monte volume persistente e use `DATA_DIR=/data`.
 
 ## Variáveis de ambiente
 
-- `ADMIN_PASSWORD` (obrigatória para acessar o CRM): senha forte e exclusiva.
-- `SECRET_KEY` (obrigatória em produção): chave aleatória longa para sessões e CSRF.
+- `APP_ENV`: use `development` localmente e `production` no Railway.
+- `ADMIN_USER`: usuário administrativo; obrigatório em produção.
+- `ADMIN_PASSWORD`: senha forte e exclusiva, com pelo menos 12 caracteres em produção.
+- `SECRET_KEY`: chave aleatória imprevisível, com pelo menos 32 caracteres em produção.
 - `WHATSAPP_NUMBER`: número oficial em formato internacional, somente dígitos; o padrão atual preserva o atendimento existente.
 - `DATABASE_URL`: ativa PostgreSQL quando preenchida.
 - `DATA_DIR`: diretório dos dados SQLite; padrão local `data/`.
@@ -58,6 +62,7 @@ Se optar por SQLite no Railway, monte volume persistente e use `DATA_DIR=/data`.
 - `COOKIE_SECURE`: use `1` com HTTPS em produção e `0` apenas no desenvolvimento HTTP local.
 - `ALLOWED_ORIGINS`: origens aceitas pela API, separadas por vírgula.
 - `PORT`: porta fornecida pela hospedagem; localmente o Flask usa 5000.
+- `LOG_LEVEL`: nível dos logs da aplicação; normalmente `INFO` em produção.
 
 Copie `.env.example` apenas como referência. O aplicativo não carrega `.env` sozinho; defina as variáveis no sistema ou na plataforma. Nunca versione `.env`, bancos, backups ou exportações de leads.
 
@@ -73,7 +78,7 @@ Copie `.env.example` apenas como referência. O aplicativo não carrega `.env` s
 - `/whatsapp`: redirecionamento para o número oficial configurado.
 - `/health`: verificação de saúde da aplicação.
 
-Alterações administrativas usam sessão e token CSRF. A aplicação aceita SQLite e PostgreSQL, mas ainda não utiliza Alembic.
+O login administrativo exige `ADMIN_USER` e `ADMIN_PASSWORD`. Alterações administrativas usam sessão e token CSRF. A aplicação aceita SQLite e PostgreSQL, mas ainda não utiliza Alembic.
 
 ## Leads, idempotência e fila offline
 
@@ -87,7 +92,9 @@ Quando a API está indisponível, o navegador guarda temporariamente até 20 lea
 
 ## Backup
 
-Para SQLite local, feche gravações concorrentes e execute `backup-crm.bat`; o script copia `data/leads.db` para `backups/leads-AAAAmmdd-HHMMSS.db`. A pasta de backup é ignorada pelo Git. Para PostgreSQL, use o mecanismo de backup/exportação oferecido pelo provedor e teste periodicamente a restauração. A exportação CSV do CRM auxilia operações, mas não substitui backup consistente do banco.
+Para SQLite local, feche gravações concorrentes e execute `backup-crm.bat`; o script copia `data/leads.db` para `backups/leads-AAAAmmdd-HHMMSS.db`. A pasta de backup é ignorada pelo Git.
+
+O `backup-crm.bat` não faz backup do PostgreSQL do Railway. Em produção, habilite a política de backup/retorno ao ponto no tempo oferecida pelo provedor ou execute `pg_dump` por um procedimento seguro, armazene as cópias fora do serviço e teste periodicamente uma restauração. A exportação CSV do CRM auxilia a operação, mas não substitui backup consistente do banco.
 
 ## Segurança básica
 
@@ -96,6 +103,75 @@ Para SQLite local, feche gravações concorrentes e execute `backup-crm.bat`; o 
 - Não armazene credenciais no repositório nem envie bancos/exportações para o Git.
 - O rate limit atual é em memória e por processo do Gunicorn; é uma proteção básica, não um limitador distribuído.
 - Revise a Política de Privacidade e os procedimentos de retenção conforme a LGPD antes de campanhas em produção.
+- Em `APP_ENV=production`, a inicialização falha claramente se `SECRET_KEY`, `ADMIN_USER`, `ADMIN_PASSWORD` ou `DATABASE_URL` estiverem ausentes/inseguros.
+- O `ProxyFix` confia em exatamente um proxy para IP, protocolo e host, configuração adequada quando o serviço está diretamente atrás do proxy do Railway. Não exponha esse processo diretamente à internet por outro caminho.
+- Uma CSP rígida permanece pendente porque o site usa Google Fonts, estilos/scripts inline e SVGs inline. Ela deve ser introduzida primeiro em modo `Report-Only` e testada em todas as páginas.
+
+## Configuração de produção no Railway
+
+Configure no serviço da aplicação:
+
+```text
+APP_ENV=production
+SECRET_KEY=<valor aleatório com 32 ou mais caracteres>
+ADMIN_USER=<usuário administrativo exclusivo>
+ADMIN_PASSWORD=<senha forte com 12 ou mais caracteres>
+WHATSAPP_NUMBER=<número oficial em formato internacional, somente dígitos>
+DATABASE_URL=<referência fornecida pelo PostgreSQL do Railway>
+COOKIE_SECURE=1
+ALLOWED_ORIGINS=https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br
+LOG_LEVEL=INFO
+```
+
+Não copie os valores fictícios de `.env.example` para produção. Não registre segredos em commits, tickets, prints ou logs. `DATA_DIR` e `DB_PATH` não são necessários quando `DATABASE_URL` aponta para PostgreSQL.
+
+O comando de produção usa dois workers e quatro threads por worker. `--preload` inicializa e atualiza o esquema uma vez antes dos forks, reduzindo concorrência nas alterações aditivas. Logs de acesso e erro vão para stdout/stderr do Railway. O rate limit continua isolado por worker e não deve ser tratado como defesa distribuída.
+
+O endpoint `/health` executa `SELECT 1` e retorna apenas `{"ok": true}`. Isso permite que o Railway detecte tanto falha da aplicação quanto indisponibilidade do banco sem revelar tecnologia, endereço ou credenciais. Uma falha retorna HTTP 503 e uma mensagem genérica no log.
+
+## Domínio e HTTPS
+
+O endereço canônico do projeto é `https://www.karencarolineimoveis.com.br`. Depois que o primeiro deploy estiver validado:
+
+1. adicione `www.karencarolineimoveis.com.br` em **Settings > Networking > Custom Domain** no Railway;
+2. copie exatamente o CNAME/TXT apresentado pelo Railway para o provedor DNS;
+3. preserve registros MX/TXT de e-mail existentes;
+4. aguarde a validação e emissão do certificado TLS;
+5. configure o domínio sem `www` para redirecionar permanentemente ao endereço com `www`, usando o recurso do provedor DNS/hospedagem;
+6. confirme que o navegador chega ao `www` por HTTPS e que o certificado é válido.
+
+O projeto não altera DNS automaticamente. Canonicals, sitemap e metadados sociais já usam o domínio final. O redirecionamento entre raiz e `www` deve ser configurado fora da aplicação e validado depois do deploy.
+
+## Checklist de publicação
+
+1. Criar o projeto no Railway.
+2. Conectar o repositório Git correto.
+3. Criar e vincular um PostgreSQL no mesmo projeto.
+4. Configurar todas as variáveis de ambiente de produção listadas acima.
+5. Fazer o primeiro deploy e confirmar que o Gunicorn inicia sem erro de configuração ou migração.
+6. Validar `/health` com HTTP 200 e `{"ok": true}`.
+7. Validar a Home e todas as páginas em desktop e celular.
+8. Enviar formulários de todos os empreendimentos e confirmar os leads.
+9. Entrar no CRM com o usuário/senha de produção, testar filtros, detalhes, status, observações, CSRF e CSV.
+10. Validar o WhatsApp em todas as páginas sem alterar o número oficial.
+11. Reiniciar/reimplantar o serviço e confirmar que leads e eventos permanecem no PostgreSQL.
+12. Conectar o domínio `www` e configurar o redirecionamento do domínio raiz.
+13. Validar HTTPS, cookies `Secure`, HSTS e ausência de conteúdo misto.
+14. Testar `sitemap.xml`, `robots.txt`, canonicals e URLs absolutas no domínio final.
+15. Fazer um cadastro real controlado e removê-lo ou identificá-lo conforme a política operacional.
+16. Configurar e testar backup/restauração do PostgreSQL; não usar `backup-crm.bat` para esse banco.
+17. Registrar o commit e uma tag Git da versão efetivamente publicada.
+
+### Checklist PostgreSQL após o deploy
+
+- Confirmar criação das tabelas `leads` e `interactions`.
+- Confirmar as colunas aditivas `leads.idempotency_key`, `interactions.lead_id` e `interactions.interesse`.
+- Confirmar o índice único `ux_leads_idempotency_key`.
+- Reenviar a mesma `idempotency_key` e confirmar o mesmo `lead_id` com `duplicate=true`.
+- Criar outro lead da mesma pessoa com chave nova e confirmar que o cadastro é aceito.
+- Registrar evento com `lead_id` e `interesse` e conferir no banco.
+- Exportar CSV com acentos e abrir como UTF-8.
+- Alterar status/observação pelo CRM e reiniciar o serviço para comprovar persistência.
 
 ## Casa Prado e material completo
 

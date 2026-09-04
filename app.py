@@ -4,10 +4,35 @@ from pathlib import Path
 from datetime import date, datetime, timezone, timedelta
 from urllib.parse import quote
 from zoneinfo import ZoneInfo
-import sqlite3, json, os, csv, io, html, re, secrets, threading, time
+import sqlite3, json, os, csv, io, html, re, secrets, threading, time, logging
 
 DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 USE_POSTGRES = bool(DATABASE_URL)
+APP_ENV = os.environ.get('APP_ENV', 'development').strip().lower()
+IS_PRODUCTION = APP_ENV == 'production'
+SECRET_KEY = os.environ.get('SECRET_KEY', '').strip()
+ADMIN_USER = os.environ.get('ADMIN_USER', '').strip()
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
+WHATSAPP_NUMBER = os.environ.get('WHATSAPP_NUMBER', '5519974078273').strip()
+
+if IS_PRODUCTION:
+    config_errors = []
+    if len(SECRET_KEY) < 32:
+        config_errors.append('SECRET_KEY deve ter pelo menos 32 caracteres')
+    if not ADMIN_USER:
+        config_errors.append('ADMIN_USER deve ser definido')
+    if len(ADMIN_PASSWORD) < 12:
+        config_errors.append('ADMIN_PASSWORD deve ter pelo menos 12 caracteres')
+    if not DATABASE_URL:
+        config_errors.append('DATABASE_URL deve apontar para o PostgreSQL')
+    whatsapp_digits = re.sub(r'\D', '', WHATSAPP_NUMBER)
+    if len(whatsapp_digits) not in (12, 13) or not whatsapp_digits.startswith('55'):
+        config_errors.append('WHATSAPP_NUMBER deve estar no formato internacional brasileiro')
+    if config_errors:
+        raise RuntimeError('Configuração de produção inválida: ' + '; '.join(config_errors))
+else:
+    SECRET_KEY = SECRET_KEY or secrets.token_hex(32)
+    ADMIN_USER = ADMIN_USER or 'admin'
 
 if USE_POSTGRES:
     import psycopg
@@ -15,23 +40,37 @@ if USE_POSTGRES:
 
 BASE = Path(__file__).resolve().parent
 DATA_DIR = Path(os.environ.get('DATA_DIR', BASE / 'data'))
-DATA_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = Path(os.environ.get('DB_PATH', DATA_DIR / 'leads.db'))
+if not USE_POSTGRES:
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__, static_folder=None)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
-app.secret_key = os.environ.get('SECRET_KEY') or secrets.token_hex(32)
+app.secret_key = SECRET_KEY
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
-    SESSION_COOKIE_SECURE=os.environ.get('COOKIE_SECURE', '1') == '1',
+    SESSION_COOKIE_SECURE=IS_PRODUCTION or os.environ.get('COOKIE_SECURE', '0') == '1',
+    SESSION_COOKIE_NAME='karen_admin_session',
     PERMANENT_SESSION_LIFETIME=timedelta(hours=8),
     MAX_CONTENT_LENGTH=2 * 1024 * 1024,
 )
 
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
-WHATSAPP_NUMBER = os.environ.get('WHATSAPP_NUMBER', '5519974078273')
-ALLOWED_ORIGINS = {o.strip() for o in os.environ.get('ALLOWED_ORIGINS', 'https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br,http://127.0.0.1:5000,http://localhost:5000,null').split(',') if o.strip()}
+logging.basicConfig(
+    level=os.environ.get('LOG_LEVEL', 'INFO').upper(),
+    format='%(asctime)s %(levelname)s %(name)s %(message)s',
+)
+
+default_origins = (
+    'https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br'
+    if IS_PRODUCTION else
+    'https://www.karencarolineimoveis.com.br,https://karencarolineimoveis.com.br,http://127.0.0.1:5000,http://localhost:5000,null'
+)
+ALLOWED_ORIGINS = {
+    origin.strip().rstrip('/')
+    for origin in os.environ.get('ALLOWED_ORIGINS', default_origins).split(',')
+    if origin.strip()
+}
 STATUS_OPTIONS = ['Novo', 'Em contato', 'Visita agendada', 'Proposta', 'Venda', 'Sem interesse']
 RATE = {}
 RATE_LOCK = threading.Lock()
@@ -64,7 +103,11 @@ IDEMPOTENCY_RE = re.compile(r'^[A-Za-z0-9._:-]{16,100}$')
 class DBConnection:
     def __init__(self):
         if USE_POSTGRES:
-            self.con = psycopg.connect(DATABASE_URL, row_factory=dict_row)
+            self.con = psycopg.connect(
+                DATABASE_URL,
+                row_factory=dict_row,
+                connect_timeout=10,
+            )
         else:
             self.con = sqlite3.connect(DB_PATH, timeout=15)
             self.con.row_factory = sqlite3.Row
@@ -233,7 +276,7 @@ def limited(key, limit, window=60):
 
 
 def admin_required():
-    return session.get('admin') is True
+    return session.get('admin') is True and session.get('admin_user') == ADMIN_USER
 
 
 def csrf_token():
@@ -310,7 +353,13 @@ def security_headers(resp):
 
 @app.get('/health')
 def health():
-    return {'ok': True, 'service': 'Karen Caroline Imóveis'}
+    try:
+        with db() as con:
+            con.execute('SELECT 1').fetchone()
+    except Exception:
+        app.logger.error('Falha na verificação de saúde do banco de dados.')
+        return {'ok': False}, 503
+    return {'ok': True}
 
 
 @app.get('/api/config')
@@ -393,7 +442,7 @@ def admin_login():
     if request.method == 'GET':
         if admin_required():
             return redirect('/admin/leads')
-        body = f'''<div class="login"><form class="box" method="post" action="/admin">{csrf_field()}<h1>CRM Imobiliário</h1><p>Entre com a senha administrativa.</p><input type="password" name="senha" placeholder="Senha" required autocomplete="current-password"><button>Entrar</button></form></div>'''
+        body = f'''<div class="login"><form class="box" method="post" action="/admin">{csrf_field()}<h1>CRM Imobiliário</h1><p>Entre com suas credenciais administrativas.</p><input name="usuario" placeholder="Usuário" required autocomplete="username"><input type="password" name="senha" placeholder="Senha" required autocomplete="current-password"><button>Entrar</button></form></div>'''
         return layout('CRM Imobiliário', body)
     if limited(f'login:{client_ip()}', 8, 300):
         return layout('CRM Imobiliário', '<div class="login"><div class="box"><h1>Acesso temporariamente bloqueado</h1><p>Aguarde alguns minutos e tente novamente.</p></div></div>'), 429
@@ -401,11 +450,14 @@ def admin_login():
         return layout('CRM Imobiliário', '<div class="login"><div class="box"><h1>Sessão expirada</h1><p>Atualize a página e tente novamente.</p></div></div>'), 400
     if not ADMIN_PASSWORD:
         return layout('Configuração necessária', '<div class="login"><div class="box"><h1>Configuração necessária</h1><p>Defina a variável ADMIN_PASSWORD no servidor antes de usar o CRM.</p></div></div>'), 503
+    usuario = request.form.get('usuario','')
     senha = request.form.get('senha','')
-    if secrets.compare_digest(senha, ADMIN_PASSWORD):
-        session.clear(); session['admin'] = True; session.permanent = True
+    valid_user = secrets.compare_digest(usuario, ADMIN_USER)
+    valid_password = secrets.compare_digest(senha, ADMIN_PASSWORD)
+    if valid_user and valid_password:
+        session.clear(); session['admin'] = True; session['admin_user'] = ADMIN_USER; session.permanent = True
         return redirect('/admin/leads')
-    body = f'''<div class="login"><form class="box" method="post" action="/admin">{csrf_field()}<h1>CRM Imobiliário</h1><p class="err">Senha incorreta.</p><input type="password" name="senha" placeholder="Senha" required><button>Entrar</button></form></div>'''
+    body = f'''<div class="login"><form class="box" method="post" action="/admin">{csrf_field()}<h1>CRM Imobiliário</h1><p class="err">Usuário ou senha incorretos.</p><input name="usuario" placeholder="Usuário" required autocomplete="username"><input type="password" name="senha" placeholder="Senha" required autocomplete="current-password"><button>Entrar</button></form></div>'''
     return layout('CRM Imobiliário', body), 401
 
 
