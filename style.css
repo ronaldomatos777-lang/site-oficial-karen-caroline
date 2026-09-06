@@ -3933,3 +3933,52 @@ body.universo-page .universo-hero > .universo-hero-media img {
     flex: 0 0 40px !important;
   }
 }
+/* UNIVERSO — enquadramento definitivo da imagem mobile */
+@media screen and (max-width: 480px) {
+
+  body.universo-page .universo-hero-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    transform: none !important;
+  }
+
+}
+/* UNIVERSO MOBILE — clarear imagem do hero sem mexer nos flutuantes */
+@media screen and (max-width: 480px) {
+
+  body.universo-page .universo-hero-shade {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3,16,29,.12) 0%,
+        rgba(3,16,29,.10) 28%,
+        rgba(3,16,29,.22) 50%,
+        rgba(3,16,29,.78) 72%,
+        #03101d 92%
+      ) !important;
+  }
+
+}
+/* UNIVERSO MOBILE — remove escurecimento excessivo do canto superior */
+@media screen and (max-width: 480px) {
+
+  body.universo-page .universo-hero-shade {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3,16,29,.06) 0%,
+        rgba(3,16,29,.06) 35%,
+        rgba(3,16,29,.18) 52%,
+        rgba(3,16,29,.68) 72%,
+        #03101d 94%
+      ) !important;
+  }
+
+  body.universo-page .universo-hero-shade::before {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+  }
+}
