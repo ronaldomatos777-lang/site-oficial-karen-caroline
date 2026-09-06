@@ -2782,6 +2782,621 @@ body.universo-page .universo-cta .form-ok {
   }
 
 }
+
+/* =========================================================
+   ETAPA 7 — REFINAMENTO MOBILE (320px a 430px)
+   Camada final e isolada para preservar integralmente desktop.
+   ========================================================= */
+@media (max-width: 430px) {
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+
+  body,
+  input,
+  select,
+  button,
+  textarea {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  main,
+  main > section,
+  .home-hero,
+  .hero,
+  .section,
+  .intro,
+  .feature,
+  .split,
+  .gallery,
+  .location,
+  .cta,
+  .privacy,
+  .site-footer {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .site-header {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 76px;
+    padding: 0 14px !important;
+    gap: 10px !important;
+  }
+
+  .site-header .site-brand,
+  .site-header .brand-logo {
+    flex: 0 1 auto !important;
+    width: min(170px, calc(100vw - 78px)) !important;
+    max-width: calc(100vw - 78px) !important;
+  }
+
+  .site-header .brand-logo img {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .mobile-menu-toggle {
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin-left: auto !important;
+  }
+
+  .mobile-menu-panel,
+  .mobile-menu-drawer {
+    width: min(320px, calc(100vw - 20px)) !important;
+    max-width: calc(100vw - 20px) !important;
+  }
+
+  .home-hero {
+    display: block !important;
+    min-height: auto !important;
+    padding: 112px 16px 48px !important;
+  }
+
+  .home-hero > div,
+  .home-hero .lead,
+  .hero-copy,
+  .hero-copy .lead,
+  .section-head,
+  .section-head > p,
+  .future-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .home-hero h1 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 12.5vw, 52px) !important;
+    line-height: .98 !important;
+  }
+
+  .home-hero .lead,
+  .hero-copy .lead,
+  .intro > p,
+  .feature p,
+  .darkcard p,
+  .location-card p,
+  .privacy p {
+    font-size: 16px !important;
+    line-height: 1.62 !important;
+  }
+
+  .home-actions,
+  .hero-actions {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .home-actions .btn,
+  .hero-actions .btn,
+  .cta .btn,
+  .lead-form > button[type="submit"] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 48px !important;
+    padding: 13px 16px !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .home-visual,
+  .home-visual-three {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 330px !important;
+    margin-top: 34px !important;
+    overflow: hidden !important;
+  }
+
+  .home-visual img,
+  .home-visual img:first-child {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .section,
+  .intro,
+  .gallery,
+  .cta {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .section-head {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 18px !important;
+  }
+
+  .project-grid,
+  .project-grid-five {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+  }
+
+  .project-card {
+    width: 100% !important;
+    min-height: 400px !important;
+  }
+
+  .project-copy {
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 22px !important;
+  }
+
+  .project-copy h3 {
+    max-width: 100% !important;
+    font-size: clamp(30px, 10vw, 38px) !important;
+    overflow-wrap: normal !important;
+  }
+
+  .hero {
+    height: auto !important;
+    min-height: max(660px, 100svh) !important;
+    padding: 112px 16px 38px !important;
+  }
+
+  .hero h1,
+  .hero-copy h1 {
+    max-width: 100% !important;
+    font-size: clamp(39px, 13vw, 52px) !important;
+    line-height: .98 !important;
+  }
+
+  .eyebrow {
+    max-width: 100% !important;
+    letter-spacing: .12em !important;
+    overflow-wrap: anywhere;
+  }
+
+  .stats {
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+  }
+
+  .feature > div,
+  .darkcard {
+    padding: 58px 16px !important;
+  }
+
+  .feature img {
+    width: 100% !important;
+    min-height: 300px !important;
+    height: 58vw !important;
+  }
+
+  .grid,
+  .split,
+  .feature,
+  .feature.reverse {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .grid figure,
+  .grid figure.wide {
+    width: 100% !important;
+    height: 72vw !important;
+    min-height: 230px;
+    max-height: 340px;
+  }
+
+  .location > img {
+    width: 100% !important;
+    height: 480px !important;
+  }
+
+  .location-card {
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    margin: -58px 16px 0 !important;
+    padding: 28px 18px !important;
+  }
+
+  .cta form,
+  .lead-form,
+  .universo-lead-form {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .cta input,
+  .cta select,
+  .lead-form input:not([type="hidden"]):not([type="checkbox"]),
+  .lead-form select,
+  .visit-form input:not([type="hidden"]):not([type="checkbox"]),
+  .visit-form select {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 48px !important;
+    font-size: 16px !important;
+  }
+
+  .consent,
+  .modal-consent,
+  .visit-consent {
+    width: 100% !important;
+    max-width: 100% !important;
+    line-height: 1.45 !important;
+  }
+
+  .consent input[type="checkbox"],
+  .modal-consent input[type="checkbox"],
+  .visit-consent input[type="checkbox"] {
+    flex: 0 0 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .privacy {
+    padding: 104px 18px 60px !important;
+  }
+
+  .privacy h1 {
+    font-size: clamp(38px, 12vw, 50px) !important;
+    line-height: 1 !important;
+  }
+
+  .privacy h2,
+  .privacy h3,
+  .privacy p,
+  .privacy a {
+    max-width: 100% !important;
+    overflow-wrap: anywhere;
+  }
+
+  .site-footer {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .footer-direct-contact,
+  .footer-legal,
+  .footer-social {
+    max-width: 100% !important;
+    overflow-wrap: anywhere;
+  }
+
+  .whatsapp-float,
+  body.universo-page .whatsapp-float {
+    right: 12px !important;
+    bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    width: 56px !important;
+    min-width: 56px !important;
+    height: 56px !important;
+    padding: 6px !important;
+  }
+
+  .schedule-float,
+  .visit-float,
+  body.universo-page .schedule-float,
+  body.universo-page .visit-float {
+    right: 12px !important;
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 68px) !important;
+    width: 56px !important;
+    min-width: 56px !important;
+    height: 56px !important;
+    padding: 8px !important;
+  }
+
+  .whatsapp-float .wa-copy,
+  .schedule-float > span:last-child,
+  .visit-float > span:last-child {
+    display: none !important;
+  }
+
+  .visit-backdrop {
+    align-items: start !important;
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+    overflow-y: auto !important;
+  }
+
+  .visit-modal,
+  .visit-modal-pro,
+  body.casa-prado-page .visit-modal-pro {
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    max-height: calc(100dvh - 16px) !important;
+    margin: 0 auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .visit-modal-pro .visit-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+  }
+
+  .visit-modal-pro .visit-copy,
+  body.casa-prado-page .visit-modal-pro .visit-copy {
+    width: 100% !important;
+    padding: 28px 16px 22px !important;
+  }
+
+  .visit-modal-pro h2 {
+    padding-right: 28px;
+    font-size: clamp(30px, 10vw, 38px) !important;
+  }
+
+  .visit-modal-pro .visit-close {
+    display: grid !important;
+    place-items: center !important;
+    right: 4px !important;
+    top: 4px !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    line-height: 1 !important;
+  }
+
+  .visit-modal-pro .two-cols,
+  .visit-modal-pro .visit-schedule-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .carousel,
+  .carousel-stage,
+  .carousel-track,
+  .carousel-viewport,
+  .lightbox,
+  .lightbox-content,
+  .floorplans,
+  .floorplans-carousel,
+  .floorplan-track {
+    max-width: 100% !important;
+  }
+
+  .carousel button,
+  .carousel-prev,
+  .carousel-next,
+  .lightbox button,
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .floorplans-carousel,
+  .floorplan-stage,
+  .floorplan-image-wrap,
+  .floorplan-viewport {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body.universo-page main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 8px !important;
+    overflow-x: clip !important;
+  }
+
+  body.universo-page main > section,
+  body.universo-page main > .source-note,
+  body.universo-page .site-footer {
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.universo-page .site-header {
+    left: 50% !important;
+    right: auto !important;
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    margin-top: 8px !important;
+    padding: 9px 12px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  body.universo-page .universo-hero {
+    min-height: max(680px, calc(100svh - 16px)) !important;
+    padding: 104px 16px 38px !important;
+  }
+
+  body.universo-page .universo-hero-copy,
+  body.universo-page .universo-hero-copy > p:not(.eyebrow) {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body.universo-page .universo-hero-copy h1 {
+    max-width: 100% !important;
+    font-size: clamp(38px, 12.5vw, 50px) !important;
+    line-height: .98 !important;
+  }
+
+  body.universo-page .no-break {
+    white-space: normal !important;
+  }
+
+  body.universo-page .universo-intro,
+  body.universo-page .universo-specs,
+  body.universo-page .universo-benefits,
+  body.universo-page .universo-faq,
+  body.universo-page .universo-cta,
+  body.universo-page .universo-location-copy,
+  body.universo-page .universo-concept-copy {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  body.universo-page .universo-invest-v537 .universo-invest-media,
+  body.universo-page .universo-invest-v537 .universo-invest-copy {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+  }
+
+  body.universo-page .universo-invest-v537 .universo-invest-copy,
+  body.universo-page .universo-specs-head,
+  body.universo-page .universo-intro,
+  body.universo-page .universo-faq,
+  body.universo-page .universo-location,
+  body.universo-page .universo-concept {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  body.universo-page .universo-concept-media,
+  body.universo-page .universo-location figure {
+    width: 100% !important;
+    min-height: 360px !important;
+    max-height: 520px !important;
+  }
+
+  body.universo-page .universo-cta .universo-lead-form {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .home-hero h1,
+  .hero h1,
+  .hero-copy h1,
+  body.universo-page .universo-hero-copy h1 {
+    font-size: clamp(36px, 12vw, 43px) !important;
+  }
+
+  .home-hero,
+  .hero,
+  .section,
+  .intro,
+  .gallery,
+  .cta,
+  body.universo-page .universo-intro,
+  body.universo-page .universo-specs,
+  body.universo-page .universo-benefits,
+  body.universo-page .universo-faq,
+  body.universo-page .universo-cta {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+/* ETAPA 7 — ajuste final: atalhos sem sobreposição e arte tipográfica íntegra */
+@media (max-width: 430px) {
+  .whatsapp-float,
+  .schedule-float,
+  .visit-float,
+  body.universo-page .whatsapp-float,
+  body.universo-page .schedule-float,
+  body.universo-page .visit-float {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 1 !important;
+    display: flex !important;
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 52px !important;
+    margin: 12px 16px !important;
+    padding: 8px 14px !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .whatsapp-float .wa-copy,
+  .schedule-float > span:last-child,
+  .visit-float > span:last-child {
+    display: flex !important;
+  }
+
+  .whatsapp-float .wa-icon,
+  .schedule-float .schedule-dot,
+  .visit-float .schedule-dot {
+    flex: 0 0 38px !important;
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .stamp {
+    display: none !important;
+  }
+
+  .future-universo-visual,
+  body.universo-page .universo-hero,
+  body.universo-page .universo-concept-media {
+    overflow: hidden !important;
+  }
+
+  .future-universo-visual img,
+  body.universo-page .universo-hero > img,
+  body.universo-page .universo-concept-media img {
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+  }
+
+  body.universo-page .universo-hero > img {
+    background: #071729 !important;
+    object-position: center top !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  .project-copy,
+  .section-head,
+  .hero-copy,
+  .universo-hero-copy,
+  .universo-concept-copy {
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
 /* =========================================================
    UNIVERSO PARQUE ALPHAVILLE
    LAYOUT FINAL IGUAL AO PRINT DE REFERÊNCIA
