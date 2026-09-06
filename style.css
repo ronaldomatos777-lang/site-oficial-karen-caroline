@@ -3584,6 +3584,16 @@ body.universo-page .universo-cta .form-ok {
 
 }
 
+body.universo-page .universo-hero > .universo-hero-media,
+body.universo-page .universo-hero > .universo-hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 55%;
+}
+
 /* Ajuste visual final — hero Universo no mobile */
 @media (min-width: 320px) and (max-width: 430px) {
   body.universo-page {
@@ -3600,16 +3610,21 @@ body.universo-page .universo-cta .form-ok {
     background: #03101d !important;
   }
 
-  body.universo-page .universo-hero > img {
+  body.universo-page .universo-hero > .universo-hero-media,
+  body.universo-page .universo-hero > .universo-hero-media img {
     position: absolute !important;
-    inset: 0 !important;
+    inset: 0 0 auto !important;
     width: 100% !important;
-    height: 100% !important;
+    height: 62% !important;
     max-width: none !important;
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center top !important;
     transform: none !important;
     background: #03101d !important;
+  }
+
+  body.universo-page .universo-hero > .universo-hero-media img {
+    height: 100% !important;
   }
 
   body.universo-page .universo-hero-shade {

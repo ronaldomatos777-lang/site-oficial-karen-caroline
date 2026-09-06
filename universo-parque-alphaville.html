@@ -22,7 +22,7 @@
 
 <link
   rel="stylesheet"
-  href="style.css?v=571-performance"
+  href="style.css?v=572-universo-mobile"
 
 >
 
@@ -124,11 +124,16 @@
 
 <section class="universo-hero">
 
-  <img
-    src="assets/universo/hero.webp"
-    alt="Universo Riva Parque Alphaville"
-    width="1254"
-    height="1254" decoding="async">
+  <picture class="universo-hero-media">
+    <source
+      media="(min-width: 320px) and (max-width: 430px)"
+      srcset="assets/universo/hero-mobile-clean.png?v=1">
+    <img
+      src="assets/universo/hero.webp"
+      alt="Universo Riva Parque Alphaville"
+      width="1254"
+      height="1254" decoding="async">
+  </picture>
 
   <div class="universo-hero-shade"></div>
 
