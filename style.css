@@ -3867,3 +3867,69 @@ body.universo-page .universo-hero > .universo-hero-media img {
   }
 
 }
+/* =========================================================
+   CORREÇÃO DEFINITIVA — FLUTUANTES MOBILE UNIVERSO
+   ========================================================= */
+
+@media screen and (max-width: 480px) {
+
+  body.universo-page .whatsapp-float {
+    position: fixed !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    top: auto !important;
+    left: auto !important;
+
+    width: 56px !important;
+    min-width: 56px !important;
+    max-width: 56px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+
+    margin: 0 !important;
+    padding: 6px !important;
+
+    z-index: 1001 !important;
+    border-radius: 999px !important;
+  }
+
+  body.universo-page .schedule-float,
+  body.universo-page .visit-float {
+    position: fixed !important;
+    right: 12px !important;
+    bottom: 80px !important;
+    top: auto !important;
+    left: auto !important;
+
+    width: 56px !important;
+    min-width: 56px !important;
+    max-width: 56px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+
+    margin: 0 !important;
+    padding: 8px !important;
+
+    z-index: 1000 !important;
+    border-radius: 999px !important;
+  }
+
+  body.universo-page .whatsapp-float .wa-copy,
+  body.universo-page .schedule-float > span:last-child,
+  body.universo-page .visit-float > span:last-child {
+    display: none !important;
+  }
+
+  body.universo-page .whatsapp-float .wa-icon {
+    width: 44px !important;
+    height: 44px !important;
+    flex: 0 0 44px !important;
+  }
+
+  body.universo-page .schedule-float .schedule-dot,
+  body.universo-page .visit-float .schedule-dot {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+  }
+}
