@@ -980,11 +980,9 @@ function createVisitUI(){
 
 
         payload.origem=
-          ctx.empreendimento==='Universo Riva Parque Alphaville'
-            ?'agendar_visita_universo'
-            :(selectedInterest
-              ?'interesse_planta'
-              :'agendar_visita');
+          selectedInterest
+            ?'interesse_planta'
+            :'agendar_visita';
 
 
         payload.interesse=
