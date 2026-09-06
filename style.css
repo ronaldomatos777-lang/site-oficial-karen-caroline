@@ -3595,7 +3595,7 @@ body.universo-page .universo-hero > .universo-hero-media img {
 }
 
 /* Ajuste visual final — hero Universo no mobile */
-@media (min-width: 320px) and (max-width: 430px) {
+@media (min-width: 320px) and (max-width: 480px) {
   body.universo-page {
     --universo-mobile-hero-height: clamp(820px, 220vw, 940px);
   }
@@ -3731,5 +3731,75 @@ body.universo-page .universo-hero > .universo-hero-media img {
     flex: 0 0 42px !important;
     width: 42px !important;
     height: 42px !important;
+  }
+}
+/* =========================================================
+   CORREÇÃO FINAL MOBILE — BOTÕES FLUTUANTES
+   Restaura comportamento fixo sem acompanhar o conteúdo
+   ========================================================= */
+
+@media screen and (max-width: 480px) {
+
+  .whatsapp-float,
+  body.universo-page .whatsapp-float {
+    position: fixed !important;
+    right: 14px !important;
+    bottom: 14px !important;
+    left: auto !important;
+    top: auto !important;
+
+    width: 58px !important;
+    max-width: 58px !important;
+    min-width: 58px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+
+    margin: 0 !important;
+    padding: 7px !important;
+
+    z-index: 1000 !important;
+    border-radius: 999px !important;
+  }
+
+  .schedule-float,
+  .visit-float,
+  body.universo-page .schedule-float,
+  body.universo-page .visit-float {
+    position: fixed !important;
+    right: 14px !important;
+    bottom: 84px !important;
+    left: auto !important;
+    top: auto !important;
+
+    width: 58px !important;
+    max-width: 58px !important;
+    min-width: 58px !important;
+    height: 58px !important;
+    min-height: 58px !important;
+
+    margin: 0 !important;
+    padding: 9px !important;
+
+    z-index: 999 !important;
+    border-radius: 999px !important;
+  }
+
+  .whatsapp-float .wa-copy,
+  .schedule-float > span:last-child,
+  .visit-float > span:last-child {
+    display: none !important;
+  }
+
+  .whatsapp-float .wa-icon {
+    width: 44px !important;
+    height: 44px !important;
+    flex: 0 0 44px !important;
+  }
+
+  .schedule-float .schedule-dot,
+  .visit-float .schedule-dot {
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
   }
 }
