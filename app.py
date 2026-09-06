@@ -563,6 +563,10 @@ def home():
     index_file = BASE / 'index.html'
     return Response(index_file.read_text(encoding='utf-8'), mimetype='text/html')
 
+@app.get('/index.html')
+def legacy_home():
+    return redirect('/', code=301)
+
 @app.get('/<path:path>')
 def public_files(path):
     normalized = path.replace('\\', '/')
