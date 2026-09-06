@@ -3325,43 +3325,9 @@ body.universo-page .universo-cta .form-ok {
 }
 
 /* ETAPA 7 — ajuste final: atalhos sem sobreposição e arte tipográfica íntegra */
-@media (max-width: 430px) {
-  .whatsapp-float,
-  .schedule-float,
-  .visit-float,
-  body.universo-page .whatsapp-float,
-  body.universo-page .schedule-float,
-  body.universo-page .visit-float {
-    position: relative !important;
-    inset: auto !important;
-    z-index: 1 !important;
-    display: flex !important;
-    width: calc(100% - 32px) !important;
-    max-width: calc(100% - 32px) !important;
-    min-width: 0 !important;
-    height: auto !important;
-    min-height: 52px !important;
-    margin: 12px 16px !important;
-    padding: 8px 14px !important;
-    transform: none !important;
-    animation: none !important;
-  }
 
-  .whatsapp-float .wa-copy,
-  .schedule-float > span:last-child,
-  .visit-float > span:last-child {
-    display: flex !important;
-  }
 
-  .whatsapp-float .wa-icon,
-  .schedule-float .schedule-dot,
-  .visit-float .schedule-dot {
-    flex: 0 0 38px !important;
-    width: 38px !important;
-    height: 38px !important;
-  }
-
-  .stamp {
+   .stamp {
     display: none !important;
   }
 
@@ -3802,4 +3768,102 @@ body.universo-page .universo-hero > .universo-hero-media img {
     height: 40px !important;
     flex: 0 0 40px !important;
   }
+}
+/* =========================================================
+   CORREÇÃO FINAL UNIVERSO MOBILE — 320px a 480px
+   ========================================================= */
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+
+  body.universo-page .universo-hero {
+    position: relative !important;
+    height: 820px !important;
+    min-height: 820px !important;
+    padding: 92px 16px 36px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    overflow: hidden !important;
+    background: #03101d !important;
+  }
+
+  body.universo-page .universo-hero > .universo-hero-media {
+    position: absolute !important;
+    inset: 0 0 auto 0 !important;
+    width: 100% !important;
+    height: 55% !important;
+    overflow: hidden !important;
+    z-index: 0 !important;
+  }
+
+  body.universo-page .universo-hero > .universo-hero-media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    transform: none !important;
+  }
+
+  body.universo-page .universo-hero-shade {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3,16,29,.55) 0%,
+        rgba(3,16,29,.20) 34%,
+        rgba(3,16,29,.72) 56%,
+        #03101d 72%
+      ) !important;
+  }
+
+  body.universo-page .universo-hero-copy {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.universo-page .universo-hero-copy .eyebrow {
+    margin-bottom: 10px !important;
+    font-size: 10px !important;
+    line-height: 1.3 !important;
+  }
+
+  body.universo-page .universo-hero-copy h1 {
+    margin: 0 0 12px !important;
+    font-size: clamp(40px, 10vw, 46px) !important;
+    line-height: .98 !important;
+    max-width: 100% !important;
+  }
+
+  body.universo-page .universo-hero-copy > p:not(.eyebrow) {
+    margin: 0 0 16px !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+  }
+
+  body.universo-page .hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+  }
+
+  body.universo-page .hero-actions .btn {
+    width: 100% !important;
+    min-height: 46px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
 }
