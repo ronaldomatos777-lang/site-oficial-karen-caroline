@@ -82,6 +82,7 @@ PUBLIC_PAGES = {
     'index.html',
     'alta-vista.html',
     'casa-prado.html',
+    'complexo-mangara.html',
     'cores-da-mata.html',
     'parque-alto.html',
     'privacidade.html',
