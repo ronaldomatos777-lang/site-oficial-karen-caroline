@@ -80,6 +80,7 @@ RATE_MAX_WINDOW = 300
 RATE_MAX_KEYS = 10000
 PUBLIC_PAGES = {
     'index.html',
+    'lancamentos-em-campinas.html',
     'alta-vista.html',
     'casa-prado.html',
     'complexo-mangara.html',
