@@ -289,7 +289,7 @@ function campaignLabel(){
 
     <div class="mobile-menu-brand">
       <img
-        src="karen-caroline-logo-oficial.png"
+        src="assets/logo-karen-caroline-oficial.png"
         alt="Karen Caroline Consultora Imobiliária"
       >
     </div>

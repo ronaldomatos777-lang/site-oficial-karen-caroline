@@ -3699,6 +3699,18 @@ body.universo-page .universo-hero > .universo-hero-media img {
     height: 42px !important;
   }
 }
+
+/* Logo oficial — escala final responsiva do cabeçalho */
+.site-header .brand-logo{width:clamp(250px,22vw,320px);height:64px}
+.site-header .brand-logo img{width:min(250px,100%)!important;max-width:none;height:auto!important;flex:none}
+@media(max-width:900px){
+  .site-header .brand-logo{width:220px;height:54px}
+  .site-header .brand-logo img{width:min(210px,100%)!important;height:auto!important}
+}
+@media(max-width:600px){
+  .site-header .brand-logo{width:min(190px,calc(100vw - 78px))!important;height:48px}
+  .site-header .brand-logo img{width:min(184px,100%)!important;height:auto!important}
+}
 /* =========================================================
    CORREÇÃO FINAL MOBILE — BOTÕES FLUTUANTES
    Restaura comportamento fixo sem acompanhar o conteúdo
