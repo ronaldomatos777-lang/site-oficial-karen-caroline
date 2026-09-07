@@ -757,7 +757,7 @@ function createVisitUI(){
       >
 
         <img
-          src="assets/visit-consultora-v543.webp"
+          src="assets/visit-consultora-oficial.png"
           alt=""
           width="839"
           height="1875"
