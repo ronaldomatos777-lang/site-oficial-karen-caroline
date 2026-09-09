@@ -97,7 +97,7 @@ PUBLIC_ROOT_ASSETS = {
     'sitemap.xml',
     'karen-caroline-logo-oficial.png',
 }
-PUBLIC_ASSET_EXTENSIONS = {'.ico', '.png', '.webp'}
+PUBLIC_ASSET_EXTENSIONS = {'.ico', '.jpg', '.png', '.webp'}
 EMAIL_RE = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]{2,}$')
 IDEMPOTENCY_RE = re.compile(r'^[A-Za-z0-9._:-]{16,100}$')
 
