@@ -4541,3 +4541,84 @@ body.universo-page .universo-hero > .universo-hero-media img {
   .home-experience .home-experience-hero *::before,
   .home-experience .home-experience-hero *::after{animation:none;transition:none;scroll-behavior:auto}
 }
+
+/* =========================================================
+   CASA PRADO — PREMIUM EXPERIENCE V1
+   Header e hero isolados do restante dos empreendimentos
+   ========================================================= */
+.casa-prado-premium{
+  --casa-premium-deep:#1f1510;
+  --casa-premium-gold:#d4a552;
+  --casa-premium-light:#f8f1e7;
+  scroll-padding-top:80px;
+}
+
+.casa-prado-premium .site-header{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:75;
+  height:80px;
+  padding:0 clamp(24px,5vw,76px);
+  background:rgba(15,12,10,.6);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.casa-prado-premium .site-header .brand-logo{width:306px;height:72px}
+.casa-prado-premium .site-header .brand-logo img{filter:drop-shadow(0 3px 12px rgba(0,0,0,.28))}
+.casa-prado-premium .site-header nav a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.casa-prado-premium .site-header>.btn.small{background:var(--casa-premium-light);color:var(--casa-premium-deep)!important}
+
+.casa-prado-premium .hero{
+  height:100svh;
+  min-height:760px;
+  padding:clamp(150px,15vh,188px) 6vw 96px;
+  align-items:flex-end;
+  background:var(--casa-premium-deep);
+}
+.casa-prado-premium .hero>img{
+  object-fit:cover;
+  object-position:54% 52%;
+}
+.casa-prado-premium .hero .shade{
+  background:linear-gradient(90deg,rgba(25,16,11,.7) 0%,rgba(25,16,11,.46) 34%,rgba(25,16,11,.12) 58%,rgba(25,16,11,0) 76%),linear-gradient(0deg,rgba(18,12,9,.28),transparent 38%);
+}
+.casa-prado-premium .hero-copy{max-width:720px}
+.casa-prado-premium .hero-copy .eyebrow{color:#efd19a}
+.casa-prado-premium .hero-copy h1{font-size:clamp(64px,6.4vw,94px);line-height:.92;letter-spacing:-.035em}
+.casa-prado-premium .hero-copy .lead{max-width:650px;color:rgba(255,255,255,.88)}
+.casa-prado-premium .hero-actions .btn.light{background:var(--casa-premium-light);color:var(--casa-premium-deep)}
+.casa-prado-premium .hero-actions .btn.ghost{background:rgba(18,12,9,.12);border-color:rgba(255,255,255,.72)}
+.casa-prado-premium .stamp{background:rgba(20,13,9,.46);border-color:rgba(239,209,154,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+@media(max-width:900px){
+  .casa-prado-premium{scroll-padding-top:72px}
+  .casa-prado-premium .site-header{height:72px;padding-left:24px;padding-right:24px}
+  .casa-prado-premium .site-header .brand-logo{width:220px;height:58px}
+  .casa-prado-premium .mobile-menu-toggle span{background:#fff}
+  .casa-prado-premium .hero{min-height:720px;padding:126px 6vw 64px}
+  .casa-prado-premium .hero>img{object-position:58% 52%}
+  .casa-prado-premium .hero .shade{background:linear-gradient(90deg,rgba(25,16,11,.72) 0%,rgba(25,16,11,.42) 46%,rgba(25,16,11,.08) 78%),linear-gradient(0deg,rgba(18,12,9,.34),transparent 45%)}
+  .casa-prado-premium .hero-copy{max-width:630px}
+  .casa-prado-premium .hero-copy h1{font-size:clamp(58px,9vw,76px)}
+}
+
+@media(max-width:600px){
+  .casa-prado-premium .site-header{padding-left:16px;padding-right:16px}
+  .casa-prado-premium .site-header .brand-logo{width:195px;height:52px}
+  .casa-prado-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--casa-premium-deep)}
+  .casa-prado-premium .hero>img{position:relative;inset:auto;display:block;height:350px;object-position:58% 50%}
+  .casa-prado-premium .hero .shade{height:350px;background:linear-gradient(180deg,rgba(24,16,11,.06),rgba(24,16,11,.08) 56%,var(--casa-premium-deep) 100%)}
+  .casa-prado-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
+  .casa-prado-premium .hero-copy h1{font-size:clamp(48px,14vw,62px);line-height:.94}
+  .casa-prado-premium .hero-copy .lead{font-size:15px;line-height:1.6}
+  .casa-prado-premium .hero-actions{display:grid;gap:9px}
+  .casa-prado-premium .hero-actions .btn{width:100%;text-align:center}
+}
+
+@media(max-width:360px){
+  .casa-prado-premium .hero>img,
+  .casa-prado-premium .hero .shade{height:320px}
+  .casa-prado-premium .hero-copy{padding-left:16px;padding-right:16px}
+  .casa-prado-premium .hero-copy h1{font-size:46px}
+}
