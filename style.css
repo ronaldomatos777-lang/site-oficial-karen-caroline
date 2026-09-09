@@ -4008,3 +4008,353 @@ body.universo-page .universo-hero > .universo-hero-media img {
     background: none !important;
   }
 }
+
+/* =========================================================
+   KAREN EXPERIENCE V1 — UNIVERSO PARQUE ALPHAVILLE
+   Camada isolada: não altera as demais páginas do projeto.
+   ========================================================= */
+.universo-page.universo-experience{
+  --ux-ink:#17130f;
+  --ux-brown:#3b2419;
+  --ux-brown-deep:#21140f;
+  --ux-paper:#f5f0e7;
+  --ux-cream:#e9dfd0;
+  --ux-gold:#c99a4a;
+  --ux-line:rgba(59,36,25,.2);
+  color:var(--ux-ink);
+  background:var(--ux-paper);
+}
+.universo-page.universo-experience main{
+  padding:24px 0 0;
+  background:var(--ux-paper);
+}
+.universo-page.universo-experience main>section{
+  width:min(calc(100% - 48px),1440px);
+  margin:0 auto;
+  border-radius:0;
+  box-shadow:none;
+}
+.universo-page.universo-experience .eyebrow{
+  color:#956521;
+  font-size:11px;
+  letter-spacing:.22em;
+  font-weight:700;
+}
+.universo-page.universo-experience .btn{
+  border-radius:999px;
+  min-height:52px;
+  padding:15px 25px;
+  transition:transform .25s ease,background-color .25s ease,border-color .25s ease,color .25s ease;
+}
+.universo-page.universo-experience .btn:hover{transform:translateY(-2px)}
+.universo-page.universo-experience .btn:focus-visible,
+.universo-page.universo-experience a:focus-visible,
+.universo-page.universo-experience summary:focus-visible,
+.universo-page.universo-experience input:focus-visible{
+  outline:3px solid var(--ux-gold);
+  outline-offset:4px;
+}
+.universo-page.universo-experience .universo-gold{
+  background:var(--ux-gold);
+  border-color:var(--ux-gold);
+  color:#17130f!important;
+}
+.universo-page.universo-experience .universo-outline{
+  background:transparent;
+  border:1px solid currentColor;
+  color:inherit!important;
+}
+
+/* Hero cinematográfico */
+.universo-page.universo-experience .universo-hero{
+  height:min(88vh,920px);
+  min-height:700px;
+  padding:clamp(54px,7vw,104px);
+  border-radius:28px;
+  align-items:flex-end;
+  isolation:isolate;
+}
+.universo-page.universo-experience .universo-hero>.universo-hero-media,
+.universo-page.universo-experience .universo-hero>.universo-hero-media img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.universo-page.universo-experience .universo-hero>.universo-hero-media img{
+  object-fit:cover;
+  object-position:center 55%;
+  transition:transform .8s ease;
+}
+.universo-page.universo-experience .universo-hero:hover>.universo-hero-media img{transform:scale(1.015)}
+.universo-page.universo-experience .universo-hero-shade{
+  background:linear-gradient(90deg,rgba(18,12,9,.9) 0%,rgba(18,12,9,.62) 42%,rgba(18,12,9,.08) 78%);
+}
+.universo-page.universo-experience .universo-hero-copy{max-width:750px}
+.universo-page.universo-experience .universo-hero-copy h1{
+  max-width:720px!important; /* supera max-width legado marcado como !important */
+  margin:14px 0 20px;
+  font-size:clamp(54px,6vw,88px);
+  line-height:.94;
+  letter-spacing:-.035em;
+}
+.universo-page.universo-experience .universo-hero-copy>p:not(.eyebrow){max-width:580px}
+.universo-page.universo-experience .universo-hero-meta{
+  display:flex;
+  gap:0;
+  margin:28px 0;
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.universo-page.universo-experience .universo-hero-meta span{padding:0 20px;border-left:1px solid rgba(255,255,255,.48)}
+.universo-page.universo-experience .universo-hero-meta span:first-child{padding-left:0;border-left:0}
+.universo-page.universo-experience .universo-hero .ghost{border-color:rgba(255,255,255,.72);color:#fff}
+
+/* Introdução editorial */
+.universo-page.universo-experience .universo-intro{
+  padding:clamp(90px,9vw,138px) clamp(42px,7vw,108px);
+  grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+  gap:clamp(60px,9vw,140px);
+  align-items:start;
+  background:var(--ux-paper);
+}
+.universo-page.universo-experience .universo-intro h2{font-size:clamp(48px,5vw,76px);max-width:760px}
+.universo-page.universo-experience .universo-intro h2,
+.universo-page.universo-experience .universo-benefits h2,
+.universo-page.universo-experience .universo-invest-v537 .universo-invest-copy h2{
+  color:var(--ux-ink)!important; /* corrige cores legadas fixadas para fundos escuros */
+}
+.universo-page.universo-experience .universo-intro>div:last-child>p{font-size:18px;line-height:1.85;color:#5d5148}
+.universo-page.universo-experience .universo-intro a{color:var(--ux-brown);text-underline-offset:4px}
+.universo-page.universo-experience .universo-facts{
+  grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--ux-line);
+}
+.universo-page.universo-experience .universo-facts span{
+  padding:25px 18px 22px 0;
+  border:0;
+  border-bottom:1px solid var(--ux-line);
+  background:transparent;
+  color:#62554b;
+}
+.universo-page.universo-experience .universo-facts b{font:600 clamp(30px,3vw,46px) 'Playfair Display',Georgia,serif;color:var(--ux-brown)}
+
+/* Tipologias como números editoriais, sem aparência de cards */
+.universo-page.universo-experience .universo-specs{
+  padding:clamp(90px,10vw,150px) clamp(42px,7vw,108px);
+  background:var(--ux-brown-deep);
+  color:#f8f2e9;
+}
+.universo-page.universo-experience .universo-specs .eyebrow{color:#ddb86f}
+.universo-page.universo-experience .universo-specs-head{grid-template-columns:minmax(0,1.1fr) minmax(300px,.7fr);gap:clamp(48px,8vw,120px)}
+.universo-page.universo-experience .universo-specs-head h2{font-size:clamp(46px,5vw,72px);max-width:760px}
+.universo-page.universo-experience .universo-specs-head>p{color:#cfc3b8;font-size:16px;line-height:1.8}
+.universo-page.universo-experience .universo-spec-grid{grid-template-columns:repeat(2,1fr);gap:0;margin-top:76px;border-top:1px solid rgba(255,255,255,.2)}
+.universo-page.universo-experience .universo-spec-grid article{
+  min-height:290px;
+  padding:42px 9% 44px 0;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.2);
+  border-radius:0;
+  background:transparent;
+}
+.universo-page.universo-experience .universo-spec-grid article:nth-child(odd){border-right:1px solid rgba(255,255,255,.2)}
+.universo-page.universo-experience .universo-spec-grid article:nth-child(even){padding-left:9%}
+.universo-page.universo-experience .spec-size{font:600 clamp(48px,5vw,76px) 'Playfair Display',Georgia,serif;color:#ddb86f}
+.universo-page.universo-experience .universo-spec-grid h3{font-size:25px;color:#fff}
+.universo-page.universo-experience .universo-spec-grid p{color:#cfc3b8;max-width:460px;line-height:1.75}
+
+/* Localização editorial */
+.universo-page.universo-experience .universo-location{
+  grid-template-columns:minmax(380px,.8fr) minmax(0,1.2fr);
+  min-height:780px;
+  background:#ded2c2;
+}
+.universo-page.universo-experience .universo-location-copy{padding:clamp(70px,8vw,122px)}
+.universo-page.universo-experience .universo-location-copy>p:not(.eyebrow){font-size:17px;line-height:1.8;color:#5d5148}
+.universo-page.universo-experience .universo-location-points{margin:38px 0;border-top:1px solid var(--ux-line)}
+.universo-page.universo-experience .universo-location-points span{padding:17px 0;border-bottom:1px solid var(--ux-line)}
+.universo-page.universo-experience .universo-location figure{min-height:780px;background:#071729}
+.universo-page.universo-experience .universo-location figure img{object-fit:cover;object-position:center}
+
+/* Diferenciais minimalistas */
+.universo-page.universo-experience .universo-benefits{padding:clamp(88px,9vw,136px) clamp(42px,7vw,108px);background:var(--ux-paper)}
+.universo-page.universo-experience .universo-benefits .section-head{grid-template-columns:minmax(0,1.1fr) minmax(300px,.7fr);gap:clamp(48px,8vw,120px)}
+.universo-page.universo-experience .universo-benefits h2{font-size:clamp(46px,5vw,72px)}
+.universo-page.universo-experience .universo-benefits .section-head>p{color:#65594f;line-height:1.8}
+.universo-page.universo-experience .universo-benefit-grid{grid-template-columns:repeat(4,1fr);gap:0;margin-top:74px;border-top:1px solid var(--ux-line)}
+.universo-page.universo-experience .universo-benefit-grid article{
+  padding:36px 28px 24px 0;
+  border:0;
+  border-right:1px solid var(--ux-line);
+  border-radius:0;
+  background:transparent;
+}
+.universo-page.universo-experience .universo-benefit-grid article+article{padding-left:28px}
+.universo-page.universo-experience .universo-benefit-grid article:last-child{border-right:0}
+.universo-page.universo-experience .universo-benefit-grid article>b{font:500 40px 'Playfair Display',Georgia,serif;color:var(--ux-gold)}
+.universo-page.universo-experience .universo-benefit-grid h3{font-size:24px;color:var(--ux-brown-deep)!important}
+.universo-page.universo-experience .universo-benefit-grid p{color:#6b5e54;line-height:1.7}
+
+/* Sequência visual */
+.universo-page.universo-experience .universo-invest-v537{padding:28px 0 0;background:var(--ux-paper)}
+.universo-page.universo-experience .universo-invest-v537 .universo-invest-media{width:calc(100% - 56px);max-width:none;border-radius:0;background:#071729}
+.universo-page.universo-experience .universo-invest-v537 .universo-invest-media img{width:100%;max-height:none;object-fit:cover}
+.universo-page.universo-experience .universo-invest-v537 .universo-invest-copy{
+  width:min(calc(100% - 112px),1180px);
+  padding:68px 0 96px;
+  display:grid;
+  grid-template-columns:1.05fr .75fr;
+  align-items:start;
+  gap:clamp(50px,8vw,120px);
+  text-align:left;
+}
+.universo-page.universo-experience .universo-invest-v537 .universo-invest-copy h2{font-size:clamp(46px,5vw,72px)}
+.universo-page.universo-experience .universo-invest-text{align-items:flex-start;text-align:left}
+.universo-page.universo-experience .universo-invest-text p{font-size:17px;line-height:1.8;color:#65594f}
+.universo-page.universo-experience .universo-concept{
+  grid-template-columns:minmax(370px,.76fr) minmax(0,1.24fr);
+  min-height:800px;
+  background:var(--ux-brown-deep);
+}
+.universo-page.universo-experience .universo-concept-copy{padding:clamp(70px,8vw,120px)}
+.universo-page.universo-experience .universo-concept-copy h2{font-size:clamp(48px,5vw,74px)}
+.universo-page.universo-experience .universo-concept-copy>p:not(.eyebrow){color:#d2c6ba;font-size:17px;line-height:1.8}
+.universo-page.universo-experience .universo-concept-tags span{border-color:rgba(255,255,255,.28);background:transparent}
+.universo-page.universo-experience .universo-concept-media{min-height:800px;padding:34px;background:#080d16}
+.universo-page.universo-experience .universo-concept-media img{width:100%;height:100%;object-fit:contain;transition:transform .6s ease}
+.universo-page.universo-experience .universo-concept-media:hover img{transform:scale(1.015)}
+
+/* Atendimento humano */
+.universo-page.universo-experience .universo-karen{
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(420px,1.08fr);
+  min-height:760px;
+  background:#e9dfd0;
+}
+.universo-page.universo-experience .universo-karen-media{margin:0;min-height:760px;overflow:hidden;background:#19130f}
+.universo-page.universo-experience .universo-karen-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .7s ease}
+.universo-page.universo-experience .universo-karen-media:hover img{transform:scale(1.015)}
+.universo-page.universo-experience .universo-karen-copy{align-self:center;padding:clamp(70px,8vw,130px)}
+.universo-page.universo-experience .universo-karen-copy h2{font-size:clamp(48px,5vw,74px);line-height:1.02;max-width:700px}
+.universo-page.universo-experience .universo-karen-copy>p:not(.eyebrow){font-size:17px;line-height:1.8;color:#62554b;max-width:620px}
+.universo-page.universo-experience .universo-karen-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+
+/* FAQ e conversão final */
+.universo-page.universo-experience .universo-faq{padding:clamp(88px,9vw,128px) clamp(42px,7vw,108px);background:var(--ux-paper)}
+.universo-page.universo-experience .universo-faq h2{font-size:clamp(44px,4.5vw,68px)}
+.universo-page.universo-experience .universo-faq-list details{background:transparent;border:0;border-top:1px solid var(--ux-line);border-radius:0;padding:24px 0}
+.universo-page.universo-experience .universo-faq-list details:last-child{border-bottom:1px solid var(--ux-line)}
+.universo-page.universo-experience .universo-cta{
+  padding:clamp(92px,10vw,150px) clamp(42px,9vw,140px);
+  background:var(--ux-brown-deep);
+  color:#f8f2e9;
+}
+.universo-page.universo-experience .universo-cta .eyebrow{color:#ddb86f}
+.universo-page.universo-experience .universo-cta h2{max-width:820px;font-size:clamp(48px,5vw,76px)}
+.universo-page.universo-experience .universo-cta>p:not(.eyebrow){color:#d2c6ba;font-size:17px}
+.universo-page.universo-experience .universo-cta form{max-width:1120px;margin-top:42px}
+.universo-page.universo-experience .universo-cta input{min-height:54px;background:#f8f2e9;color:#17130f}
+.universo-page.universo-experience .universo-cta .consent{color:#d2c6ba}
+.universo-page.universo-experience .universo-cta .consent a{color:#f1d9a6}
+.universo-page.universo-experience .universo-cta-actions{margin-top:22px}
+
+@media(max-width:1100px){
+  .universo-page.universo-experience .universo-benefit-grid{grid-template-columns:repeat(2,1fr)}
+  .universo-page.universo-experience .universo-benefit-grid article:nth-child(2){border-right:0}
+  .universo-page.universo-experience .universo-benefit-grid article:nth-child(n+3){border-top:1px solid var(--ux-line)}
+  .universo-page.universo-experience .universo-karen{grid-template-columns:minmax(0,.9fr) minmax(380px,1.1fr)}
+}
+
+@media(max-width:900px){
+  .universo-page.universo-experience main>section{width:calc(100% - 32px)}
+  .universo-page.universo-experience .universo-hero{height:780px;min-height:700px;padding:90px 44px 54px}
+  .universo-page.universo-experience .universo-intro,
+  .universo-page.universo-experience .universo-specs-head,
+  .universo-page.universo-experience .universo-benefits .section-head,
+  .universo-page.universo-experience .universo-faq{grid-template-columns:1fr}
+  .universo-page.universo-experience .universo-location,
+  .universo-page.universo-experience .universo-concept,
+  .universo-page.universo-experience .universo-karen{grid-template-columns:1fr}
+  .universo-page.universo-experience .universo-location figure,
+  .universo-page.universo-experience .universo-concept-media,
+  .universo-page.universo-experience .universo-karen-media{min-height:620px;height:620px}
+  .universo-page.universo-experience .universo-invest-v537 .universo-invest-copy{grid-template-columns:1fr;width:calc(100% - 80px)}
+  .universo-page.universo-experience .universo-karen-copy{padding:76px 54px}
+}
+
+@media(max-width:560px){
+  .universo-page.universo-experience main{padding-top:10px}
+  .universo-page.universo-experience main>section{width:calc(100% - 20px);margin-bottom:10px}
+  /* Necessários para superar a camada mobile legada, que usa !important. */
+  .universo-page.universo-experience .universo-hero{
+    height:760px!important;
+    min-height:760px!important;
+    padding:82px 18px 28px!important;
+    border-radius:18px!important;
+  }
+  .universo-page.universo-experience .universo-hero>.universo-hero-media{height:58%!important}
+  .universo-page.universo-experience .universo-hero>.universo-hero-media img{
+    object-fit:cover!important;
+    object-position:center 48%!important;
+  }
+  .universo-page.universo-experience .universo-hero-shade{
+    background:linear-gradient(180deg,rgba(19,13,10,.04) 0%,rgba(19,13,10,.12) 38%,rgba(25,16,11,.84) 60%,#21140f 78%)!important;
+  }
+  .universo-page.universo-experience .universo-hero-copy h1{font-size:clamp(40px,11vw,50px)!important;line-height:.96!important}
+  .universo-page.universo-experience .universo-hero-copy>p:not(.eyebrow){font-size:14px!important;line-height:1.55!important}
+  .universo-page.universo-experience .universo-hero-meta{margin:18px 0 20px;font-size:10px;letter-spacing:.06em}
+  .universo-page.universo-experience .universo-hero-meta span{padding:0 10px}
+  .universo-page.universo-experience .universo-hero .hero-actions{width:calc(100% - 66px)!important;max-width:calc(100% - 66px)!important}
+  .universo-page.universo-experience .universo-intro,
+  .universo-page.universo-experience .universo-specs,
+  .universo-page.universo-experience .universo-benefits,
+  .universo-page.universo-experience .universo-faq,
+  .universo-page.universo-experience .universo-cta{padding:72px 22px!important}
+  .universo-page.universo-experience .universo-intro h2,
+  .universo-page.universo-experience .universo-specs-head h2,
+  .universo-page.universo-experience .universo-benefits h2,
+  .universo-page.universo-experience .universo-location h2,
+  .universo-page.universo-experience .universo-faq h2{font-size:clamp(37px,10vw,48px)}
+  .universo-page.universo-experience .universo-facts,
+  .universo-page.universo-experience .universo-spec-grid,
+  .universo-page.universo-experience .universo-benefit-grid{grid-template-columns:1fr}
+  .universo-page.universo-experience .universo-spec-grid{margin-top:48px}
+  .universo-page.universo-experience .universo-spec-grid article,
+  .universo-page.universo-experience .universo-spec-grid article:nth-child(even){min-height:0;padding:30px 0;border-right:0}
+  .universo-page.universo-experience .universo-benefit-grid article,
+  .universo-page.universo-experience .universo-benefit-grid article+article{padding:28px 0;border-right:0;border-top:1px solid var(--ux-line)}
+  .universo-page.universo-experience .universo-location-copy{padding:70px 22px!important}
+  .universo-page.universo-experience .universo-location figure{min-height:540px;height:540px}
+  .universo-page.universo-experience .universo-invest-v537 .universo-invest-media{width:calc(100% - 18px)!important}
+  .universo-page.universo-experience .universo-invest-v537 .universo-invest-copy{width:auto!important;padding:54px 22px 76px!important;display:grid!important;text-align:left!important}
+  .universo-page.universo-experience .universo-invest-v537 .universo-invest-copy h2{font-size:clamp(38px,10vw,48px)!important}
+  .universo-page.universo-experience .universo-concept-copy{padding:72px 22px!important}
+  .universo-page.universo-experience .universo-concept-copy h2{font-size:clamp(40px,11vw,52px)}
+  .universo-page.universo-experience .universo-concept-media{height:560px;min-height:560px;padding:16px!important}
+  .universo-page.universo-experience .universo-karen-media{height:520px;min-height:520px}
+  .universo-page.universo-experience .universo-karen-copy{padding:68px 22px}
+  .universo-page.universo-experience .universo-karen-copy h2{font-size:clamp(40px,11vw,52px)}
+  .universo-page.universo-experience .universo-karen-actions{display:grid}
+  .universo-page.universo-experience .universo-karen-actions .btn{width:100%}
+  .universo-page.universo-experience .universo-cta h2{font-size:clamp(40px,11vw,52px)}
+}
+
+@media(max-width:360px){
+  /* Reserva lateral para os dois atalhos flutuantes já existentes. */
+  .universo-page.universo-experience .universo-hero-copy .eyebrow,
+  .universo-page.universo-experience .universo-hero-copy h1,
+  .universo-page.universo-experience .universo-hero-copy>p:not(.eyebrow),
+  .universo-page.universo-experience .universo-hero-meta{
+    max-width:calc(100% - 62px)!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .universo-page.universo-experience *,
+  .universo-page.universo-experience *::before,
+  .universo-page.universo-experience *::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}

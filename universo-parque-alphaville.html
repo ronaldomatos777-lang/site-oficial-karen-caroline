@@ -71,7 +71,7 @@
 
 
 <body
-  class="universo-page"
+  class="universo-page universo-experience"
   data-empreendimento="Universo Riva Parque Alphaville"
   data-whatsapp-message="Olá! Vim pelo site e gostaria de receber informações sobre o Universo Riva Parque Alphaville."
 >
@@ -141,12 +141,12 @@
 <section class="universo-hero">
 
   <picture class="universo-hero-media">
-  <source media="(max-width: 480px)" srcset="assets/universo/hero-mobile-clean.png?v=2">
+  <source media="(max-width: 900px)" srcset="assets/universo/hero-mobile-clean.webp">
     <img
       src="assets/universo/hero.webp"
       alt="Universo Riva Parque Alphaville"
       width="1254"
-      height="1254" decoding="async">
+      height="1254" decoding="async" fetchpriority="high">
   </picture>
 
   <div class="universo-hero-shade"></div>
@@ -163,10 +163,15 @@
     </h1>
 
     <p>
-      O primeiro apartamento no Parque Alphaville,
+      Um novo jeito de morar no Parque Alphaville,
       com proposta de 2 e 3 dormitórios,
       suíte e varanda gourmet.
     </p>
+
+    <div class="universo-hero-meta" aria-label="Principais características">
+      <span>2 e 3 dormitórios</span>
+      <span>55 m² e 84 m²</span>
+    </div>
 
 
     <div class="hero-actions">
@@ -217,8 +222,8 @@
   <div>
 
     <p>
-      O Universo Parque Alphaville chega como o primeiro
-      projeto de apartamentos do bairro, reunindo proposta
+      O Universo Parque Alphaville chega como um novo
+      projeto de apartamentos no Parque Alphaville, reunindo proposta
       contemporânea, mobilidade, lazer e duas tipologias
       divulgadas para diferentes momentos de vida. Conheça também os
       <a href="index.html#empreendimentos">empreendimentos selecionados em Campinas</a> e <a href="lancamentos-em-campinas.html">veja outros lançamentos em Campinas</a>.
@@ -391,27 +396,27 @@
     <div class="universo-location-points">
 
       <span>
-        <b>≈ 5 min</b>
+        <b>Compras</b>
         Parque Dom Pedro Shopping
       </span>
 
       <span>
-        <b>Poucos minutos</b>
+        <b>Compras</b>
         Galleria Shopping
       </span>
 
       <span>
-        <b>Acesso rápido</b>
+        <b>Educação</b>
         PUC Campinas
       </span>
 
       <span>
-        <b>Região próxima</b>
+        <b>Região</b>
         Barão Geraldo e Unicamp
       </span>
 
       <span>
-        <b>Conexão viária</b>
+        <b>Conexões viárias</b>
         Rodovias Dom Pedro I e Anhanguera
       </span>
 
@@ -483,8 +488,8 @@
       </h3>
 
       <p>
-        Primeiro projeto de apartamentos apresentado
-        para o bairro, em uma área conectada
+        Projeto de apartamentos pensado para o Parque Alphaville,
+        em uma área conectada
         a importantes serviços de Campinas.
       </p>
 
@@ -656,6 +661,38 @@
 
 
 <!-- =====================================================
+     ATENDIMENTO KAREN
+===================================================== -->
+
+<section class="universo-karen" aria-labelledby="universo-karen-title">
+  <figure class="universo-karen-media">
+    <img
+      src="assets/visit-consultora-natural.png"
+      alt="Karen Caroline, consultora imobiliária"
+      loading="lazy"
+      width="1024"
+      height="1536"
+      decoding="async"
+    >
+  </figure>
+
+  <div class="universo-karen-copy">
+    <p class="eyebrow">ATENDIMENTO KAREN</p>
+    <h2 id="universo-karen-title">Um atendimento próximo em cada escolha.</h2>
+    <p>
+      Conte com atendimento direto para conhecer o empreendimento,
+      comparar as tipologias divulgadas e esclarecer suas dúvidas.
+    </p>
+
+    <div class="universo-karen-actions">
+      <button type="button" class="btn universo-gold js-open-visit">Agendar visita</button>
+      <a href="#" class="btn universo-outline js-whatsapp" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================
      FAQ
 ===================================================== -->
 
@@ -768,6 +805,7 @@
 
     <input
       name="nome"
+      aria-label="Seu nome"
       placeholder="Seu nome"
       required
     >
@@ -775,6 +813,7 @@
     <input
       name="whatsapp"
       type="tel"
+      aria-label="WhatsApp"
       placeholder="WhatsApp"
       required
     >
@@ -782,6 +821,7 @@
     <input
       name="email"
       type="email"
+      aria-label="E-mail"
       placeholder="E-mail"
     >
 
