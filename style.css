@@ -4786,3 +4786,91 @@ body.universo-page .universo-hero > .universo-hero-media img {
   .cores-premium .hero-copy{padding-left:16px;padding-right:16px}
   .cores-premium .hero-copy h1{font-size:44px}
 }
+
+/* =========================================================
+   PARQUE ALTO — PREMIUM EXPERIENCE V1
+   Header e hero isolados do restante dos empreendimentos
+   ========================================================= */
+.parque-alto-premium{
+  --parque-premium-deep:#1c1a17;
+  --parque-premium-gold:#d4a552;
+  --parque-premium-light:#f8f1e7;
+  scroll-padding-top:80px;
+}
+
+.parque-alto-premium .site-header{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:75;
+  height:80px;
+  padding:0 clamp(24px,5vw,76px);
+  background:rgba(17,16,14,.6);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.parque-alto-premium .site-header .brand-logo{width:306px;height:72px}
+.parque-alto-premium .site-header .brand-logo img{filter:drop-shadow(0 3px 12px rgba(0,0,0,.28))}
+.parque-alto-premium .site-header nav a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.parque-alto-premium .site-header>.btn.small{background:var(--parque-premium-light);color:var(--parque-premium-deep)!important;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+.parque-alto-premium .site-header>.btn.small:hover,
+.parque-alto-premium .site-header>.btn.small:focus-visible{background:#ead7b5;box-shadow:0 0 0 3px rgba(239,209,154,.32)}
+
+.parque-alto-premium .hero{
+  height:100svh;
+  min-height:760px;
+  padding:clamp(150px,15vh,188px) 6vw 96px;
+  align-items:flex-end;
+  background:var(--parque-premium-deep);
+}
+.parque-alto-premium .hero>img{
+  object-fit:cover;
+  object-position:52% 50%;
+}
+.parque-alto-premium .hero .shade{
+  background:linear-gradient(90deg,rgba(20,19,17,.62) 0%,rgba(20,19,17,.38) 34%,rgba(20,19,17,.1) 58%,rgba(20,19,17,0) 76%),linear-gradient(0deg,rgba(14,13,12,.28),transparent 42%);
+}
+.parque-alto-premium .hero-copy{max-width:720px}
+.parque-alto-premium .hero-copy .eyebrow{color:#efd19a}
+.parque-alto-premium .hero-copy h1{font-size:clamp(54px,5vw,74px);line-height:.94;letter-spacing:-.035em}
+.parque-alto-premium .hero-copy>p:not(.eyebrow){max-width:650px;color:rgba(255,255,255,.9)}
+.parque-alto-premium .hero-copy>.btn{background:rgba(16,15,13,.7);border:1px solid rgba(255,255,255,.72)}
+.parque-alto-premium .stamp{background:rgba(16,15,13,.42);border-color:rgba(239,209,154,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+@media(max-width:900px){
+  .parque-alto-premium{scroll-padding-top:72px}
+  .parque-alto-premium .site-header{height:72px;padding-left:24px;padding-right:24px}
+  .parque-alto-premium .site-header .brand-logo{width:220px;height:58px}
+  .parque-alto-premium .mobile-menu-toggle span{background:#fff}
+  .parque-alto-premium .hero{min-height:720px;padding:126px 6vw 64px}
+  .parque-alto-premium .hero>img{object-position:54% 50%}
+  .parque-alto-premium .hero .shade{background:linear-gradient(90deg,rgba(20,19,17,.62) 0%,rgba(20,19,17,.38) 46%,rgba(20,19,17,.08) 78%),linear-gradient(0deg,rgba(14,13,12,.3),transparent 45%)}
+  .parque-alto-premium .hero-copy{max-width:630px}
+  .parque-alto-premium .hero-copy h1{font-size:clamp(56px,8.5vw,74px)}
+}
+
+@media(max-width:600px){
+  .parque-alto-premium .site-header{padding-left:16px;padding-right:16px}
+  .parque-alto-premium .site-header .brand-logo{width:195px;height:52px}
+  .parque-alto-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--parque-premium-deep)}
+  .parque-alto-premium .hero>img{position:relative;inset:auto;display:block;height:330px;object-position:57% 50%}
+  .parque-alto-premium .hero .shade{height:330px;background:linear-gradient(180deg,rgba(18,17,15,.02),rgba(18,17,15,.06) 56%,var(--parque-premium-deep) 100%)}
+  .parque-alto-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
+  .parque-alto-premium .hero-copy h1{font-size:clamp(44px,12vw,58px);line-height:.96}
+  .parque-alto-premium .hero-copy>p:not(.eyebrow){font-size:15px;line-height:1.6}
+  .parque-alto-premium .hero-copy h1,
+  .parque-alto-premium .hero-copy>p:not(.eyebrow){width:calc(100% - 62px)}
+  .parque-alto-premium .hero-copy>.btn{width:100%;text-align:center}
+  .parque-alto-premium .stamp{display:none}
+}
+
+@media(max-width:360px){
+  .parque-alto-premium .hero>img,
+  .parque-alto-premium .hero .shade{height:300px}
+  .parque-alto-premium .hero-copy{padding-left:16px;padding-right:16px}
+  .parque-alto-premium .hero-copy h1{font-size:42px}
+}
+
+@media(max-width:430px){
+  .parque-alto-premium .hero>img{margin-top:-112px}
+}
