@@ -4622,3 +4622,83 @@ body.universo-page .universo-hero > .universo-hero-media img {
   .casa-prado-premium .hero-copy{padding-left:16px;padding-right:16px}
   .casa-prado-premium .hero-copy h1{font-size:46px}
 }
+
+/* =========================================================
+   ALTA VISTA — PREMIUM EXPERIENCE V1
+   Header e hero isolados do restante dos empreendimentos
+   ========================================================= */
+.alta-premium{
+  --alta-premium-deep:#1f1510;
+  --alta-premium-gold:#d4a552;
+  --alta-premium-light:#f8f1e7;
+  scroll-padding-top:80px;
+}
+
+.alta-premium .site-header{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:75;
+  height:80px;
+  padding:0 clamp(24px,5vw,76px);
+  background:rgba(15,12,10,.6);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.alta-premium .site-header .brand-logo{width:306px;height:72px}
+.alta-premium .site-header .brand-logo img{filter:drop-shadow(0 3px 12px rgba(0,0,0,.28))}
+.alta-premium .site-header nav a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.alta-premium .site-header>.btn.small{background:var(--alta-premium-light);color:var(--alta-premium-deep)!important}
+
+.alta-premium .hero{
+  height:100svh;
+  min-height:760px;
+  padding:clamp(150px,15vh,188px) 6vw 96px;
+  align-items:flex-end;
+  background:var(--alta-premium-deep);
+}
+.alta-premium .hero>img{
+  object-fit:cover;
+  object-position:50% 50%;
+}
+.alta-premium .hero .shade{
+  background:linear-gradient(90deg,rgba(25,16,11,.66) 0%,rgba(25,16,11,.44) 34%,rgba(25,16,11,.12) 58%,rgba(25,16,11,0) 76%),linear-gradient(0deg,rgba(18,12,9,.3),transparent 40%);
+}
+.alta-premium .hero-copy{max-width:720px}
+.alta-premium .hero-copy .eyebrow{color:#efd19a}
+.alta-premium .hero-copy h1{font-size:clamp(64px,6.1vw,90px);line-height:.92;letter-spacing:-.035em}
+.alta-premium .hero-copy>p:not(.eyebrow){max-width:650px;color:rgba(255,255,255,.88)}
+.alta-premium .hero-copy>.btn{background:var(--alta-premium-light);color:var(--alta-premium-deep)!important}
+.alta-premium .stamp{background:rgba(20,13,9,.46);border-color:rgba(239,209,154,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+@media(max-width:900px){
+  .alta-premium{scroll-padding-top:72px}
+  .alta-premium .site-header{height:72px;padding-left:24px;padding-right:24px}
+  .alta-premium .site-header .brand-logo{width:220px;height:58px}
+  .alta-premium .mobile-menu-toggle span{background:#fff}
+  .alta-premium .hero{min-height:720px;padding:126px 6vw 64px}
+  .alta-premium .hero>img{object-position:50% 50%}
+  .alta-premium .hero .shade{background:linear-gradient(90deg,rgba(25,16,11,.66) 0%,rgba(25,16,11,.4) 46%,rgba(25,16,11,.08) 78%),linear-gradient(0deg,rgba(18,12,9,.34),transparent 45%)}
+  .alta-premium .hero-copy{max-width:630px}
+  .alta-premium .hero-copy h1{font-size:clamp(58px,9vw,76px)}
+}
+
+@media(max-width:600px){
+  .alta-premium .site-header{padding-left:16px;padding-right:16px}
+  .alta-premium .site-header .brand-logo{width:195px;height:52px}
+  .alta-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--alta-premium-deep)}
+  .alta-premium .hero>img{position:relative;inset:auto;display:block;height:330px;object-position:50% 50%}
+  .alta-premium .hero .shade{height:330px;background:linear-gradient(180deg,rgba(24,16,11,.04),rgba(24,16,11,.08) 56%,var(--alta-premium-deep) 100%)}
+  .alta-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
+  .alta-premium .hero-copy h1{font-size:clamp(46px,13vw,60px);line-height:.94}
+  .alta-premium .hero-copy>p:not(.eyebrow){font-size:15px;line-height:1.6}
+  .alta-premium .hero-copy>.btn{width:100%;text-align:center}
+  .alta-premium .stamp{display:none}
+}
+
+@media(max-width:360px){
+  .alta-premium .hero>img,
+  .alta-premium .hero .shade{height:300px}
+  .alta-premium .hero-copy{padding-left:16px;padding-right:16px}
+  .alta-premium .hero-copy h1{font-size:44px}
+}
