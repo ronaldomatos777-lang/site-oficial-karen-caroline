@@ -1002,15 +1002,6 @@ form {
   margin-right: 0;
 }
 
-/* Corrige regra especial antiga da página Universo */
-body.universo-page .site-header {
-  left: 50% !important;
-  right: auto !important;
-  width: min(calc(100% - 32px), 1360px) !important;
-  max-width: calc(100vw - 32px) !important;
-  transform: translateX(-50%) !important;
-}
-
 /* 3. Containers principais nunca ultrapassam viewport */
 .section,
 .home-hero,
@@ -1065,11 +1056,6 @@ body.universo-page .site-header {
     max-width: calc(100vw - 20px) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-
-  body.universo-page .site-header {
-    width: calc(100% - 20px) !important;
-    max-width: calc(100vw - 20px) !important;
   }
 
   /* 4. Botões sempre dentro da tela */
@@ -1227,7 +1213,6 @@ body.universo-page .site-header {
 
   body.universo-page main > section,
   body.universo-page main > .source-note,
-  body.universo-page .site-header,
   body.universo-page .site-footer {
     width: calc(100% - 12px) !important;
     max-width: calc(100vw - 12px) !important;
@@ -1546,16 +1531,6 @@ img, picture, video, canvas, svg { max-width: 100%; }
 
 /* ---------- UNIVERSO PARQUE ALPHAVILLE ---------- */
 @media (max-width: 768px) {
-  body.universo-page .site-header {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: calc(100% - 24px) !important;
-    max-width: calc(100vw - 24px) !important;
-    margin: 12px auto 16px !important;
-  }
   body.universo-page .universo-location {
     display: flex !important;
     flex-direction: column !important;
@@ -3223,16 +3198,6 @@ body.universo-page .universo-cta .form-ok {
     max-width: calc(100% - 16px) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-
-  body.universo-page .site-header {
-    left: 50% !important;
-    right: auto !important;
-    width: calc(100% - 16px) !important;
-    max-width: calc(100% - 16px) !important;
-    margin-top: 8px !important;
-    padding: 9px 12px !important;
-    transform: translateX(-50%) !important;
   }
 
   body.universo-page .universo-hero {
@@ -4961,4 +4926,44 @@ body.universo-page .universo-hero > .universo-hero-media img {
 
 @media(max-width:430px){
   .seleto-premium .hero>img{margin-top:-112px}
+}
+
+/* =========================================================
+   UNIVERSO — HEADER PREMIUM V1
+   Escopo exclusivo da barra superior
+   ========================================================= */
+body.universo-page .site-header.universo-header-premium{
+  position:fixed;
+  inset:0 0 auto;
+  left:0;
+  right:0;
+  transform:none;
+  width:100%;
+  max-width:100vw;
+  height:80px;
+  margin:0;
+  padding:0 clamp(24px,5vw,76px);
+  border-radius:0;
+  background:rgba(17,15,13,.58);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  box-shadow:none;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+body.universo-page .universo-header-premium .brand-logo{width:306px;height:72px}
+body.universo-page .universo-header-premium .brand-logo img{filter:drop-shadow(0 3px 12px rgba(0,0,0,.28))}
+body.universo-page .universo-header-premium nav a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+body.universo-page .universo-header-premium>.btn.small{background:#f8f1e7;color:#1b1814!important;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+body.universo-page .universo-header-premium>.btn.small:hover,
+body.universo-page .universo-header-premium>.btn.small:focus-visible{background:#ead7b5;box-shadow:0 0 0 3px rgba(239,209,154,.32)}
+
+@media(max-width:900px){
+  body.universo-page .site-header.universo-header-premium{height:72px;padding-left:24px;padding-right:24px}
+  body.universo-page .universo-header-premium .brand-logo{width:220px;height:58px}
+  body.universo-page .universo-header-premium .mobile-menu-toggle span{background:#fff}
+}
+
+@media(max-width:560px){
+  body.universo-page .site-header.universo-header-premium{padding-left:16px;padding-right:16px}
+  body.universo-page .universo-header-premium .brand-logo{width:195px;height:52px}
 }
