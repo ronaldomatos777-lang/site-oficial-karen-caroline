@@ -341,7 +341,7 @@ def security_headers(resp):
         resp.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
     if request.path.startswith('/admin'):
         resp.headers['Cache-Control'] = 'no-store'
-    elif request.path.startswith('/assets/') or request.path.endswith(('.css','.js','.webp','.png','.svg','.woff2')):
+    elif resp.status_code == 200 and (request.path.startswith('/assets/') or request.path.endswith(('.css','.js','.webp','.png','.svg','.woff2'))):
         resp.headers['Cache-Control'] = 'public, max-age=604800'
     if request.path.startswith('/api/'):
         origin = request.headers.get('Origin', '')
