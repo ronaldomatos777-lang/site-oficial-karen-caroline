@@ -4967,3 +4967,15 @@ body.universo-page .universo-header-premium>.btn.small:focus-visible{background:
   body.universo-page .site-header.universo-header-premium{padding-left:16px;padding-right:16px}
   body.universo-page .universo-header-premium .brand-logo{width:195px;height:52px}
 }
+
+/* Universo — proporção desktop estável entre viewports */
+@media(min-width:901px){
+  .universo-page.universo-experience .universo-hero{
+    height:clamp(700px,78vh,780px);
+    padding:clamp(64px,5vw,80px);
+  }
+  .universo-page.universo-experience .universo-hero-copy{max-width:680px}
+  .universo-page.universo-experience .universo-hero-copy h1{
+    font-size:clamp(60px,4.5vw,72px);
+  }
+}
