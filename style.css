@@ -4702,3 +4702,87 @@ body.universo-page .universo-hero > .universo-hero-media img {
   .alta-premium .hero-copy{padding-left:16px;padding-right:16px}
   .alta-premium .hero-copy h1{font-size:44px}
 }
+
+/* =========================================================
+   CORES DA MATA — PREMIUM EXPERIENCE V1
+   Header e hero isolados do restante dos empreendimentos
+   ========================================================= */
+.cores-premium{
+  --cores-premium-deep:#15201a;
+  --cores-premium-gold:#d4a552;
+  --cores-premium-light:#f8f1e7;
+  scroll-padding-top:80px;
+}
+
+.cores-premium .site-header{
+  position:fixed;
+  inset:0 0 auto;
+  z-index:75;
+  height:80px;
+  padding:0 clamp(24px,5vw,76px);
+  background:rgba(12,18,14,.6);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.cores-premium .site-header .brand-logo{width:306px;height:72px}
+.cores-premium .site-header .brand-logo img{filter:drop-shadow(0 3px 12px rgba(0,0,0,.28))}
+.cores-premium .site-header nav a{color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.cores-premium .site-header>.btn.small{background:var(--cores-premium-light);color:var(--cores-premium-deep)!important;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease}
+.cores-premium .site-header>.btn.small:hover,
+.cores-premium .site-header>.btn.small:focus-visible{background:#ead7b5;box-shadow:0 0 0 3px rgba(239,209,154,.32)}
+
+.cores-premium .hero{
+  height:100svh;
+  min-height:760px;
+  padding:clamp(150px,15vh,188px) 6vw 96px;
+  align-items:flex-end;
+  background:var(--cores-premium-deep);
+}
+.cores-premium .hero>img{
+  object-fit:cover;
+  object-position:50% 52%;
+}
+.cores-premium .hero .shade{
+  background:linear-gradient(90deg,rgba(16,25,19,.56) 0%,rgba(16,25,19,.36) 34%,rgba(16,25,19,.09) 58%,rgba(16,25,19,0) 76%),linear-gradient(0deg,rgba(12,19,14,.26),transparent 40%);
+}
+.cores-premium .hero-copy{max-width:720px}
+.cores-premium .hero-copy .eyebrow{color:#efd19a}
+.cores-premium .hero-copy h1{font-size:clamp(64px,6.1vw,90px);line-height:.92;letter-spacing:-.035em}
+.cores-premium .hero-copy .lead{max-width:650px;color:rgba(255,255,255,.9)}
+.cores-premium .hero-actions .btn.light{background:var(--cores-premium-light);color:var(--cores-premium-deep)}
+.cores-premium .hero-actions .btn.ghost{background:rgba(12,19,14,.1);border-color:rgba(255,255,255,.72)}
+.cores-premium .stamp{background:rgba(12,19,14,.42);border-color:rgba(239,209,154,.64);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+@media(max-width:900px){
+  .cores-premium{scroll-padding-top:72px}
+  .cores-premium .site-header{height:72px;padding-left:24px;padding-right:24px}
+  .cores-premium .site-header .brand-logo{width:220px;height:58px}
+  .cores-premium .mobile-menu-toggle span{background:#fff}
+  .cores-premium .hero{min-height:720px;padding:126px 6vw 64px}
+  .cores-premium .hero>img{object-position:50% 52%}
+  .cores-premium .hero .shade{background:linear-gradient(90deg,rgba(16,25,19,.56) 0%,rgba(16,25,19,.35) 46%,rgba(16,25,19,.064) 78%),linear-gradient(0deg,rgba(12,19,14,.3),transparent 45%)}
+  .cores-premium .hero-copy{max-width:630px}
+  .cores-premium .hero-copy h1{font-size:clamp(58px,9vw,76px)}
+}
+
+@media(max-width:600px){
+  .cores-premium .site-header{padding-left:16px;padding-right:16px}
+  .cores-premium .site-header .brand-logo{width:195px;height:52px}
+  .cores-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--cores-premium-deep)}
+  .cores-premium .hero>img{position:relative;inset:auto;display:block;height:330px;object-position:50% 52%}
+  .cores-premium .hero .shade{height:330px;background:linear-gradient(180deg,rgba(14,22,16,.03),rgba(14,22,16,.07) 56%,var(--cores-premium-deep) 100%)}
+  .cores-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
+  .cores-premium .hero-copy h1{font-size:clamp(46px,13vw,60px);line-height:.94}
+  .cores-premium .hero-copy .lead{font-size:15px;line-height:1.6}
+  .cores-premium .hero-actions{display:grid;gap:9px}
+  .cores-premium .hero-actions .btn{width:100%;text-align:center}
+  .cores-premium .stamp{display:none}
+}
+
+@media(max-width:360px){
+  .cores-premium .hero>img,
+  .cores-premium .hero .shade{height:300px}
+  .cores-premium .hero-copy{padding-left:16px;padding-right:16px}
+  .cores-premium .hero-copy h1{font-size:44px}
+}
