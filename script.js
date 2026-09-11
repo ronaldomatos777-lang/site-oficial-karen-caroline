@@ -757,7 +757,7 @@ function createVisitUI(){
       >
 
         <img
-          src="assets/visit-consultora-oficial.png"
+          src="assets/visit-consultora-agendamento-v2.jpeg"
           alt=""
           width="839"
           height="1875"
