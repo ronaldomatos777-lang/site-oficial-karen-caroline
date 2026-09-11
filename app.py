@@ -315,7 +315,7 @@ def admin_css():
     *{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:var(--cream);color:var(--ink)}a{color:inherit}
     .top{padding:20px 4vw;background:var(--green);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;position:sticky;top:0;z-index:10}.top a{color:#fff;margin-left:14px;text-decoration:none}.top small{opacity:.8}.wrap{padding:28px 4vw}.cards{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-bottom:22px}.card{background:#fff;padding:18px;border:1px solid var(--line)}.card b{display:block;font-size:26px;margin-top:6px}.card span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
     .filters{background:#fff;border:1px solid var(--line);padding:14px;display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;margin-bottom:16px}.filters input,.filters select,.filters button{padding:11px;border:1px solid var(--line);background:#fff}.filters button{background:var(--green);color:#fff;border-color:var(--green);font-weight:700;cursor:pointer}
-    table{border-collapse:collapse;width:100%;background:#fff;min-width:1150px}th,td{padding:12px;border-bottom:1px solid #e6e0d8;text-align:left;font-size:13px;vertical-align:middle}th{background:#eee8df;position:sticky;top:0;z-index:2}.table-wrap{overflow:auto;border:1px solid var(--line)}.muted{color:var(--muted)}.wa{display:inline-block;padding:8px 10px;background:#1f8f4b;color:#fff;text-decoration:none;border-radius:4px;font-weight:700}.detail{display:inline-block;margin-left:6px;padding:8px 10px;background:#eee8df;text-decoration:none;border-radius:4px}.status-form select{padding:7px;border:1px solid var(--line);background:#fff}.empty{padding:35px;text-align:center;color:var(--muted)}
+    table{border-collapse:collapse;width:100%;background:#fff;min-width:1150px}th,td{padding:12px;border-bottom:1px solid #e6e0d8;text-align:left;font-size:13px;vertical-align:middle}th{background:#eee8df;position:sticky;top:0;z-index:2}.table-wrap{overflow:auto;border:1px solid var(--line)}.muted{color:var(--muted)}.wa{display:inline-block;padding:8px 10px;background:#1f8f4b;color:#fff;text-decoration:none;border-radius:4px;font-weight:700}.detail{display:inline-block;margin-left:6px;padding:8px 10px;background:#eee8df;text-decoration:none;border-radius:4px}.delete-form{display:inline-block;margin-left:6px}.delete{padding:8px 10px;border:0;border-radius:4px;background:#a33b35;color:#fff;font-weight:700;cursor:pointer}.status-form select{padding:7px;border:1px solid var(--line);background:#fff}.empty{padding:35px;text-align:center;color:var(--muted)}
     .login{font-family:Arial;background:#f4efe7;display:grid;place-items:center;min-height:100vh;margin:0;color:#252521}.box{background:#fff;padding:40px;width:min(420px,90vw);box-shadow:0 20px 60px #0002}.box h1{margin-top:0}.box input,.box button{width:100%;padding:14px;margin-top:12px;box-sizing:border-box}.box button{background:var(--green);color:#fff;border:0;font-weight:700;cursor:pointer}.err{color:#a22}
     .insights{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 18px}.insights .panel{padding:18px}.insights h2{font-size:16px;margin:0 0 12px}.rank{display:flex;justify-content:space-between;gap:20px;padding:8px 0;border-bottom:1px solid #eee8df;font-size:13px}.rank:last-child{border:0}.lead-detail{max-width:1000px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:#fff;border:1px solid var(--line);padding:24px}.panel h2{margin-top:0}.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.data-item span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}.data-item b{font-size:15px}.edit-form textarea,.edit-form select{width:100%;padding:12px;border:1px solid var(--line);font:14px Arial;box-sizing:border-box}.edit-form textarea{min-height:180px;resize:vertical}.edit-form button{margin-top:12px;padding:12px 18px;border:0;background:var(--green);color:#fff;font-weight:700;cursor:pointer}.back{display:inline-block;margin-bottom:14px;text-decoration:none}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.actions a{padding:10px 13px;text-decoration:none;border-radius:4px;background:#eee8df}.actions a.primary{background:#1f8f4b;color:#fff}
     @media(max-width:1050px){.insights{grid-template-columns:1fr}.cards{grid-template-columns:repeat(3,1fr)}.filters{grid-template-columns:1fr 1fr}.lead-detail{grid-template-columns:1fr}}
@@ -488,7 +488,8 @@ def admin_leads():
     rows=[]
     for r in leads:
         name=f"{r['nome']} {r['sobrenome'] or ''}".strip(); opts=''.join(f'<option value="{esc(s)}" {"selected" if s==r["status"] else ""}>{esc(s)}</option>' for s in STATUS_OPTIONS); wa=whatsapp_link(r['whatsapp'],name,r['empreendimento'])
-        rows.append(f'''<tr><td>{r['id']}</td><td><b>{esc(name)}</b><br><span class="muted">{esc(r['email'] or '-')}</span></td><td>{esc(r['whatsapp'])}</td><td>{esc(r['empreendimento'])}<br><span class="muted">{esc(r['interesse'] or '')}</span></td><td>{esc(r['origem'] or '-')}</td><td class="muted">{esc((r['criado_em'] or '')[:16].replace('T',' '))}</td><td><form class="status-form" method="post" action="/admin/lead/status">{csrf_field()}<input type="hidden" name="id" value="{r['id']}"><select name="status" onchange="this.form.submit()">{opts}</select></form></td><td><a class="wa" target="_blank" rel="noopener" href="{esc(wa)}">WhatsApp</a><a class="detail" href="/admin/lead?id={r['id']}">Detalhes</a></td></tr>''')
+        confirm_delete=esc(json.dumps(f'Excluir o lead “{name}”?\n\nEsta ação não poderá ser desfeita.', ensure_ascii=False))
+        rows.append(f'''<tr><td>{r['id']}</td><td><b>{esc(name)}</b><br><span class="muted">{esc(r['email'] or '-')}</span></td><td>{esc(r['whatsapp'])}</td><td>{esc(r['empreendimento'])}<br><span class="muted">{esc(r['interesse'] or '')}</span></td><td>{esc(r['origem'] or '-')}</td><td class="muted">{esc((r['criado_em'] or '')[:16].replace('T',' '))}</td><td><form class="status-form" method="post" action="/admin/lead/status">{csrf_field()}<input type="hidden" name="id" value="{r['id']}"><select name="status" onchange="this.form.submit()">{opts}</select></form></td><td><a class="wa" target="_blank" rel="noopener" href="{esc(wa)}">WhatsApp</a><a class="detail" href="/admin/lead?id={r['id']}">Detalhes</a><form class="delete-form" method="post" action="/admin/lead/excluir" onsubmit="return confirm({confirm_delete})">{csrf_field()}<input type="hidden" name="id" value="{r['id']}"><button class="delete" type="submit">Excluir</button></form></td></tr>''')
     rows_html=''.join(rows) if rows else '<tr><td colspan="8" class="empty">Nenhum lead encontrado.</td></tr>'
     filters=f'''<form class="filters" method="get" action="/admin/leads"><input name="q" value="{esc(q)}" placeholder="Buscar nome, WhatsApp ou e-mail"><select name="status">{status_opts}</select><select name="empreendimento">{emp_opts}</select><button>Filtrar</button></form>'''
     insights = '<div class="insights"><div class="panel"><h2>Leads por empreendimento</h2>' + ''.join(f'<div class="rank"><span>{esc(r["empreendimento"])}</span><b>{r["n"]}</b></div>' for r in by_project) + '</div><div class="panel"><h2>Origem dos leads</h2>' + ''.join(f'<div class="rank"><span>{esc(r["fonte"])}</span><b>{r["n"]}</b></div>' for r in by_source) + '</div></div>'
@@ -525,6 +526,31 @@ def admin_update():
             con.execute('UPDATE leads SET status=?, atualizado_em=? WHERE id=?',(status,now,lead_id))
         con.commit()
     return redirect(f'/admin/lead?id={lead_id}' if request.path.endswith('/update') else '/admin/leads')
+
+
+@app.post('/admin/lead/excluir')
+def admin_delete_lead():
+    if not admin_required(): return redirect('/admin')
+    if not verify_csrf(): abort(400)
+    try:
+        lead_id = int(request.form.get('id', ''))
+    except (TypeError, ValueError):
+        return redirect('/admin/leads')
+    if lead_id <= 0:
+        return redirect('/admin/leads')
+    try:
+        with db() as con:
+            lead = con.execute('SELECT id FROM leads WHERE id=?', (lead_id,)).fetchone()
+            if not lead:
+                return redirect('/admin/leads')
+            deleted = con.execute('DELETE FROM leads WHERE id=?', (lead_id,))
+            if deleted.rowcount != 1:
+                raise RuntimeError('Exclusão de lead não concluída.')
+            con.commit()
+    except Exception:
+        app.logger.exception('Falha ao excluir lead no CRM.')
+        return redirect('/admin/leads')
+    return redirect('/admin/leads')
 
 
 @app.get('/admin/exportar.csv')
