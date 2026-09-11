@@ -4195,6 +4195,14 @@ body.universo-page .universo-hero > .universo-hero-media img {
 .universo-page.universo-experience .universo-concept-media img{width:100%;height:100%;object-fit:contain;transition:transform .6s ease}
 .universo-page.universo-experience .universo-concept-media:hover img{transform:scale(1.015)}
 
+/* Panorama institucional */
+.universo-page.universo-experience .universo-panorama{
+  padding:clamp(24px,3.5vw,52px);
+  background:#080d16;
+}
+.universo-page.universo-experience .universo-panorama-inner{width:100%;max-width:none;margin:0 auto;overflow:hidden;border-radius:12px}
+.universo-page.universo-experience .universo-panorama img{display:block;width:100%;height:auto}
+
 /* Atendimento humano */
 .universo-page.universo-experience .universo-karen{
   display:grid;
@@ -4256,6 +4264,8 @@ body.universo-page .universo-hero > .universo-hero-media img {
 @media(max-width:560px){
   .universo-page.universo-experience main{padding-top:10px}
   .universo-page.universo-experience main>section{width:calc(100% - 20px);margin-bottom:10px}
+  .universo-page.universo-experience .universo-panorama{padding:8px}
+  .universo-page.universo-experience .universo-panorama-inner{border-radius:6px}
   /* Necessários para superar a camada mobile legada, que usa !important. */
   .universo-page.universo-experience .universo-hero{
     height:760px!important;
