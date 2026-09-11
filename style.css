@@ -3680,7 +3680,6 @@ body.universo-page .universo-hero > .universo-hero-media img {
 @media(max-width:1100px){.launch-hero{grid-template-columns:1fr 1fr}.launch-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){.launch-hero{grid-template-columns:1fr;padding-top:120px}.launch-hero-visual{height:430px}.launch-hero-visual img:first-child{height:395px;margin-top:35px}.launch-hero-visual img:nth-child(3){height:390px;margin-top:20px}.launch-region-links{grid-template-columns:repeat(2,1fr)}.launch-service{grid-template-columns:1fr}.launch-service-photo{height:540px;min-height:0}.launch-service-copy{padding:72px 7vw}}
 @media(max-width:600px){.launch-hero{padding:112px 20px 52px}.launch-hero h1{font-size:clamp(42px,12vw,54px)}.launch-hero-visual{height:330px}.launch-hero-visual img:first-child{height:300px;margin-top:30px}.launch-hero-visual img:nth-child(3){height:295px;margin-top:18px}.launch-region-links,.launch-card-grid,.launch-editorial-grid{grid-template-columns:1fr}.launch-card>img{height:250px}.launch-card-copy{padding:24px 20px}.launch-card-copy h3{font-size:31px}.launch-card-copy .btn{width:100%;text-align:center}.launch-service-photo{height:430px}.launch-service-photo img{object-position:center top}.launch-service-copy{padding:58px 22px}.launch-service-copy .home-actions{align-items:stretch}.launch-service-copy .btn{width:100%;text-align:center}.launch-choose{padding:72px 22px}.launch-final-actions{flex-direction:column}.launch-final-actions .btn{width:100%}}
-
 /* Logo oficial — escala final responsiva do cabeçalho */
 .site-header .brand-logo{width:clamp(250px,22vw,320px);height:64px}
 .site-header .brand-logo img{width:min(250px,100%)!important;max-width:none;height:auto!important;flex:none}
@@ -5077,4 +5076,15 @@ body.universo-page .universo-header-premium>.btn.small:focus-visible{background:
   .lancamentos-premium .launch-hero-visual img{border-radius:10px}
   .lancamentos-premium .launch-hero-visual img:first-child{height:86%;transform:translateY(16px)}
   .lancamentos-premium .launch-hero-visual img:nth-child(3){height:88%;transform:translateY(-12px)}
+}
+
+/* V6.1 — leitura integral do cabeçalho de empreendimentos em telas pequenas */
+@media(max-width:600px){
+  .lancamentos-premium .launch-projects .section-head{
+    align-items:start!important;
+    display:grid!important;
+    gap:20px!important;
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .lancamentos-premium .launch-projects .section-head>p{max-width:100%!important}
 }
