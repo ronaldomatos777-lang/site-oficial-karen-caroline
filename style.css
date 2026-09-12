@@ -4582,7 +4582,7 @@ body.universo-page .universo-hero > .universo-hero-media img {
 @media(max-width:600px){
   .casa-prado-premium .site-header{padding-left:16px;padding-right:16px}
   .casa-prado-premium .site-header .brand-logo{width:195px;height:52px}
-  .casa-prado-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--casa-premium-deep)}
+  .casa-prado-premium .hero{height:auto;min-height:0!important;padding:0!important;display:block;background:var(--casa-premium-deep)}
   .casa-prado-premium .hero>img{position:relative;inset:auto;display:block;height:350px;object-position:58% 50%}
   .casa-prado-premium .hero .shade{height:350px;background:linear-gradient(180deg,rgba(24,16,11,.06),rgba(24,16,11,.08) 56%,var(--casa-premium-deep) 100%)}
   .casa-prado-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
@@ -4662,7 +4662,7 @@ body.universo-page .universo-hero > .universo-hero-media img {
 @media(max-width:600px){
   .alta-premium .site-header{padding-left:16px;padding-right:16px}
   .alta-premium .site-header .brand-logo{width:195px;height:52px}
-  .alta-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--alta-premium-deep)}
+  .alta-premium .hero{height:auto;min-height:0!important;padding:0!important;display:block;background:var(--alta-premium-deep)}
   .alta-premium .hero>img{position:relative;inset:auto;display:block;height:330px;object-position:50% 50%}
   .alta-premium .hero .shade{height:330px;background:linear-gradient(180deg,rgba(24,16,11,.04),rgba(24,16,11,.08) 56%,var(--alta-premium-deep) 100%)}
   .alta-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
@@ -4745,7 +4745,7 @@ body.universo-page .universo-hero > .universo-hero-media img {
 @media(max-width:600px){
   .cores-premium .site-header{padding-left:16px;padding-right:16px}
   .cores-premium .site-header .brand-logo{width:195px;height:52px}
-  .cores-premium .hero{height:auto;min-height:0;padding:0;display:block;background:var(--cores-premium-deep)}
+  .cores-premium .hero{height:auto;min-height:0!important;padding:0!important;display:block;background:var(--cores-premium-deep)}
   .cores-premium .hero>img{position:relative;inset:auto;display:block;height:330px;object-position:50% 52%}
   .cores-premium .hero .shade{height:330px;background:linear-gradient(180deg,rgba(14,22,16,.03),rgba(14,22,16,.07) 56%,var(--cores-premium-deep) 100%)}
   .cores-premium .hero-copy{position:relative;margin-top:-38px;padding:0 20px 48px;max-width:none}
